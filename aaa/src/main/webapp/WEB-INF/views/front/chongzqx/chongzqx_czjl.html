@@ -1,0 +1,180 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>充值记录   列表  查询所有的充值信息  充值时间 最新数据显示最前面 desc 从大到小排序   asc 从小到大 排序</title>
+<base href="${base}/">
+<!--适应移动端-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no, email=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 删除苹果默认的工具栏和菜单栏 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="full-screen" content="yes"/>
+<meta name="x5-fullscreen" content="true"/>
+<!-- 设置苹果工具栏颜色 -->
+<meta name="format-detection" content="telphone=no, email=no"/>
+<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+<!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="renderer" content="webkit">
+<!-- 避免IE使用兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true">
+<!-- 微软的老式浏览器 -->
+<meta name="MobileOptimized" content="320">
+<!-- uc强制竖屏 -->
+<meta name="screen-orientation" content="landscape">
+<!-- QQ强制竖屏 -->
+<meta name="x5-orientation" content="landscape">
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes">
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true">
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application">
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app">
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- 适应移动端end -->
+<link href="resources/front/css/reset.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/animate.min.css" rel="stylesheet" type="text/css">
+<link href="resources/front/layui/css/layui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/dui.css" rel="stylesheet" type="text/css">
+<script src="resources/front/js/jquery.min.js" ></script>
+<script src="resources/front/layui/layui.js" ></script>
+<style>
+.layui-btn-big{width:88px;padding:0;!important}
+</style>    
+</head>
+<body class="dui-page-body ggzs-enabled">
+
+<div class="page-body">
+    <table class="dui-table">
+        <thead>
+        <tr>
+            <td>充值类型</td>
+            <td>充值金额</td>
+            <td>充值时间</td>
+            <td>状态</td>
+           <!--  <td>操作</td> -->
+        </tr>
+        </thead>
+        <tbody class="tbody">
+        </tbody>
+    </table>
+     <!--totalPage now_page-->
+    <div class="digg4 defaultNone">
+         <span class="pagepre"></span>
+         <span class="pagenext"></span>
+    </div>
+	<!-- 提示页数 -->
+    <div class="defaultNone" style="text-align: center;">
+    	当前第<span class="green_color currPage">1</span>页/
+    	共<span class="green_color totalPages"></span>页/
+    	每页<span class="green_color">6</span>条/
+    	总计<span class="green_color totalCounts"></span>条
+    </div>
+</div>
+<script src="resources/front/js/pass_aes.js" charset="utf-8"></script> 
+<script src="resources/front/js/page.js"  charset="utf-8"></script> 
+<script src="resources/front/js/main.js" charset="utf-8"></script>
+<script type="text/javascript"> 
+$.ajax({   	 
+     type: "POST",
+     url: "front/czqx/getCzOrQxList",
+     data:{
+    	 optType:1 
+     },
+     dataType:"json",
+     success: function(data){
+    	 var totalCounts = data.length;
+       	 console.dir(data);
+         if(data.length==0){
+         	var trhtml = "";
+         	trhtml += "<tr><td colspan='4'>";
+       		trhtml +=  "暂无记录";
+       		trhtml += "</td></tr>";
+         	$(".tbody").append(trhtml);
+         }else{
+        	 //显示分页按钮和分页提示
+   	  	  	 $(".defaultNone").removeClass("defaultNone");
+       		 for(var k in data){
+       		    var trhtml = "";
+       		    trhtml += "<tr class='massages' id=\""+k+"\">";
+       			trhtml += "<td>";
+       			if(data[k].czqxType == 5){
+       			trhtml += "种子积分";
+       			}else if(data[k].czqxType == 6){
+       			trhtml += "激活积分";	
+       			}
+       			trhtml +="</td>";
+       			trhtml += "<td>"+data[k].czqxSalar+"</td>";
+       			trhtml += "<td>"+data[k].showTime+"</td>";
+       			trhtml += "<td>";
+       			if(data[k].czqxtatus == 0){
+       			trhtml += "交易中";	
+       			}else if(data[k].czqxtatus == 1){
+       			trhtml += "交易完成";	
+       			}else if(data[k].czqxtatus == 2){
+       			trhtml += "交易撤销";	
+       			}
+       			trhtml += "</td>";
+       			//trhtml += "<td><button type='button' class='btn-sm btn-sm-blue goneirong msg_detail' onclick='msgdetail("+data[k].id+")'></button></td>";
+       			trhtml += "<tr/>";
+       			$(".tbody").append(trhtml);
+       		  }
+       		 	//每页显示条数 6 条
+	    	    $(".massages:gt(5)").hide();
+	    	    //总计条数
+			    $(".totalCounts").text(totalCounts);
+	    	    //总页数   = 总条数 / 6    
+	    	    var totalPages = totalCounts%6==0 ? totalCounts/6 : Math.ceil(totalCounts/6);
+	    	    $(".totalPages").text(totalPages);
+            }
+         }
+});
+//上一页 lt小于  gt大于 eq等于
+$(".pagepre").click(function(){
+	var firstdisp = $(".massages:eq(0)").attr("id");
+	var bool = $("#"+firstdisp).is(":hidden");
+	if(bool){
+		//点击上一页  当前页数 -1
+		$(".currPage").text(parseInt($(".currPage").text())-1);
+		//最后一个显示的元素
+		var beginindex = $(".massages:visible").first().attr("id");
+		var endindex = (parseInt(beginindex) - 7)==-1 ? 0 : parseInt(beginindex) - 7;
+		var hiddenindex = parseInt(beginindex)- 1 ;
+		$(".massages:lt("+beginindex+"):gt("+endindex+")").show();
+		if((parseInt(beginindex) - 7)==-1){
+			$(".massages:eq("+0+")").show();
+		}
+		$(".massages:gt("+hiddenindex+")").hide();
+	}else{
+		alertMsg("已经是第一页了");		
+	}
+});
+//下一页   lt小于  gt大于 eq等于 :hidden隐藏元素   :visible显示元素
+$(".pagenext").click(function(){
+	var index = $(".massages").length-1;
+	var lastdisp = $(".massages:eq("+index+")").attr("id");
+	var bool = $("#"+lastdisp).is(":hidden");
+	if(bool){
+		//点击下一页时  当前页数 +1
+		$(".currPage").text(parseInt($(".currPage").text())+1);
+		//最后一个显示的元素
+		var beginindex = $(".massages:visible").last().attr("id");
+		var endindex = parseInt(beginindex)+ 7 ;
+		var hiddenindex = parseInt(beginindex)+ 1 ;
+		$(".massages:lt("+endindex+"):gt("+beginindex+")").show();
+		$(".massages:lt("+hiddenindex+")").hide();
+	}else{
+		alertMsg("已经是最后一页了");
+	}
+});
+</script> 
+</body>
+</html>

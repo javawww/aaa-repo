@@ -1,0 +1,29 @@
+{
+  "code": 0,
+  "msg": "获取成功",
+  "list": [
+    {
+      "id": 1,
+      "seqNum": 1,
+      "category": "活动公告",
+      "headline": "迎新年活动 全服充值返现",
+      "createTime": "2017-01-10 10:42:36",
+      "opt":"<a class=\"layui-btn layui-btn-small\" onclick=\"detail(1);\">详情</a>"
+    },{
+      "id": 2,
+      "seqNum": 2,
+      "category": "其他公告",
+      "headline": "文明游戏 文明生活",
+      "createTime": "2017-01-10 10:42:36",
+      "opt":"<a class=\"layui-btn layui-btn-small\" onclick=\"detail(2);\">详情</a>"
+    },{
+      "id":3,
+      "seqNum": 3,
+      "category": "活动公告",
+      "headline": "迎新年活动 全服充值返现",
+      "createTime": "2017-01-10 10:42:36",
+      "opt":"<a class=\"layui-btn layui-btn-small\" onclick=\"detail(3);\">详情</a>"
+    }
+  ],
+  "count": 57
+}

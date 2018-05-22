@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shengchuang.dao.JifenDao">  
+     
+    <select id="findCommon" resultType="java.util.HashMap" parameterType="java.util.Map">
+		SELECT * from t_exchange_log WHERE 1=1  
+		<if test="curId!='' and curId!=null ">and memId=#{curId} </if>
+		order by id desc 
+	</select>  
+     
+    <select id="findJFHZById_MemNum" resultType="com.shengchuang.entity.JFExchangeLogEntity" parameterType="java.util.Map">
+		SELECT * from t_exchange_log WHERE (receMemNum=#{curMemNum} or sendMemNum =#{curMemNum}) and optType=0 
+		order by createTime desc 
+	</select>  
+     
+    <select id="findZHJLById" resultType="com.shengchuang.entity.JFExchangeLogEntity" parameterType="int">
+		SELECT * from t_exchange_log WHERE zhhMemId=#{curId} and optType=1 
+		order by createTime desc 
+	</select>  
+     
+    <select id="findCommon2" resultType="java.util.HashMap" parameterType="java.util.Map">
+		SELECT * from t_exchange_log WHERE 1=1  
+		<if test="curId!='' and curId!=null "> and memId=#{curId} </if>
+		<if test="types !=null">and ISNULL(memNo)=0</if>
+		<if test="types ==null">and ISNULL(memNo)=1</if>
+		order by id desc 
+	</select>  
+     
+    <select id="findCommonEntity" resultType="com.shengchuang.entity.JFExchangeLogEntity" parameterType="java.util.Map">
+		SELECT * from t_exchange_log WHERE 1=1  
+		<if test="msgStatus!='' and msgStatus!=null "> and msgStatus=#{msgStatus} </if>
+		order by id desc
+	</select>  
+     
+    <select id="findCommonById" resultType="java.util.HashMap" parameterType="int">
+		SELECT * from t_exchange_log WHERE id = #{id} 
+	</select>  
+     
+    <insert id="addCommon" > 
+        INSERT INTO `t_exchange_log` (`sendMemNum`, `sendMemId`, `receMemNum`, `hzhType`,
+         `zhhMemId`, `zhhFromType`, `zhhToType`, `money`, `createTime`, `optType`) 
+         VALUES (#{sendMemNum},#{sendMemId},#{receMemNum},#{hzhType},
+         #{zhhMemId},#{zhhFromType},#{zhhToType},#{money},#{createTime},#{optType})
+    </insert> 
+    
+    <delete id="deleteCommon">
+        delete from t_exchange_log where id=#{id}
+    </delete>  
+     
+    <update id="updateCommon">
+        UPDATE `t_exchange_log` 
+		<set>
+			<if test="sendMemNum != null">`sendMemNum`= #{sendMemNum},</if>
+			<if test=" sendMemId!= null">`sendMemId`= #{sendMemId},</if>
+			<if test=" receMemNum!= null">`receMemNum`= #{receMemNum},</if>
+			<if test=" hzhType!= null">`hzhType`= #{hzhType},</if>
+			<if test=" zhhMemId!= null">`zhhMemId`= #{zhhMemId},</if>
+			<if test=" zhhFromType!= null">`zhhFromType`= #{zhhFromType},</if>
+			<if test=" zhhToType!= null">`zhhToType`= #{zhhToType},</if>
+			<if test=" money!= null">`money`= #{money},</if>
+			<if test=" createTime!= null">`createTime`= #{createTime},</if>
+			<if test=" optType!= null">`optType`= #{optType}</if>
+	    </set>
+		WHERE `id`=#{id};
+    </update>
+    
+    <select id="findAll" resultType="java.util.HashMap">
+		SELECT * from t_exchange_log 
+	</select>  
+	
+    <select id="findCommonCount" resultType="Integer" parameterType="java.util.Map"> 
+         select count(1) from t_exchange_log where 1=1 
+         <if test="msgStatus!='' and msgStatus!=null"> and msgStatus=#{msgStatus} </if> 
+    </select>
+    
+</mapper>

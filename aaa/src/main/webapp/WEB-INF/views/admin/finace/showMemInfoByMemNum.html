@@ -1,0 +1,93 @@
+<div class="modal-dialog" style="width:60%">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+			aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h4 class="modal-title" id="myModalLabel">玩家收款信息</h4>
+		</div>
+		<div class="modal-body">
+			<form class="form-horizontal" name="myForm">
+				<div class="form-group" ng-if="addtype!=2">
+					<label class="control-label col-md-3 text-right">会员编号</label> 
+					<div class="col-md-7">
+						 <input class="form-control" type="text" value="${(member.memNum)!''}" />
+					</div>
+				</div>  
+				<div class="form-group">
+					<label class="control-label col-md-3 text-right">真实姓名</label> 
+					<div class="col-md-6">
+						 <input class="form-control" type="text" name="zsxm" value="${(member.realName)!''}" />
+					</div>
+				</div>  
+				<div class="form-group">
+					<label class="control-label col-md-3 text-right">手机号码</label> 
+					<div class="col-md-6">
+						 <input class="form-control" type="text" name="sjhm"  value="${(member.teleNum)!''}" />
+					</div>
+				</div>  
+				<div class="form-group">
+					<label class="control-label col-md-3 text-right">微信账号</label> 
+					<div class="col-md-6">
+						 <input class="form-control" type="text" name="wx" value="${(member.weichat)!''}" />
+					</div>
+				</div>  
+				<div class="form-group">
+					<label class="control-label col-md-3 text-right">支付宝账号</label> 
+					<div class="col-md-6">
+						 <input class="form-control" type="text" name="zfbzh" value="${(member.alipay)!''}" />
+					</div>
+				</div>  
+				<div class="form-group">
+					<label class="control-label col-md-3 text-right">支付宝昵称</label> 
+					<div class="col-md-6">
+						 <input class="form-control" type="text" name="zfbnc" value="${(member.alipayName)!''}" />
+					</div>
+				</div>  
+				<div class="form-group">
+					<label class="control-label col-md-3 text-right">银行卡类型</label>
+					<div class="col-md-4">
+						<select style="padding: 0px" name="yhklx" select2 ng-model="formdata.bankType" class="col-md-12 col-sm-12 col-xs-12" placeholder="请选择" required>
+			            	<option value="0" <#if member.bankType?? && member.bankType==0>selected</#if> >中国工商银行</option>
+			            	<option value="1" <#if member.bankType?? && member.bankType==1>selected</#if> >中国建设银行</option>
+			            	<option value="2" <#if member.bankType?? && member.bankType==2>selected</#if> >中国银行</option>
+			            	<option value="3" <#if member.bankType?? && member.bankType==3>selected</#if> >中国农业银行</option>
+			            	<option value="4" <#if member.bankType?? && member.bankType==4>selected</#if> >交通银行</option>
+						</select> 
+					</div>
+				</div> 
+				<div class="form-group">
+					<label class="control-label col-md-3 text-right">银行卡号</label> 
+					<div class="col-md-6">
+						 <input class="form-control" type="text" name="yhkh" value="${(member.bankNum)!''}" />
+					</div>
+				</div>  
+				<div class="form-group">
+					<label class="control-label col-md-3 text-right">开户行名称</label> 
+					<div class="col-md-6">
+						 <input class="form-control" type="text" name="khhmc" value="${(member.khhkName)!''}" />
+					</div>
+				</div>  
+				<div class="form-group">
+					<label class="control-label col-md-3 text-right">开户行地址</label> 
+					<div class="col-md-6">
+						 <input class="form-control" type="text" name="khhdz" value="${(member.khhAddress)!''}" />
+					</div>
+				</div>  
+				<div class="form-group">
+					<label class="control-label col-md-3 text-right">收款二维码</label>
+					<div class="col-md-6">
+						<p><img id="img1" class="img-thumbnail" src="${(member.payPic)!''}" /></p>
+					</div>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						关闭
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

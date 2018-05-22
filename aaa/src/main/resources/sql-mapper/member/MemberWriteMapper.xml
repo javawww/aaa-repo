@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shengchuang.dao.member.MemberWriteDao">
+	<resultMap id="MemberResult" type="com.shengchuang.entity.User">
+			<result property="id" column="id" />
+			<result property="userName" column="userName" />
+			<result property="password" column="password" />
+			<result property="tradePwd" column="tradePwd" />
+			<result property="gender" column="gender" />
+			<result property="teleNum" column="teleNum" />
+			<result property="realName" column="realName" />
+			<result property="wechatNum" column="wechatNum" />
+			<result property="accountLevel" column="accountLevel" />
+	</resultMap>
+	
+
+	<select id="get" parameterType="Integer" resultMap="MemberResult">
+		select
+		   *
+		from `user`
+		where `id` = #{id}
+	</select>
+	
+	<update id="update" parameterType="com.shengchuang.entity.User">
+        update `user` 
+    	<set>
+			<if test="userName != null">`userName`= #{userName},</if>
+			<if test="password != null">`password`= #{password},</if>
+			<if test="tradePwd != null">`tradePwd`= #{tradePwd},</if>
+			<if test="gender != null">`gender`= #{gender},</if>
+			<if test="teleNum != null">`teleNum`= #{teleNum},</if>
+			<if test="realName != null">`realName`= #{realName},</if>
+			<if test="wechatNum != null">`wechatNum`= #{wechatNum},</if>
+			<if test="accountLevel != null">`accountLevel`= #{accountLevel}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+	
+	<insert id="save" parameterType="com.shengchuang.entity.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into `user`
+		(
+			`userName`,
+			`password`,
+			`tradePwd`,
+			`gender`,
+			`teleNum`,
+			`realName`,
+			`wechatNum`,
+			`accountLevel`
+		)
+		values
+		(
+			#{userName},
+			#{password},
+			#{tradePwd},
+			#{gender},
+			#{teleNum},
+			#{realName},
+			#{wechatNum},
+			#{accountLevel}
+		)
+	</insert>
+	
+	
+</mapper>

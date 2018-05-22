@@ -1,0 +1,85 @@
+<div class="modal-dialog" style="width:60%">
+	<input type="hidden" value="${id}" id="adminId">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h4 class="modal-title" id="myModalLabel2">权限控制</h4>
+		</div>
+		<div class="modal-body">
+			<div class="container-fluid">
+		        <div class="row">
+		            <ul id="treeDemo" class="ztree"></ul>
+		        </div>
+		    </div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					关闭
+				</button>
+				<button type="button" class="btn btn-primary" ng-click="shouquanSubmit()" id="shouquanSubmit">
+					保存
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+//*****************************************************授权控制   菜单权限控制  ztree控件技术实现
+function zTreeOnCheck(event, treeId, treeNode) {
+    //alert(treeNode.tId + ", " + treeNode.name + "," + treeNode.checked);
+};
+var setting = {
+		view :{
+			selectedMulti : true //设置是否允许同时选中多个节点
+		},
+		check: {
+			enable: true,  //显示复选框
+			chkStyle : "checkbox"  //显示checkbox复选框
+		},
+		data: {
+			simpleData: {
+				enable: true, //true使用简单数据模式 false不使用简单数据模式  
+				idKey: "id",
+				pIdKey: "pId"
+			}
+		},
+		callback : {
+			onCheck: zTreeOnCheck   //用于捕捉 checkbox / radio被勾选或者取消勾选的事件的回调函数
+		},
+		async:{
+			enable: true,
+			type: "get",
+			url: "admin/admin/ztreeMenus",
+			otherParam: ["id", $("#adminId").val()]
+		}
+	}; 
+	var treeObj = $.fn.zTree.init($("#treeDemo"), setting);
+	$("#shouquanSubmit").click(function(){
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+		var checkNodes = zTree.getCheckedNodes(true);
+		var menuIdList = new Array();
+		//封装传递到后台的数据
+		for(var i=0;i<checkNodes.length;i++){
+			menuIdList.push(checkNodes[i].id);
+		}
+		console.dir(checkNodes);
+		$.ajax({
+			type:"post",
+			dataType:"json",
+			url:"admin/admin/updateshouquan",
+			data:{
+				"menuIdList":menuIdList,
+				"adminId":$("#adminId").val()
+			},
+			success:function(data){
+				layer.alert('操作成功', {
+					icon : 1
+				}); 
+				$('#shouqdialog').modal('hide');
+			}
+		});
+	});
+//**********************************************
+</script>

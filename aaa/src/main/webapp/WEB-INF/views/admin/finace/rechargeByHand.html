@@ -1,0 +1,108 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html ng-app="app" class="no-js">
+	<head>
+		<base href="${base}/">
+		<meta charset="utf-8">
+		<meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>网站后台管理系统</title> 
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		
+		<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="resources/admin/css/global.css" media="all">
+		<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+		<link rel="stylesheet" href="resources/admin/css/table.css" />
+		<link rel="stylesheet" type="text/css" href="resources/admin/css/zc.css" />	
+	    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular/angular.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular-route/angular-route.min.js"></script>
+		<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	    <link href="resources/admin/plugins/select2/select2.css" rel="stylesheet" />
+		<link href="resources/admin/plugins/select2/select2-bootstrap.css" rel="stylesheet" />
+	    <script type="text/javascript" src="resources/admin/plugins/select2/select2.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/fileupload/ajaxfileupload.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/layer-v1.9.0/layer/layer.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/pager/bootstrap-paginator.min.js"></script>
+	    
+	    <script>
+			var app = angular.module('app', ['ngRoute']);
+		</script>
+		<style type="text/css">
+			.error_tip{
+			    font-size: 13px;
+			    color: red;
+			    line-height: 33px;
+			    position: absolute;
+			    left: 0px;
+			}
+		</style>
+	</head>
+	<body class="hold-transition skin-green-light sidebar-mini  wysihtml5-supported" ng-controller="testController" style="overflow-x:hidden;">
+		<div class="wrapper">
+			<!-- 主体内容部分 -->
+			<div class="content-wrapper container">  
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title">&nbsp;</h3>
+					</div>
+					<div class="panel-body">
+						<form class="form-horizontal" name="myForm" ng-submit="saveAdd()">
+								<div class="form-group">
+									<label class="control-label col-md-3 text-right">会员编号</label> 
+									<div class="col-md-6">
+										 <input class="form-control" type="text" name="receiver" required  ng-model="formdata.memNum" ng-blur="checkMemNum()" />
+									</div>
+									<div class="col-md-3">
+										<span class="error_tip" ng-show="myForm.receiver.$invalid">请输入会员编号</span>
+										<span class="error_tip" ng-show="!myForm.receiver.$error.required && checkResult==0">会员编号填写错误</span>
+									</div>
+								</div>  
+								<div class="form-group">
+									<label class="control-label col-md-3 text-right">币种类型</label>
+									<div class="col-md-6">
+										<select name="bizhong" select2 ng-model="formdata.money_type" style="padding: 0px" class="col-md-12 col-sm-12 col-xs-12" name="data2" placeholder="币种类型" required>
+											<option  value="0">动态钱包</option>
+											<option  value="1">静态冻结钱包</option>
+											<option  value="2">收益钱包</option>
+											<option  value="3">神童日俸</option>
+											<option  value="4">管家月俸</option>
+											<option  value="5">种子积分</option>
+											<option  value="6">激活积分</option>
+										</select> 
+									</div>
+									<div class="col-md-3">
+										<span class="error_tip" ng-show="myForm.bizhong.$invalid">请选择币种类型</span>
+									</div>
+								</div> 
+								<div class="form-group">
+									<label class="control-label col-md-3 text-right">充值金额</label> 
+									<div class="col-md-6">
+										 <input class="form-control" type="number" name="title" ng-model="formdata.money" required max="999999999" min="-999999999" />
+									</div>
+									<div class="col-md-3">
+										<span class="error_tip" ng-show="myForm.title.$invalid">请填写金额(大小限制:-999999999~99999999)</span>
+									</div>
+								</div>  
+								 
+								
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">
+										关闭
+									</button>
+									<button type="submit" ng-disabled="myForm.$invalid" class="btn btn-primary">
+										确认
+									</button>
+								</div>
+							</form>
+					</div>
+				</div>
+			</div>
+			<#include "rechargeByHand_search.html">
+		</div> <!-- end of wrapper -->
+		<script type="text/javascript" src="resources/admin/plugins/angular/http.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/select2/mys2/select2.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/pager/pager.js"></script>
+		<script type="text/javascript" src="resources/admin/angularjs/rechargeByHand.js"></script>
+	</body>
+</html>

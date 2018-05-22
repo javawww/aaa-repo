@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop" 
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+        http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:properties-config/jdbc.properties</value>
+                <value>classpath:properties-config/config.properties</value>
+            </list>
+        </property>
+    </bean>
+    <context:component-scan base-package="com.shengchuang">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <import resource="spring-datasources.xml"/>
+    <import resource="spring-quartz-task.xml"/>
+	
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">  
+        <!--定义属性，声明事务规则  -->  
+        <tx:attributes>  
+            <tx:method name="*" propagation="REQUIRED"/>  
+            <tx:method name="*" rollback-for="Exception" />
+        </tx:attributes>  
+    </tx:advice> 
+    
+    <aop:config>  
+        <!--定义切入点  -->  
+        <aop:pointcut id="serviceMethod"  expression="execution(* com.shengchuang.service.*.*(..))" />  
+        <!-- 将事务增强与切入点组合（织入事务切面） -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/>  
+    </aop:config>  
+    
+    
+</beans>

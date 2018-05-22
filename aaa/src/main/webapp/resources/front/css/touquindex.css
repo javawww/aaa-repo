@@ -1,0 +1,193 @@
+.clickflag_2{
+	position: absolute;
+	left: 3%;
+    top: -49%;
+    width: 65%;
+    z-index: 100;
+}
+.clickflag_3{
+	position: absolute;
+	left: 17%;
+    top: -49%;
+    width: 65%;
+    z-index: 100;
+}
+.clickflag_1{
+	position: absolute;
+	left: 17%;
+    top: -49%;
+    width: 65%;
+    z-index: 100;
+}
+.tipimg{
+	position: absolute;
+	left: 30px;
+    top: -70%;
+    width: 65%;
+    z-index: 110;
+    display: none;
+}
+.tipimg:hover{
+    display: inline-block;
+}
+
+#di1 {
+	top: 7%;
+	left: 33%;
+}
+#di2 {
+	top: 18%;
+	left: 44%;
+}
+#di3 {
+	top: 28%;
+	left: 54%;
+}
+#di4 {
+	top: 39%;
+	left: 65%;
+}
+#di5 {
+	top: 49%;
+	left: 76%;
+}
+#di6 {
+	top: 17%;
+	left: 21%;
+}
+#di7 {
+	top: 28%;
+	left: 32%;
+}
+#di8 {
+	top: 39%;
+	left: 42%;
+}
+#di9 {
+	top: 50%;
+	left: 53%;
+}
+#di10 {
+	top: 60%;
+	left: 65%;
+}
+#di11 {
+	top: 27%;
+	left: 9%;
+}
+#di12 {
+	top: 38%;
+	left: 20%;
+}
+#di13 {
+	top: 49%;
+	left: 31%;
+}
+#di14 {
+	top: 60%;
+	left: 42%;
+}
+#di15 {
+	top: 71%;
+	left: 53%;
+}
+#IDGame .layui-layer-dialog.layer-dui .layui-layer-content {
+	font-size: 14px;
+	line-height: 24px;
+}
+#wrapper {
+	-webkit-overflow-scrolling: touch;
+	overflow: auto;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+}
+
+/*鼠标经过页面改变成图片*/
+#GameCanvas{cursor:url(../images/main/cursor.gif),default;}
+.cursor{cursor:url(../images/main/cursor.gif),default;}
+/* 管家 神童控制 */
+.shent_div{
+	width: 7%;
+    height: 22%;
+    position: absolute;
+    top: 19%;
+    left: 65%;
+    margin: 0;
+    z-index: 30;
+}
+.guanj_div{
+	width: 6%;
+    height: 26%;
+    position: absolute;
+    top: 65%;
+    left: 14%;
+    margin: 0;
+    z-index: 30;
+}
+.guanj_div img,.shent_div img{
+	width: 100%;
+    height: 100%;
+}
+/* 装饰效果 */
+.butterfly_div{/* 蝴蝶 */
+	width:5%;
+    position: absolute;
+    top: 80%;
+    left: 86%;
+    margin: 0;
+    z-index: 30;
+}
+.fish_div{/* 鱼儿 */
+	width:5%;
+    position: absolute;
+    top: 80%;
+    left: 1%;
+    margin: 0;
+    z-index: 30;
+}
+.lupai_div{/*  路牌  */
+	width:6%;
+    position: absolute;
+    top: 32%;
+    left: 29%;
+    margin: 0;
+    z-index: 30;
+}
+.pubu_div{/*  瀑布  */
+	width:6%;
+    position: absolute;
+    top: 22%;
+    left: 0%;
+    margin: 0;
+    z-index: 30;
+}
+.butterfly_div img,.fish_div img,.lupai_div img,.pubu_div img{
+	width: 100%;
+    height: 100%;
+}
+
+.boderred{
+	border: 2px solid red;
+}
+
+.dui-btn-bottom{
+	 position: absolute;
+    z-index: 40;
+    width: 75%;
+    bottom: 0;
+    /* background-color: rgba(0,0,0,0.2); */
+    overflow: hidden;
+    left: 50%;
+    margin-left: -34%;
+    height: 15%;!inporant;
+}
+.clickflag_3s ,.clickflag_2s,.clickflag_1s{
+	position: absolute;
+	left: 10px;
+    top: -37%;
+    width: 65%;
+    z-index: 100;
+}

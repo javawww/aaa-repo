@@ -1,0 +1,62 @@
+<section class="content"> 
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div id="query" class="box box-info box">
+				<div>
+					<!--搜索栏-->
+					<div  class="box-header with-border">
+						<!--增删改-->  
+						<div class="col-md-12 col-xs-12 col-sm-12" style="margin: 12px 0;"> 
+							<div style="float:left;padding-left:5px" class="input-group-sm">
+								<input type="text" class="form-control" style="width:150px"  ng-model="memNum2" placeholder="会员编号" >
+							</div>&nbsp;&nbsp;&nbsp;&nbsp;
+							<a class="btn btn-sm btn-info" href="javascript:;" target='_self' ng-click="query(1)" role="button"><i class="fa fa-search"></i>&nbsp;查询</a> 
+						</div>   
+					</div>
+
+					<!--显示数据栏-->
+					<div>
+						<div class="box-body">
+							<div>
+								<table  class="table table-bordered table-striped table-hover "  style="text-align: center;">
+									<thead>
+										<tr class="my_th">
+											<th style="width: 80px;">
+												<label for="chkAll">全选:</label>
+												<span>
+													<input id="chkAll" type="checkbox" ng-model="chkall" ng-click="chkAll(chkall)" />
+												</span>
+											</th>
+											<th>序号</th>
+											<th>会员编号</th>
+											<th>时间</th>
+											<th>金额</th>
+											<th>币种</th>
+									        <!-- <th>操作</th> -->
+										</tr>
+									</thead>
+									<tbody id="content">
+										<tr ng-repeat="row in rows2">
+											<td><input type="checkbox" ng-model="row.selected" /></td>
+											<td>{{$index+1}}</td>
+											<td>{{row.memNum}}</td>
+											<td>{{row.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+											<td>{{row.changeSalar}}</td>
+											<td>{{row.bonusType | bonusTypeFilter}}</td>
+											<!-- <td>
+												<a ng-click="delOne(row.id)" href="javascript:;" >删除</a>
+											</td> -->
+										</tr>
+									</tbody>
+								</table>
+								<div class="text-right" >
+									<pager page="page" records="records" onpagechanged="query"></pager>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

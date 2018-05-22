@@ -1,0 +1,86 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html ng-app="app" class="no-js">
+	<head>
+		<base href="${base}/">
+		<meta charset="utf-8">
+		<meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>网站后台管理系统</title> 
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		
+		<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+		<link rel="stylesheet" href="resources/admin/css/global.css" media="all">
+		<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+		<link rel="stylesheet" href="resources/admin/css/table.css" />
+		<link rel="stylesheet" type="text/css" href="resources/admin/css/zc.css" />	
+	    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular/angular.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular-route/angular-route.min.js"></script>
+	    
+		<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	    
+	    <link href="resources/admin/plugins/select2/select2.css" rel="stylesheet" />
+		<link href="resources/admin/plugins/select2/select2-bootstrap.css" rel="stylesheet" />
+	    <script type="text/javascript" src="resources/admin/plugins/select2/select2.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/layer-v1.9.0/layer/layer.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/pager/bootstrap-paginator.min.js"></script>
+	    
+	    
+	    <script>
+			var app = angular.module('app', ['ngRoute']);
+		</script>
+	</head>
+	<body class="hold-transition skin-green-light sidebar-mini  wysihtml5-supported" ng-controller="testController" style="overflow-x:hidden;">
+		<div class="wrapper">
+			<!-- 主体内容部分 -->
+			<div class="content-wrapper container">  
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title">数据库一键备份</h3>
+					</div>
+					<div class="panel-body">
+						<form class="form-horizontal" ng-submit="save()" name="myForm" novalidate >
+							<!-- <div class="form-group">
+								<label class="control-label col-md-3 text-right">会员编号</label> 
+								<div class="col-md-4">
+									 <input class="form-control" type="text" name="memNum" ng-model="formdata.memNum" ng-blur="validMemNum()" ng-required="true" ng-pattern="spUsername"  />
+								</div>
+								<div class="col-md-5">
+									<span ng-show="myForm.memNum.$invalid && myForm.memNum.$touched">
+										  <span class="check_wrong" ng-show="myForm.memNum.$error.pattern">会员编号由数字字母组成,长度在6-20个字符</span>
+									 </span>
+								</div>
+							</div>  --> 
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">备注</label> 
+								<div class="col-md-4">
+									 <input class="form-control" type="text" name="realName" ng-model="formdata.message" ng-required="true" />
+								</div>
+								<div class="col-md-5">
+									<span ng-show="myForm.realName.$invalid">
+										  <span class="check_wrong">请输入备注信息</span>
+									 </span>
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right"></label> 
+								<div class="col-md-7">
+									 <button type="submit" class="btn btn-success">
+										一键备份
+									</button>
+								</div>
+							</div>  
+						</form>
+					</div>
+				</div>
+			</div>
+			<#include "dbBackupList.html">
+		</div> 
+		<script type="text/javascript" src="resources/admin/plugins/angular/http.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/select2/mys2/select2.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/pager/pager.js"></script>
+		<script type="text/javascript" src="resources/admin/angularjs/dbBackup.js"></script>
+	</body>
+</html>

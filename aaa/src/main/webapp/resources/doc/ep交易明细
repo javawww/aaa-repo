@@ -1,0 +1,21 @@
+EPSellEntity  t_ep_sell
+
+id; //主键
+epsellSalar;// 挂卖金额
+memNum;//关联所属用户编号 即 挂卖人
+esellTime;//挂卖时间  即 创建时间 
+showTime;//挂卖时间  即 创建时间 
+esellStatus;//挂卖状态 0挂卖中 1交易完成  2撤销交易
+memId;//关联所属用户ID 即 挂卖人
+
+=====================================
+EPOrderEntity t_ep_order
+
+id; //主键
+eporderSalar;//交易金额 
+memNumBuy;//关联用户编号 即 购买人编号
+eporderTime;//交易时间 
+showTime;//交易时间 
+eporderStatus;//交易状态 0交易中 1交易完成2撤销交易 
+memNumSeller;//关联用户编号 即 挂卖人编号
+epsellId;//外键 关联挂卖信息 多对一 关系

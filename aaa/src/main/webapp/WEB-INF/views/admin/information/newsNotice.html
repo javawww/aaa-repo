@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<base href="/">
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="resources/admin/plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    <link rel="stylesheet" href="resources/admin/css/btable.css" />
+</head>
+
+<body style=" background-color: gainsboro;">
+
+    <div style="margin:0px; background-color: white;margin:0 10px;">
+        <blockquote class="layui-elem-quote">
+            <button type="button" class="layui-btn layui-btn-small" id="getAll"><i class="fa fa-minus" aria-hidden="true"></i> 删除</button>
+            <form class="layui-form" style="float:right;">
+                <div class="layui-form-item" style="margin:0;">
+                    <label class="layui-form-label">名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="name" placeholder="支持模糊查询.." autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux" style="padding:0;">
+                        <button lay-filter="search" class="layui-btn" lay-submit><i class="fa fa-search" aria-hidden="true"></i> 查询</button>
+                    </div>
+                </div>
+            </form>
+        </blockquote>
+        <div id="content" style="width: 100%;height: 533px;"></div>
+    </div>
+
+    <script type="text/javascript" src="resources/admin/plugins/layui/layui.js"></script>
+    <script>
+    function detail(v){
+    	console.dir("===============");
+    	layer.open({
+			type: 2,
+			title: '新闻公告详情',
+			content: "admin/information/newsDetail",
+			btn: ['关闭'],
+			shade: true,
+			offset: ['10px', '20%'],
+			area: ['600px', '400px'],
+			zIndex: 19950924,
+			maxmin: true,
+			full: function(elem) {
+				var win = window.top === window.self ? window : parent.window;
+				$(win).on('resize', function() {
+					var $this = $(this);
+					elem.width($this.width()).height($this.height()).css({
+						top: 0,
+						left: 0
+					});
+					elem.children('div.layui-layer-content').height($this.height() - 95);
+				});
+			},
+			success: function(layero, index) {
+			},
+			end: function() {
+				addBoxIndex = -1;
+			}
+		});
+    }
+    
+    layui.config({
+        base: 'resources/admin/js/'
+    }).use(['btable','form'], function () {
+        var btable = layui.btable(),
+            $ = layui.jquery,
+        	layerTips = parent.layer === undefined ? layui.layer : parent.layer, //获取父窗口的layer对象
+            layer = layui.layer, //获取当前窗口的layer对象;
+            form = layui.form();
+
+        btable.set({
+        	openWait:true,//开启等待框
+            elem: '#content',
+            url: 'resources/admin/datas/btable_data2.json',//数据源地址
+            pageSize: 3,//页大小
+            params: {//额外的请求参数
+                t: new Date().getTime()
+            },
+            columns: [{ //配置数据列
+                fieldName: '编号',//显示名称
+                field: 'seqNum',//字段名
+                sortable: true //是否显示排序
+            }, {
+                fieldName: '类别',
+                field: 'category'
+            }, {
+                fieldName: '标题',
+                field: 'headline'
+            },{
+            	fieldName: '时间',
+                field: 'createTime',
+                sortable: true //是否显示排序
+            },{
+            	fieldName: '操作',
+                field: 'opt'
+            }],
+            even: true,//隔行变色
+            field: 'id', //主键ID
+            //skin: 'row',
+            checkbox: true,//是否显示多选框
+            paged: true,//是否显示分页
+            singleSelect: false,//只允许选择一行，checkbox为true生效
+            onSuccess: function ($elem){//$elem当前窗口的jq对象
+            	console.dir($elem);
+            }
+        });
+        btable.render();
+       //监听搜索表单的提交事件
+        form.on('submit(search)', function (data) {
+        	console.dir(data);
+        	layer.msg("进来了");
+           // btable.get(data.field);
+            return false;
+        });
+      
+        $('#getAll').on('click', function () {
+			
+            //btable.getSelected(function(obj){
+            //	console.log(obj.elem);
+            //	layer.msg(obj.id);
+            //});
+            //获取选择的数据
+            btable.getSelections(function (obj) {
+                console.log(obj.elem);
+                console.log(obj.ids);
+                console.log(obj.count);
+                layer.msg(obj.ids.join(','))
+            });
+
+        });
+        
+        $(window).on('resize', function (e) {
+            var $that = $(this);
+            $('#content').height($that.height() - 92);
+        }).resize();
+    });
+    </script>
+</body>
+
+</html>

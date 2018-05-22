@@ -1,0 +1,122 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="${base}/">
+<meta charset="UTF-8">
+<title>个人资料 编辑页面</title>
+<!--适应移动端-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no, email=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 删除苹果默认的工具栏和菜单栏 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="full-screen" content="yes"/>
+<meta name="x5-fullscreen" content="true"/>
+<!-- 设置苹果工具栏颜色 -->
+<meta name="format-detection" content="telphone=no, email=no"/>
+<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+<!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="renderer" content="webkit">
+<!-- 避免IE使用兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true">
+<!-- 微软的老式浏览器 -->
+<meta name="MobileOptimized" content="320">
+<!-- uc强制竖屏 -->
+<meta name="screen-orientation" content="landscape">
+<!-- QQ强制竖屏 -->
+<meta name="x5-orientation" content="landscape">
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes">
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true">
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application">
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app">
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- 适应移动端end -->
+<link href="resources/front/css/reset.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/animate.min.css" rel="stylesheet" type="text/css">
+<link href="resources/front/layui/css/layui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/dui.css" rel="stylesheet" type="text/css">
+<script src="resources/front/js/jquery.min.js" ></script>
+<script src="resources/front/layui/layui.js" ></script>
+<style>
+.layui-form-select .layui-input{display:none;}
+.layui-form-select .layui-edge{display:none;}
+#newselect{display:blcok;}
+.layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select{display:block;}
+.layui-form-danger+.layui-form-select .layui-input, .layui-form-danger:focus{border:none;!important}
+#img1{
+	width: 150px;
+	height: 150px;
+}
+</style>
+</head>
+<body class="dui-page-body ggzs-enabled">
+<div class="page-body">
+    <form class="form-horizontal layui-form" id="memberForm" onsubmit="return false">
+        <input type="hidden" value="${memberMap.id}" name="id">
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">会员编号：</span>
+            <input type="text" value="${memberMap.memNum}" readonly="readonly" class="friend-new-line friend-new-line-input" >
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">真实姓名：</span>
+            <input type="text" value="${memberMap.realName}" readonly="readonly" class="friend-new-line friend-new-line-input" >
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">手机号：</span>
+            <input lay-verify="required|phone" name="teleNum" value="${(memberMap.teleNum)!''}" type="tel" class="friend-new-line friend-new-line-input" >
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">微信账号：</span>
+            <input lay-verify="required" name="weichat" value="${(memberMap.weichat)!''}"  type="text" class="friend-new-line friend-new-line-input" >
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">支付宝账号</span>
+            <input lay-verify="required" name="alipay" value="${(memberMap.alipay)!''}"  type="text" class="friend-new-line friend-new-line-input" >
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">支付宝昵称：</span>
+            <input lay-verify="required" name="alipayName" value="${(memberMap.alipayName)!''}" type="text"  class="friend-new-line friend-new-line-input" >
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">银行卡类型：</span>
+            <select lay-verify="required" name="bankType" class="friend-new-line friend-new-line-input">
+            	<option value="0" <#if memberMap.bankType?? && memberMap.bankType==0>selected</#if> >中国工商银行</option>
+            	<option value="1" <#if memberMap.bankType?? && memberMap.bankType==1>selected</#if> >中国建设银行</option>
+            	<option value="2" <#if memberMap.bankType?? && memberMap.bankType==2>selected</#if> >中国银行</option>
+            	<option value="3" <#if memberMap.bankType?? && memberMap.bankType==3>selected</#if> >中国农业银行</option>
+            	<option value="4" <#if memberMap.bankType?? && memberMap.bankType==4>selected</#if> >交通银行</option>
+            </select>
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">银行卡号：</span>
+            <input lay-verify="required" name="bankNum" value="${(memberMap.bankNum)!''}" type="text" class="friend-new-line friend-new-line-input" >
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">开户行账户：</span>
+            <input lay-verify="required" name="khhAddress" value="${(memberMap.khhAddress)!''}" type="text" class="friend-new-line friend-new-line-input" >
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">开户行户名：</span>
+            <input lay-verify="required" name="khhkName" value="${(memberMap.khhkName)!''}" type="text" class="friend-new-line friend-new-line-input" >
+        </div>
+        <div class="friend-new-item" style="height:16rem;">
+            <span class="friend-new-line friend-new-line-label">收款二维码：</span>
+			<p><img id="img1" class="img-thumbnail" src="${(memberMap.payPic)!''}" /></p>
+        </div>
+    </form>
+</div>
+<script src="resources/front/js/pass_aes.js" charset="utf-8"></script> 
+<script src="resources/front/js/page.js"  charset="utf-8"></script> 
+<script src="resources/front/js/main.js" charset="utf-8"></script>
+<script type="text/javascript" src="resources/admin/plugins/fileupload/ajaxfileupload.js"></script>
+</body>
+</html>

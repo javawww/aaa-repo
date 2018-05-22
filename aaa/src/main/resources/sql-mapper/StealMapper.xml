@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shengchuang.dao.StealDao">  
+     
+    <select id="findCommon" resultType="java.util.HashMap" parameterType="java.util.Map">
+		SELECT * from t_steal_log WHERE 1=1  
+		<if test="types!='' and types!=null "> and types=#{types} </if>
+		<if test="curId!='' and curId!=null "> and id=#{curId} </if>
+		order by id desc limit ${start},${limit} 
+	</select>  
+     
+    <select id="findMySteal" resultType="com.shengchuang.entity.StealLogEntity">
+		SELECT * from t_steal_log WHERE stealFrom=#{curMemNum}
+	</select>  
+     
+    <select id="findWhoStealMe" resultType="com.shengchuang.entity.StealLogEntity">
+		SELECT * from t_steal_log WHERE stealBy=#{curMemNum}
+	</select>  
+     
+    <select id="findCommonEntity" resultType="com.shengchuang.entity.StealLogEntity" parameterType="java.util.Map">
+		SELECT * from t_steal_log WHERE 1=1  
+		<if test="msgStatus!='' and msgStatus!=null "> and msgStatus=#{msgStatus} </if>
+		order by id desc limit ${start},${limit} 
+	</select>  
+     
+    <select id="findCommonById" resultType="java.util.HashMap" parameterType="int">
+		SELECT * from t_steal_log WHERE id = #{id} 
+	</select>  
+     
+    <insert id="addCommon" > 
+        INSERT INTO `t_steal_log` (`stealTime`, `stealSalar`, `stealFrom`, `stealBy`, 
+        `treeNum`) 
+        VALUES (#{stealTime}, #{stealSalar}, #{stealFrom}, #{stealBy},
+         #{treeNum})
+    </insert> 
+    
+    <delete id="deleteCommon">
+        delete from t_steal_log where id=#{id}
+    </delete>  
+     
+    <update id="updateCommon">
+        UPDATE `t_steal_log` 
+		<set>
+			<if test="stealTime != null">`stealTime`= #{stealTime},</if>
+			<if test="stealSalar != null">`stealSalar`= #{stealSalar},</if>
+			<if test="stealFrom != null">`stealFrom`= #{stealFrom},</if>
+			<if test="stealBy != null">`stealBy`= #{stealBy},</if>
+			<if test="treeNum != null">`treeNum`= #{treeNum}</if>
+	    </set>
+		WHERE `id`=#{id};
+    </update>
+    
+    <select id="findAll" resultType="java.util.HashMap">
+		SELECT * from t_steal_log 
+	</select>  
+	
+    <select id="findCommonCount" resultType="Integer" parameterType="java.util.Map"> 
+         select count(1) from t_steal_log where 1=1 
+         <if test="msgStatus!='' and msgStatus!=null"> and msgStatus=#{msgStatus} </if> 
+    </select>
+    
+</mapper>

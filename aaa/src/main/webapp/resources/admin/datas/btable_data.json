@@ -1,0 +1,27 @@
+{
+  "code": 0,
+  "msg": "获取成功",
+  "list": [
+    {
+      "id": 1,
+      "userName": "张三",
+      "password": "123456",
+      "tradePwd": "654321",
+      "teleNum":"188888888888",
+      "realName":"老王", 
+      "accountLevel":"钻石级", 
+      "gender":"男", 
+      "opt":"<a class=\"layui-btn layui-btn-small\" onclick=\"set(this);\">修改</a><a class=\"layui-btn layui-btn-small\" onclick=\"del(this);\">删除</a>"  
+    },{
+     "id": 2,
+      "userName": "李四",
+      "password": "123456",
+      "tradePwd": "654321",
+      "teleNum":"188888888888",
+      "realName":"老王", 
+      "accountLevel":"钻石级", 
+      "gender":"男", 
+      "opt":"<a class=\"layui-btn layui-btn-small\" onclick=\"set(this);\">修改</a><a class=\"layui-btn layui-btn-small\" onclick=\"del(this);\">删除</a>"  
+    }],
+  "count": 57
+}

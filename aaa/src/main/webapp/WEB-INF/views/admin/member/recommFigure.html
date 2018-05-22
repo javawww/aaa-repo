@@ -1,0 +1,101 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html ng-app="app" class="no-js">
+	<head>
+		<base href="${base}/">
+		<meta charset="utf-8">
+		<meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>网站后台管理系统</title> 
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		
+		<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+		<link rel="stylesheet" href="resources/admin/css/global.css" media="all">
+		<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+		<link rel="stylesheet" href="resources/admin/css/table.css" />
+		<link rel="stylesheet" type="text/css" href="resources/admin/css/zc.css" />	
+	    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular/angular.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular-route/angular-route.min.js"></script>
+	    
+		<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	    
+	    <link href="resources/admin/plugins/select2/select2.css" rel="stylesheet" />
+		<link href="resources/admin/plugins/select2/select2-bootstrap.css" rel="stylesheet" />
+		<link href="resources/admin/plugins/bootstrap-treeview/bootstrap-treeview.css" rel="stylesheet" />
+	    <script type="text/javascript" src="resources/admin/plugins/select2/select2.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/layer-v1.9.0/layer/layer.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/pager/bootstrap-paginator.min.js"></script>
+	    
+	    
+	    
+	    <script>
+			var app = angular.module('app', ['ngRoute']);
+		</script>
+	</head>
+<body ng-controller="testController">
+	<br>
+	<div class="container">
+    	<div id="treeview6" class=""></div>
+	</div>
+
+	<script type="text/javascript" src="resources/admin/plugins/angular/http.js"></script>
+	<script type="text/javascript" src="resources/admin/plugins/select2/mys2/select2.js"></script>
+	<script type="text/javascript" src="resources/admin/plugins/pager/pager.js"></script>
+	<script type="text/javascript" src="resources/admin/angularjs/memberList.js"></script>
+	<script type="text/javascript" src="resources/admin/plugins/bootstrap-treeview/bootstrap-treeview.js"></script>
+	<script>
+		var defaultData = [{
+			text: 'A00000(直推1人,团队6人)',
+			id: 1,
+			state:{
+				expanded: true,
+				selected: true
+			},
+			nodes: [{
+				text: 'CS(直推1人,团队6人)',
+				id: 1,
+				state:{
+					expanded: true
+				},
+				nodes: [{
+					text: 'CS1(直推1人,团队6人)',
+					id: 1,
+					state:{
+						expanded: true
+					},
+					nodes: [{
+						text: 'CS2(直推1人,团队6人)',
+						id: 1,
+						state:{
+							expanded: true
+						},
+						nodes: [{
+							text: 'CS22(直推1人,团队6人)',
+							id: 1,
+							state:{
+								expanded: true
+							}
+						  }]
+					  }]
+				  }]
+			  }]	// end of parent
+		  }];	// end of data
+		
+		var defaultData2 = '${treemodels}';
+		defaultData2 = JSON.parse(defaultData2);
+		console.dir(typeof defaultData2);
+		$('#treeview6').treeview({
+		//  levels: 99,	
+		//  color: "#428bca",
+		  //expandIcon: "glyphicon glyphicon-stop",
+		//  collapseIcon: "glyphicon glyphicon-unchecked",
+		  nodeIcon: "glyphicon glyphicon-user",
+		  //showTags: true,
+		  data: defaultData2
+		});
+	</script>
+</body>
+</html>
+

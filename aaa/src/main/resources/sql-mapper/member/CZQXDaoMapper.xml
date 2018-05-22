@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shengchuang.dao.CZQXDao">  
+    <select id="findCommon" resultType="java.util.HashMap" parameterType="java.util.Map">
+		SELECT * from t_emsg WHERE 1=1  
+		<if test="types!='' and types!=null "> and types=#{types} </if>
+		<if test="curId!='' and curId!=null "> and id=#{curId} </if>
+		order by id desc limit ${start},${limit} 
+	</select>  
+    <select id="findCommonEntity" resultType="com.shengchuang.entity.CZQXLogEntity" parameterType="java.util.Map">
+		SELECT * from t_emsg WHERE 1=1  
+		<if test="msgStatus!='' and msgStatus!=null "> and msgStatus=#{msgStatus} </if>
+		order by id desc limit ${start},${limit} 
+	</select>  
+    <select id="findCommonById" resultType="com.shengchuang.entity.CZQXLogEntity" parameterType="int">
+		SELECT * from t_czqx_log WHERE id = #{id} 
+	</select>
+	<!-- 后台查询所有数据 分页 + 条件查询-->
+    <select id="selectCzqxByoptType_page" resultType="com.shengchuang.entity.CZQXLogEntity" parameterType="java.util.Map">
+		SELECT * from t_czqx_log WHERE 1=1
+		<if test="startDate !='' and startDate !=null "> and czqxTime &gt; #{startDate} </if>
+		<if test="endDate !='' and endDate !=null "> and czqxTime &lt; #{endDate} </if>
+		<if test="optType !='' and optType !=null "> and optType = #{optType} </if>
+		<if test="czqxType !='' and czqxType !=null "> and czqxType = #{czqxType} </if>
+		<if test="czqxtatus !='' and czqxtatus !=null "> and czqxtatus = #{czqxtatus} </if>
+		<if test="memNo !='' and memNo !=null "> and memNo = #{memNo} </if>
+		order by `czqxTime` desc limit #{start},#{limit} 
+	</select>  
+    <select id="selectCountCzqxByoptType_page" resultType="Integer" parameterType="java.util.Map">
+		SELECT count(*) from t_czqx_log WHERE 1=1
+		<if test="startDate !='' and startDate !=null "> and czqxTime &gt; #{startDate} </if>
+		<if test="endDate !='' and endDate !=null "> and czqxTime &lt; #{endDate} </if>
+		<if test="optType !='' and optType !=null "> and optType = #{optType} </if>
+		<if test="czqxType !='' and czqxType !=null "> and czqxType = #{czqxType} </if>
+		<if test="czqxtatus !='' and czqxtatus !=null "> and czqxtatus = #{czqxtatus} </if>
+		<if test="memNo !='' and memNo !=null "> and memNo = #{memNo} </if>
+	</select>  
+    <insert id="addCommon" > 
+        INSERT INTO `t_emsg` (
+        	`msgSubject`, `msgContent`, `sendid`, `receids`, `sendTime`, `msgStatus`, `memNum`
+        ) 
+        VALUES ( 
+        	#{msgSubject},#{msgContent},#{sendid},#{receids},#{sendTime},#{msgStatus}, #{memNum}
+        );
+    </insert> 
+    <delete id="deleteCommon">
+        delete from t_emsg where id=#{id}
+    </delete>  
+    <update id="update" parameterType="com.shengchuang.entity.CZQXLogEntity">
+        UPDATE `t_czqx_log` 
+		<set>
+			<if test="czqxType != null and czqxType!='' ">`czqxType`= #{czqxType},</if>
+			<if test="czqxMark != null and czqxMark!='' ">`czqxMark`= #{czqxMark},</if>
+			<if test="czqxWay != null and czqxWay!='' ">`czqxWay`= #{czqxWay},</if>
+			<if test="czqxSalar != null and czqxSalar!='' ">`czqxSalar`= #{czqxSalar},</if>
+			<if test="czqxTime != null and czqxTime!='' ">`czqxTime`= #{czqxTime},</if>
+			<if test="czqxtatus != null and czqxtatus!='' ">`czqxtatus`= #{czqxtatus},</if>
+			<if test="qxPoundSalar != null and qxPoundSalar!='' ">`qxPoundSalar`= #{qxPoundSalar},</if>
+			<if test="qxRealSalar != null and qxRealSalar!='' ">`qxRealSalar`= #{qxRealSalar},</if>
+			<if test="memId != null and memId!='' ">`memId`= #{memId},</if>
+			<if test="memNo != null and memNo!='' ">`memNo`= #{memNo},</if>
+			<if test="optType != null and optType!='' ">`optType`= #{optType}</if>
+	    </set>
+		WHERE `id`=#{id};
+    </update>
+    <select id="findAll" resultType="java.util.HashMap">
+		SELECT 
+		* 
+		from t_czqx_log 
+	</select>  
+	<!-- 获取用户当天取现次数 -->
+	<select id="selectCountsByMemandDate" resultType="Integer">
+		SELECT count(*) FROM t_czqx_log WHERE memNo = #{memNum} 
+		AND czqxType = #{czqxType}
+		AND DATE(czqxTime)  = CURDATE()
+	</select>
+    <select id="getCzOrQxList" resultType="com.shengchuang.entity.CZQXLogEntity">
+		SELECT 
+		* 
+		from `t_czqx_log` 
+		where 1=1
+		<if test="optType!=null and optType!='' "> and `optType` = #{optType} </if>
+		<if test="memId!=null and  memId!=''"> and `memId` = #{memId} </if>
+		and `czqxtatus` in (0,1,2)  order by `czqxTime` desc
+	</select>  
+    <select id="findCommonCount" resultType="Integer" parameterType="java.util.Map"> 
+         select count(1) from t_emsg where 1=1 
+         <if test="msgStatus!='' and msgStatus!=null"> and msgStatus=#{msgStatus} </if> 
+    </select>
+    <insert id="addCZOrQX" parameterType="com.shengchuang.entity.CZQXLogEntity" useGeneratedKeys="true" keyProperty="id" keyColumn="id"> 
+        INSERT INTO `t_czqx_log` (
+        	`czqxType`, 
+        	`czqxMark`, 
+        	`czqxWay`, 
+        	`czqxSalar`, 
+        	`czqxTime`, 
+        	`czqxtatus`, 
+        	`qxPoundSalar`, 
+        	`qxRealSalar`, 
+        	`memId`, 
+        	`memNo`, 
+        	`optType`
+        ) 
+        VALUES ( 
+        	#{czqxType},
+        	#{czqxMark},
+        	#{czqxWay},
+        	#{czqxSalar},
+        	now(),
+        	#{czqxtatus},
+        	#{qxPoundSalar},
+        	#{qxRealSalar},
+        	#{memId},
+        	#{memNo},
+        	#{optType}
+        );
+    </insert>
+</mapper>

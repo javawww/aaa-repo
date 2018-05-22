@@ -1,0 +1,27 @@
+ [
+ {
+        	"id":1,
+            "outMembers": "老王",
+            "TransferMembership":"老李",
+            "CurrencyType":"积分",
+            "TransactionAmount":"10000",
+            "TransactionTime":"2017-06-02 12:20:50" 
+        },
+        {
+        	"id":2,
+            "outMembers": "老王",
+            "TransferMembership":"老李",
+            "CurrencyType":"积分",
+            "TransactionAmount":"10000",
+            "TransactionTime":"2017-06-02 12:20:50"
+        },
+        {
+        	"id":3,
+           "outMembers": "老王",
+            "TransferMembership":"老李",
+            "CurrencyType":"积分",
+            "TransactionAmount":"10000",
+            "TransactionTime":"2017-06-02 12:20:50"
+        }
+        
+ ]

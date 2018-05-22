@@ -1,0 +1,8 @@
+id; //主键
+infNum; //新闻编号
+infType; //新闻类别  1普通公告 2活动公告 3其他公告
+infTitle;//新闻标题
+createTime;//创建时间
+pubTime;//发布时间  
+infContent;//新闻内容 html编辑器控制
+memid; //外键 关联当前管理员

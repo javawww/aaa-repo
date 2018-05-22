@@ -1,0 +1,112 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="${base}/">
+<meta charset="UTF-8">
+<title>我的农场</title>
+<!--适应移动端-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no, email=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 删除苹果默认的工具栏和菜单栏 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="full-screen" content="yes"/>
+<meta name="x5-fullscreen" content="true"/>
+<!-- 设置苹果工具栏颜色 -->
+<meta name="format-detection" content="telphone=no, email=no"/>
+<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+<!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="renderer" content="webkit">
+<!-- 避免IE使用兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true">
+<!-- 微软的老式浏览器 -->
+<meta name="MobileOptimized" content="320">
+<!-- uc强制竖屏 -->
+<meta name="screen-orientation" content="landscape">
+<!-- QQ强制竖屏 -->
+<meta name="x5-orientation" content="landscape">
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes">
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true">
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application">
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app">
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- 适应移动端end -->
+<link href="resources/front/css/reset.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/animate.min.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/layui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/dui.css" rel="stylesheet" type="text/css">
+<script src="resources/front/js/jquery.min.js" ></script>
+<script src="resources/front/layui/layui.js" ></script>
+</head>
+<body class="dui-page-body ggzs-enabled">
+<div class="page-body">
+    <form class="form-horizontal layui-form" id="EditTrade" onsubmit="return false" action="POST">
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">原始交易密码：</span>
+            <input placeholder="请填写您的原始交易密码" lay-verify="required|pass" name="tradePwd" type="password" class="friend-new-line friend-new-line-input">
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">新密码：</span>
+            <input name="newTradePwd" lay-verify="required|pass" type="password" id="tradePwd" class="friend-new-line friend-new-line-input required" >
+        </div>
+ 		<div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">确认新密码：</span>
+            <input type="password" lay-verify="required|pass|regPwds" id="tradePwds" class="friend-new-line friend-new-line-input required">
+        </div>
+        <div class="m-top12 text-c">
+            <a href="javascript:" class="btn btn-green text-auto xiugai2-go" type="submit" lay-submit lay-filter="formDemo">确认提交</a>
+        </div>
+        <input type="reset"  id="reset" style="display: none;" />
+    </form>
+</div>
+<script src="resources/front/js/layuiformvalid.js" charset="utf-8"></script>
+<script src="resources/front/js/pass_aes.js" charset="utf-8"></script> 
+<script src="resources/front/js/page.js"  charset="utf-8"></script> 
+<script src="resources/front/js/main.js" charset="utf-8"></script>
+<script type="text/javascript">
+layui.use(['form', 'layedit', 'laydate'], function(){
+	  var form = layui.form()
+	  ,layer = layui.layer
+	  ,layedit = layui.layedit
+	  ,laydate = layui.laydate;
+	  //监听提交
+	 form.on('submit(formDemo)', function(data){
+			 var param = $("#EditTrade").serialize();
+			 console.dir(param);
+			 //ajax异步提交
+			 $.ajax({
+				 type:"POST",
+				 url:"front/member/changeTradePwd",
+				 data:param,
+				 dataType:"JSON",
+				 success:function(data){
+					 console.dir(data);
+					 if(data==-1){
+						 successMsg("原始交易密码输入错误，修改失败",function(){
+							$('#reset').click();
+						 });
+					 }else if(data==1){
+						 successMsg("恭喜您，修改成功",function(){
+							 parent.location.href="front/logout.html";
+						 });
+					 }else if(data==0){
+						 successMsg("不可抗力因素导致修改失败",function(){
+							 $('#reset').click();
+						 });
+					 }
+			 }
+	   });
+   });
+});
+</script>
+</body>
+</html>

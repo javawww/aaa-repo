@@ -1,0 +1,134 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html>
+	<head>
+		<base href="${base}/">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>后台登录</title>
+		<link href="favicon.ico" rel="icon" type="image/x-icon" />
+		<link rel="stylesheet" href="resources/admin/plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="resources/admin/css/login.css" />
+		<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+		<script src="resources/admin/js/jquery.min.js" ></script>
+		<style type="text/css">
+		.attach-input{
+			width: 70%;
+			display: inline-block;
+		}
+		#img{
+			cursor: pointer;
+		}
+		</style>
+	</head>
+
+	<body class="beg-login-bg">
+		<div class="beg-login-box">
+			<header>
+				<h1>后台登录</h1>
+			</header>
+			<div class="beg-login-main">
+				<form class="layui-form" method="post" id="loginForm">
+					<input name="roleState" type="hidden" value="1" /><!-- 超级管理员 身份识别 -->
+					<div class="layui-form-item">
+						<label class="beg-login-icon">
+                        	<i class="layui-icon">&#xe612;</i>
+                    	</label>
+						<input type="text" name="memNum" id="memNum" value="" lay-verify="required" autocomplete="off" placeholder="这里输入会员编号" class="layui-input">
+					</div>
+					<div class="layui-form-item">
+						<label class="beg-login-icon">
+                        	<i class="layui-icon">&#xe642;</i>
+                    	</label>
+						<input type="text" name="adloginPwd" id="adloginPwd" value="" onfocus="this.type='password'" lay-verify="required" autocomplete="off" placeholder="这里输入登录密码" class="layui-input">
+					</div>
+					<#--
+					<div class="layui-form-item">
+						<label class="beg-login-icon">
+                        	<i class="fa fa-picture-o" aria-hidden="true"></i>
+                    	</label>
+						<input type="text" name="verify_member" id="verify_member" lay-verify="required" autocomplete="off" placeholder="这里输入校验码" class="layui-input attach-input">
+						<img id="img" src="verify.html" onclick="reImg();" title="点击刷新">
+					</div>
+					-->
+					<div class="layui-form-item">
+						<div class="beg-pull-left beg-login-remember">
+							<label>记住帐号？</label>
+							<input type="checkbox" name="rememberMe" value="true" lay-skin="switch" checked title="记住帐号">
+						</div>
+						<div class="beg-pull-right">
+							<button class="layui-btn layui-btn-primary" lay-submit lay-filter="login">
+                            <i class="layui-icon">&#xe650;</i> 登录
+                        </button>
+						</div>
+						<div class="beg-clear"></div>
+					</div>
+				</form>
+			</div>
+			<footer>
+				<p>东莞升创网络  版权所有  © 2017 </p>
+			</footer>
+		</div>
+		<script type="text/javascript" src="resources/admin/plugins/layui/layui.js"></script>
+		<script>
+			layui.use(['layer', 'form'], function() {
+				var layer = layui.layer,
+					$ = layui.jquery,
+					form = layui.form();
+					
+				form.on('submit(login)',function(data){
+					//ajax异步校验  data.field
+					//location.href='index.html';
+					$.ajax({
+						 type: "POST",
+						 url: "admin/index/loginValid",
+						 data: data.field,
+						 dataType: "json",
+						 async:true,
+						 success: function(result){
+							 console.dir(result);
+							 if(result.success){//验证通过 跳转首页
+								 layer.msg(result.msg,{ icon:1, time: 2000
+								 },function(){
+									 window.location.href="/admin";//访问主页
+								 });
+							 }else{
+								 if(result.attributes.flag==1){//校验码无效
+									 layer.msg(result.msg,{ icon:5, time: 2000
+									 },function(){
+										 $("#verify_member").val("");
+										 reImg();
+									 });
+								 }else if(result.attributes.flag==2){//用户名 密码 无效
+									 layer.msg(result.msg,{ icon:5,  time: 2000
+									 },function(){
+										 $("#memNum").val("");
+										 $("#adloginPwd").val("");
+									 });
+								 }
+								 
+							 }//end
+						 }//success end
+					 });
+					
+					return false;
+				});
+			});
+			//点击图片 刷新校验码
+			function reImg(){
+				$("#img").attr("src","verify.html?random="+(new Date()).getTime());
+			}
+			
+			window.load = function(){   
+				document.getElementById('memNum').value='';   
+				document.getElementById('adloginPwd').value='';   
+				document.getElementById('verify_member').value='';   
+			};   
+			
+			
+			
+		</script>
+	</body>
+
+</html>

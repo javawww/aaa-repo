@@ -1,0 +1,28 @@
+奖金统计(一)
+BonusRepoEntity
+t_bonus_report
+id; //主键
+dynaBonus;   //代数奖 即 动态奖
+shareBonus;   //日分红 即 静态奖
+totalBonus;   //总金额  即 动态奖 + 静态奖
+createTime;  // 结算时间 即 生成时间
+grantStatus; //发放状态 0未发放 1已发放
+memNum;//关联所属用户编号 示例 A00005
+
+
+	
+奖金明细(多)
+实体对象 BonusInfEntity 
+数据库表 t_bonus_inf
+id; //主键
+bonusDesc;//奖金描述  示例  来源A00005种植的第5棵金树
+bonusStatus;//奖金状态 0未结算 1已结算   秒接秒发
+bonusType;  //奖金类型  0代数奖 1日分红
+bonusSum;   //奖金金额  示例 500.64
+bonusTime;  //生成时间
+memid;//外键 关联所属用户
+memNum;//关联所属用户编号 示例 A00005
+bonusRepoId;//外键  关联奖金报表 多对一
+
+
+

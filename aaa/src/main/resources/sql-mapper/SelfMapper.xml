@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.wl.common.dao.SelfDao">  
+     
+    <update id="updateCommon">
+        UPDATE `t_member` 
+		<set>
+			<if test="memNum != null">`memNum`= #{memNum},</if>
+			<if test="jhState != null">`jhState`= #{jhState},</if>
+			<if test="gjLevel != null">`gjLevel`= #{gjLevel},</if>
+			<if test="realName != null">`realName`= #{realName},</if>
+			<if test="teleNum != null">`teleNum`= #{teleNum},</if>
+			<if test="tjrNum != null">`tjrNum`= #{tjrNum},</if>
+			<if test="registTime != null">`registTime`= #{registTime},</if>
+			<if test="jhTime != null">`jhTime`= #{jhTime},</if>
+			<if test="djState != null">`djState`= #{djState},</if>
+			<if test="roleState != null">`roleState`= #{roleState},</if>
+			<if test="weichat != null">`weichat`= #{weichat},</if>
+			<if test="alipay != null">`alipay`= #{alipay},</if>
+			<if test="alipayName != null">`alipayName`= #{alipayName},</if>
+			<if test="loginPwd != null">`loginPwd`= #{loginPwd},</if>
+			<if test="tradePwd != null">`tradePwd`= #{tradePwd},</if>
+			<if test="bankNum != null">`bankNum`= #{bankNum},</if>
+			<if test="bankType != null">`bankType`= #{bankType},</if>
+			<if test="khhAddress!= null">`khhAddress`= #{khhAddress},</if>
+			<if test="khhkName != null">`khhkName`= #{khhkName},</if>
+			<if test="adloginPwd != null">`adloginPwd`= #{adloginPwd}</if>
+	    </set>
+		WHERE `id`=#{id};
+    </update>
+    
+</mapper>

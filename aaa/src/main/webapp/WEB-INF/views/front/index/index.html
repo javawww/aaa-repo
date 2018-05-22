@@ -1,0 +1,461 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="${base}/">
+<meta charset="UTF-8">
+<title>梦幻金银树</title>
+<link href="favicon.ico" rel="icon" type="image/x-icon" />
+<!--适应移动端-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no, email=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 删除苹果默认的工具栏和菜单栏 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="full-screen" content="yes"/>
+<meta name="x5-fullscreen" content="true"/>
+<!-- 设置苹果工具栏颜色 -->
+<meta name="format-detection" content="telphone=no, email=no"/>
+<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+<!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="renderer" content="webkit">
+<!-- 避免IE使用兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true">
+<!-- 微软的老式浏览器 -->
+<meta name="MobileOptimized" content="320">
+<!-- uc强制竖屏 -->
+<meta name="screen-orientation" content="landscape">
+<!-- QQ强制竖屏 -->
+<meta name="x5-orientation" content="landscape">
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes">
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true">
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application">
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app">
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- 适应移动端end -->
+<link href="resources/front/css/reset.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/animate.min.css" rel="stylesheet" type="text/css">
+<link href="resources/front/layui/css/layui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/dui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/index.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/dialog.css" rel="stylesheet" type="text/css">
+<script src="resources/front/js/jquery.min.js" ></script>
+<script src="resources/front/layui/layui.js" ></script>
+<style type="text/css">
+div#butterfly{
+    position: relative;
+    left: 59%;
+    top: 54%;
+    /* width: 366px;
+    height: 208px; */
+    
+    -webkit-transform: rotate(-20deg)  translate(30px, 60px) scale(0.8, 0.8);
+    -webkit-transform-origin: center center;
+    -moz-transform: rotate(-20deg)  translate(30px, 60px) scale(0.8, 0.8);
+    -moz-transform-origin: center center;
+}
+
+div#rightwing{
+    position: absolute;
+    left:0px;
+    top:0px;
+    width: 40px;
+    height: 208px;
+    background-image: url(http://www.eleqtriq.com/wp-content/static/demos/2010/css3d/img/wing.png);
+    background-size:contain;
+    background-repeat:no-repeat;
+    
+    -webkit-transform: rotate3d(0, 0, 0, 180deg); /* Mirror left wing */
+    -webkit-transform-origin: center right;
+    -webkit-animation-name: rightwingani;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    
+    -moz-transform: rotate3d(0, 0, 0, 180deg); /* Mirror left wing */
+    -moz-transform-origin: center right;
+    -moz-animation-name: rightwingani;
+    -moz-animation-duration: 5s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes rightwingani {
+    from {
+        -webkit-transform: rotate3d(0, 1, 0, 180deg);
+    }
+    30% {
+        -webkit-transform: rotate3d(0, 1, 0, 180deg);
+    }
+    50% {
+        -webkit-transform: rotate3d(0, 1, 0, 100deg);
+    }
+    70%{
+        -webkit-transform: rotate3d(0, 1, 0, 180deg);
+    }
+    to{
+        -webkit-transform: rotate3d(0, 1, 0, 180deg);
+    }
+}
+
+@-moz-keyframes rightwingani {
+    from {
+        -moz-transform: rotate3d(0, 1, 0, 180deg);
+    }
+    30% {
+        -moz-transform: rotate3d(0, 1, 0, 180deg);
+    }
+    50% {
+        -moz-transform: rotate3d(0, 1, 0, 100deg);
+    }
+    70%{
+        -moz-transform: rotate3d(0, 1, 0, 180deg);
+    }
+    to{
+        -moz-transform: rotate3d(0, 1, 0, 180deg);
+    }
+}
+
+div#leftwing{
+    position: absolute;
+    left:0px;
+    top:0px;
+    width: 40px;
+    height: 208px;
+    background-image: url(http://www.eleqtriq.com/wp-content/static/demos/2010/css3d/img/wing.png);
+    background-size:contain;
+    background-repeat: no-repeat;
+    
+    -webkit-transform-origin: top right;
+    -webkit-animation-name: leftwingani;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    
+    -moz-transform-origin: top right;
+    -moz-animation-name: leftwingani;
+    -moz-animation-duration: 5s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes leftwingani {
+    from {
+        -webkit-transform: rotate3d(0, 1, 0, 0deg);
+    }
+    30%  {
+        -webkit-transform: rotate3d(0, 1, 0, 0deg);
+    }
+    50% {
+        -webkit-transform: rotate3d(0, 1, 0, 80deg);
+    }
+    70%{
+        -webkit-transform: rotate3d(0, 1, 0, 00deg);
+    }
+    to{
+        -webkit-transform: rotate3d(0, 1, 0, 00deg);
+    }
+}
+
+
+@-moz-keyframes leftwingani {
+    from {
+        -moz-transform: rotate3d(0, 1, 0, 0deg);
+    }
+    30%  {
+        -moz-transform: rotate3d(0, 1, 0, 0deg);
+    }
+    50% {
+        -moz-transform: rotate3d(0, 1, 0, 80deg);
+    }
+    70%{
+        -moz-transform: rotate3d(0, 1, 0, 00deg);
+    }
+    to{
+        -moz-transform: rotate3d(0, 1, 0, 00deg);
+    }
+}
+</style>
+</head>
+<body id="IDGame">
+<div id="GameContainer"> 
+  <!--场景背景宽度--> 
+  <img id="GameBg" src="resources/front/images/bg.jpg">
+  <div id="GameCanvas">
+    <div id="GameBox"> 
+      <!--地皮-->
+      <div class="dui-Land-bg"></div>
+      <div class="dui-Land">
+        <ul id="tree">
+          <li class="dui-di dui-di-2" id="di1" data-treeno="1"></li>
+          <li class="dui-di dui-di-1" id="di2" data-treeno="2"></li>
+          <li class="dui-di dui-di-1" id="di3" data-treeno="3"></li>
+          <li class="dui-di dui-di-1" id="di4" data-treeno="4"></li>
+          <li class="dui-di dui-di-1" id="di5" data-treeno="5"></li>
+          <li class="dui-di dui-di-1" id="di6" data-treeno="6"></li>
+          <li class="dui-di dui-di-1" id="di7" data-treeno="7"></li>
+          <li class="dui-di dui-di-2" id="di8" data-treeno="8"></li>
+          <li class="dui-di dui-di-1" id="di9" data-treeno="9"></li>
+          <li class="dui-di dui-di-1" id="di10" data-treeno="10"></li>
+          <li class="dui-di dui-di-3" id="di11" data-treeno="11"></li>
+          <li class="dui-di dui-di-3" id="di12" data-treeno="12"></li>
+          <li class="dui-di dui-di-3" id="di13" data-treeno="13"></li>
+          <li class="dui-di dui-di-3" id="di14" data-treeno="14"></li>
+          <li class="dui-di dui-di-3" id="di15" data-treeno="15"></li>
+        </ul>
+      </div>
+      <!--装饰-->
+      <!-- <div class="dui-beautify" style="position: relative;"> -->
+	       <!-- <img class="dui-duck" src="resources/front/images/duck.png"> 
+	       <img class="dui-scarecrow" src="resources/front/images/scarecrow.png"> 
+	       <img class="dui-wealth" src="resources/front/images/wealth.png"> 
+	       <img class="dui-dongyu" src="resources/front/images/yu.gif" >
+	       <img class="dui-yunduo" src="resources/front/images/yunduo.gif" >
+	       <img class="dui-shui1 shuis" src="resources/front/images/shui1.gif">
+	       <img class="dui-shui2 shuis" src="resources/front/images/shui2.gif">
+	       <img class="dui-shui3 shuis" src="resources/front/images/shui3.gif">
+	       <img class="dui-shui4 shuis" src="resources/front/images/shui4.gif"> 
+	       <img class="dui-lupai" src="resources/front/images/lupai.png"> 
+	       <img class="dui-liushui" src="resources/front/images/liushui.gif">
+	       <img class="dui-fudie" src="resources/front/images/fudie.gif"> -->
+		   <!-- <div class="dui-fudie" id="butterfly">
+		        <div id="leftwing">
+		        </div>
+		        <div id="rightwing">
+		        </div>
+		   </div> -->
+      <!-- </div> -->
+      <div class="butterfly_div"> <!-- 装饰 蝴蝶动画效果 -->
+     	 <img src="resources/front/images/fudie.gif">
+      </div>
+      <div class="fish_div"><!--装饰 鱼儿动画效果  -->
+      	<img src="resources/front/images/yu.gif" >
+      </div>
+    <!--   <div class="lupai_div">装饰  路牌Png图片 
+      	<img src="resources/front/images/lupai.png">
+      </div> -->
+      <div class="pubu_div"><!-- 装饰 瀑布 gif -->
+      	<img src="resources/front/images/pubu.gif">
+      </div>
+      <div class="shent_div"><!-- 神童状态控制 -->
+	       <img class="weiyangst" <#if gjst.stStatus?? && gjst.stStatus==0> style="display:block;" <#else> style="display:none;" </#if> title="无法正常工作"  src="resources/front/images/guanj/shtong01.gif">
+	       <img class="tipmsgst" <#if gjst.stStatus?? && gjst.stStatus==1> style="display:block;" <#else> style="display:none;" </#if>  title="可以正常工作"  src="resources/front/images/guanj/shtong02.gif">
+      </div>
+      <div class="guanj_div"> <!-- 管家状态控制 -->
+	       <img class="weiyanggj" <#if gjst.gjStatus?? && gjst.gjStatus==0> style="display:block;" <#else> style="display:none;" </#if> title="无法正常工作" src="resources/front/images/guanj/guanjia01.gif">
+      	   <img class="tipmsggj" <#if gjst.gjStatus?? && gjst.gjStatus==1> style="display:block;" <#else> style="display:none;" </#if> title="可以正常工作" src="resources/front/images/guanj/guanjia02.gif">
+      </div>
+      <!--个人信息-->
+      <div class="dui-info bounceInDown animated">
+        <div class="dui-avatar"> <a href="javascript:;" class="user">
+          <div class="fl cursor"> 
+          	<img class="dicon-avatar" src="resources/front/images/main/1.png" > 
+         	 <img class="dicon-grass" src="resources/front/images/grass.png" >
+           <!--  <div class="dui-grade">俑农</div> -->
+          </div>
+          <div class="fr cursor">
+            <div class="dui-name" style="font-size:0.5rem;">玩家编号:${(SESSION_FRONT_MEMBER.memNum)!"异常"}</div>
+            <div class="info-input">激活积分 <span id="activPenn">${(currencyinfo.activPenn)!"0"}</span></div>
+          </div>
+          </a> 
+         </div>
+        <div class="dui-summary">
+          <ul>
+            <li><img src="resources/front/images/main/T1.png">
+              <div class="summary-input">动态钱包<span id="dynWallet">${(currencyinfo.dynWallet)!"0"}</span></div>
+            </li>
+            <li><img src="resources/front/images/main/T2.png" >
+              <div class="summary-input">冻结钱包<span id="statDJWallet">${(currencyinfo.statDJWallet)!"0"}</span></div>
+            </li>
+            <li><img src="resources/front/images/main/T3.png">
+              <div class="summary-input">收益钱包 <span id="statJDWallet">${(currencyinfo.statJDWallet)!"0"}</span></div>
+            </li>
+            <li><img src="resources/front/images/main/T4.png" >
+              <div class="summary-input">种子积分 <span id="seedsPenn">${(currencyinfo.seedsPenn)!"0"}</span></div>
+            </li>
+            <li><img src="resources/front/images/main/T5.png" >
+              <div class="summary-input">管家月俸 <span id="manaMoney">${(currencyinfo.manaMoney)!"0"}</span></div>
+            </li>
+            <li><img src="resources/front/images/main/T6.png" >
+              <div class="summary-input">神童日俸 <span id="kidMoney">${(currencyinfo.kidMoney)!"0"}</span></div>
+            </li>
+          </ul>
+        </div> 
+      </div>
+      <!--右边操作-->
+      <div class="dui-btn-fr bounceInRight animated">
+        <ul>
+          <li><a class="xinwgg cursor" href="javascript:;" title="新闻公告">
+	          <img src="resources/front/images/main/13.png"></a>
+          </li>
+          <li><a class="caiwmx cursor" href="javascript:;" title="奖金明细">
+	          <img src="resources/front/images/main/12.png" ></a> 
+          </li>
+          <li><a class="shouyjl cursor" href="javascript:;" title="收支明细">
+	          <img src="resources/front/images/main/11.png" ></a> 
+          </li>
+          <li ><a class="jiaoyzx cursor" href="javascript:;" title="交易中心">
+	          <img src="resources/front/images/main/10.png" ></a> 
+          </li>
+          <li><a class="cursor"  href="front/logout.html" title="退出登录">
+	          <img src="resources/front/images/main/9.png"></a>
+          </li>
+        </ul>
+      </div>
+      <!--底部操作-->
+      <div class="dui-btn-bottom bounceInUp animated dui-select">
+        <ul>
+          <li><a class="zhzys cursor" href="javascript:;" title="种植银树">
+          	<img src="resources/front/images/main/5.png" ></a>
+          </li>
+          <li><a class="zhzjs cursor" href="javascript:;" title="种植金树">
+          	<img  src="resources/front/images/main/6.png" ></a> 
+          </li>
+          <li><a class="jfdh cursor" href="javascript:;" title="积分兑换"> 
+          	<img src="resources/front/images/main/7.png" ></a> 
+          </li>
+          <li><a class="chongzqx cursor" href="javascript: ;"  title="充值取现"> 
+          	<img src="resources/front/images/main/8.png" ></a> 
+          </li>
+          <li><a class="refresh cursor" href="javascript:window.location.reload(true);"  title="刷新页面">
+          	<img src="resources/front/images/main/8s.png" ></a> 
+          </li>
+        </ul>
+      </div>
+      <!--左边边操作-->
+      <div class="dui-btn-fl bounceInLeft animated">
+        <ul>
+          <li><a href="javascript:;" class="wytg cursor" title="我要推广">
+          <img src="resources/front/images/main/2.png" ></a> </li>
+          <li><a class="msg cursor" href="javascript:;" title="邮件中心">
+          <img src="resources/front/images/main/3.png"></a> </li>
+          <li><a class="woyaotq cursor" href="javascript:;" title="我要偷取">
+          <img src="resources/front/images/main/4.png"></a> </li>
+        </ul>
+      </div>
+      <!--音乐开关--> 
+      <a class="mscBtn bounceInLeft animated cursor" id="audioBtn"></a> </div>
+  </div>
+</div>
+<script src="resources/front/js/pass_aes.js" charset="utf-8"></script> 
+<script src="resources/front/js/page.js"  charset="utf-8"></script> 
+<script src="resources/front/js/main.js" charset="utf-8"></script>
+<script src="resources/front/js/plantState.js" type="text/javascript"></script>
+<script>
+    //播放声音
+    $(function(){    	
+        layui.use('layer', function () {
+                    });
+        $('<audio id="bgMusic" loop="loop" preload autoplay="autoplay"><source src="resources/front/images/BGM-01.ogg" type="audio/ogg"><source src="resources/front/images/BGM-01.mp3" type="audio/mpeg"><source src="resources/front/images/BGM-01.wav" type="audio/wav"></audio>').appendTo('body');//载入声音文件
+        //关闭背景音乐
+        var music = document.getElementById("bgMusic");
+        $("#audioBtn").click(function () {
+            if (music.paused) {
+                music.play();
+                $("#audioBtn").removeClass("pause").addClass("play");
+            } else {
+                music.pause();
+                $("#audioBtn").removeClass("play").addClass("pause");
+            }
+        });
+        $('<audio id="chatAudio"><source src="resources/front/images/dui-didi.ogg" type="audio/ogg"><source src="resources/front/images/dui-didi.mp3" type="audio/mpeg"><source src="resources/front/images/dui-didi.wav" type="audio/wav"></audio>').appendTo('body');
+        $(document).on('click touchend',function () {
+           //载入声音文件autoplay="autoplay"
+            var audio = document.getElementById('chatAudio');
+            audio.play(); //播放声音
+        });
+        function audioAutoPlay(id){
+        	var audio = document.getElementById(id),
+            play = function(){
+	            audio.play();
+	            document.removeEventListener("touchstart",play, false);
+	        };
+	        audio.play();
+	        document.addEventListener("WeixinJSBridgeReady", function () {//微信
+	           play();
+	        	}, false);
+	        document.addEventListener("YixinJSBridgeReady", function() {//易信
+	            play();
+	            }, false);
+	        document.addEventListener("touchstart",play, false);
+        }
+        audioAutoPlay("bgMusic");
+        //喂养神童
+        $(".weiyangst").bind("click",function(){
+        	layer.open({
+    	        type: 2,
+    	        title: "喂养神童",
+    	        shadeClose: true,
+    	        shade: 0.1,
+    	        area: [areaWidth, areaHeight],
+    	        content: 'front/guanj/weishent', //iframe的url
+    	        scrollbar: false
+    	    });
+        });
+        //喂养管家
+        $(".weiyanggj").bind("click",function(){
+        	layer.open({
+    	        type: 2,
+    	        title: "喂养管家",
+    	        shadeClose: true,
+    	        shade: 0.1,
+    	        area: [areaWidth, areaHeight],
+    	        content: 'front/guanj/weiguanj', //iframe的url
+    	        scrollbar: false
+    	    }); 
+        	//询问框
+        	/* layer.confirm('您的管家处于饥饿状态,确定去领取管家月俸吗?', {
+        	  btn: ['确定','取消'], //按钮
+        	  shadeClose: true,
+        	  title: "确认信息",
+  	          shade: 0.1,
+  	          scrollbar: false,
+  	          skin:"demo-class",
+  	          area: ['8rem', '6rem']
+        	}, function(index, layero){
+        		layer.close(index);
+        		layer.open({
+        	        type: 2,
+        	        title: "喂养管家",
+        	        shadeClose: true,
+        	        shade: 0.1,
+        	        area: ['18rem', '16rem'],
+        	        content: 'front/guanj/weiguanj', //iframe的url
+        	        scrollbar: false
+        	    }); 
+        	}, function(index){
+        		layer.close(index);
+        	});     */ 	
+        });    
+        //提示神童工作中 无需喂养 并且打开 偷取列表
+        $(".tipmsgst").bind("click",function(){
+        	successMsg("神童精神饱满,正常工作,2s后打开偷取列表",function(){
+	        	//弹出偷取页面列表
+	        	layer.open({
+	    	        type: 2,
+	    	        title: "偷取列表",
+	    	        shadeClose: true,
+	    	        shade: 0.1,
+	    	        area: [areaWidth, areaHeight],
+	    	        content: 'front/wytq/woyaotq_wyt', //iframe的url
+	    	        scrollbar: false
+	    	    }); 
+        	});
+        });
+        //提示管家工作中 无需喂养
+        $(".tipmsggj").bind("click",function(){
+        	alertMsg("管家精神饱满,正常工作,守护庄园");
+        });
+        //xxxxxxxxxxend
+  });
+</script>
+</body>
+</html>

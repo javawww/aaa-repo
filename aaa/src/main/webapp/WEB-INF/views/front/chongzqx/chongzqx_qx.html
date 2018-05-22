@@ -1,0 +1,285 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>我要取现  取现表单 </title>
+<base href="${base}/">
+<!--适应移动端-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no, email=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 删除苹果默认的工具栏和菜单栏 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="full-screen" content="yes"/>
+<meta name="x5-fullscreen" content="true"/>
+<!-- 设置苹果工具栏颜色 -->
+<meta name="format-detection" content="telphone=no, email=no"/>
+<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+<!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="renderer" content="webkit">
+<!-- 避免IE使用兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true">
+<!-- 微软的老式浏览器 -->
+<meta name="MobileOptimized" content="320">
+<!-- uc强制竖屏 -->
+<meta name="screen-orientation" content="landscape">
+<!-- QQ强制竖屏 -->
+<meta name="x5-orientation" content="landscape">
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes">
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true">
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application">
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app">
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- 适应移动端end -->
+<link href="resources/front/css/reset.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/animate.min.css" rel="stylesheet" type="text/css">
+<link href="resources/front/layui/css/layui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/dui.css" rel="stylesheet" type="text/css">
+<script src="resources/front/js/jquery.min.js" ></script>
+<script src="resources/front/layui/layui.js" ></script>
+<script type="text/javascript" src="resources/front/js/layuiformvalid.js"></script>
+<style>
+.layui-form-select .layui-input{display:none;}
+.layui-form-select .layui-edge{display:none;}
+#newselect{display:blcok;}
+.layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select{display:block;}
+.layui-form-danger+.layui-form-select .layui-input, .layui-form-danger:focus{border:none;!important}	
+</style>
+<style type="text/css">
+/* 收款方收款信息 样式 */
+.smallTitle{
+	background-image: url("resources/front/images/SmallTitle_bg.png");
+	background-repeat: no-repeat;
+	background-size:100% 40px;
+	margin-top: 3%;
+	margin-bottom:1%;
+	text-align: center;
+	color: #3a230a;
+	font-size: 1.2rem;
+	height: 40px;
+	line-height: 40px;
+}
+.weichatImg{
+	width: 150px;
+	height: 150px;
+}
+</style>
+</head>
+<body class="dui-page-body ggzs-enabled">
+<div class="page-body">
+    <form class="form-horizontal layui-form" id=FormId onsubmit="return false">
+         <input type="hidden" value="2" name="optType"><!--来源类型1 我要取现  -->
+         <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">取现币种：</span>
+            <select name="czqxType" class="friend-new-line friend-new-line-input">
+            	<option value="0">动态钱包</option>
+            	<option value="2">收益钱包</option>
+            </select>
+        </div>
+         <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">取现金额：</span>
+            <input  name="czqxSalar" id="qxSalar" lay-verify="required|number" type="number" class="friend-new-line friend-new-line-input">
+        </div>
+        <div class="friend-new-item">
+			<span class="friend-new-line friend-new-line-label">交易密码：</span>
+			<input name="tradePwd" id="tradePwd" lay-verify="required|pass" type="text" onfocus="this.type='password'" class="friend-new-line friend-new-line-input">
+		</div> 
+		<div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">取现备注：</span>
+            <textarea name="czqxMark" lay-verify="required" class="friend-new-line friend-new-line-input" style="width: 60%;height: 2.5rem;"></textarea>
+        </div>
+        <div class="m-top12 text-c">
+            <a href="javascript:" class="btn btn-green text-auto" lay-submit lay-filter="formDemo" id="submit">确定</a>
+        </div>
+        <div class="m-top12 text-c">
+        	<table class="dui-table">
+        		<thead>
+        				<td>取现币种</td>
+        				<td>最低额度</td>
+        				<td>最高额度</td>
+        				<td>额度倍数</td>
+        				<td>手续费用</td>
+        		</thead>
+        		<tbody>
+        			<tr>
+        				<td>动态钱包</td>
+        				<td>${(dyWalDeposits[1])!'999999'}</td>
+        				<td>${(dyWalDeposits[2])!'999999'}</td>
+        				<td>${(dyWalDeposits[3])!'999999'}</td>
+        				<td>${(dyWalDeposits[4])!'999999'}</td>
+        			</tr>
+        			<tr>
+        				<td>收益钱包</td>
+        				<td>${(jtWalDeposits[1])!'999999'}</td>
+        				<td>${(jtWalDeposits[2])!'999999'}</td>
+        				<td>${(jtWalDeposits[3])!'999999'}</td>
+        				<td>${(jtWalDeposits[4])!'999999'}</td>
+        			</tr>
+        		</tbody>
+        	</table>
+        </div>
+        <#if memInfoMap?? >
+        <div class="smallTitle">我的收款信息</div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">微信账号：</span>
+            <input type="text" value="${(memInfoMap.weichat)!'暂无'}" disabled="disabled" class="friend-new-line friend-new-line-input">
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">支付宝账号：</span>
+            <input type="text" value="${(memInfoMap.alipay)!'暂无'}" disabled="disabled" class="friend-new-line friend-new-line-input">
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">支付宝姓名：</span>
+            <input type="text" value="${(memInfoMap.alipayName)!'暂无'}" disabled="disabled" class="friend-new-line friend-new-line-input">
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">开户银行姓名：</span>
+            <input type="text" value="${(memInfoMap.khhkName)!'暂无'}" disabled="disabled" class="friend-new-line friend-new-line-input">
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">开户银行类型：</span>
+            <input type="text" value=" <#if memInfoMap.bankType==0>中国工商银行
+            							<#elseif memInfoMap.bankType==1>中国建设银行
+            							<#elseif memInfoMap.bankType==2>中国银行
+            							<#elseif memInfoMap.bankType==3>中国农业银行
+            							<#elseif memInfoMap.bankType==4>交通银行
+            							</#if>	 " disabled="disabled" class="friend-new-line friend-new-line-input">
+        </div>
+         <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">开户银行账号：</span>
+            <input type="text" value="${(memInfoMap.bankNum)!'暂无'}" disabled="disabled" class="friend-new-line friend-new-line-input">
+        </div>
+         <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">开户银行地址：</span>
+            <input type="text" value="${(memInfoMap.khhAddress)!'暂无'}" disabled="disabled" class="friend-new-line friend-new-line-input">
+        </div>
+         <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">微信收款码：</span>
+            <img alt="" src="${(memInfoMap.payPic)!''}" class="weichatImg">
+        </div>
+        </#if>
+    </form>
+</div>
+<script src="resources/front/js/pass_aes.js" charset="utf-8"></script> 
+<script src="resources/front/js/page.js"  charset="utf-8"></script> 
+<script src="resources/front/js/main.js" charset="utf-8"></script>
+<script type="text/javascript">
+layui.use(['form', 'layedit', 'laydate'], function(){
+	  var form = layui.form()
+	  ,layer = layui.layer
+	  ,layedit = layui.layedit
+	  ,laydate = layui.laydate;
+	  //监听提交
+	 form.on('submit(formDemo)', function(data){
+			 var lock = true;//锁住表单
+			 if(!lock){//判断该锁是否打开，如果是关闭的，则直接返回
+				 return false;
+			 }
+			 lock = false;//进来后，立马把锁锁住
+			 var index = layer.load(1, {
+			     shade: [0.1,'#fff'] //0.1透明度的白色背景
+			   });
+			 //按钮效果切换  不可点击状态
+			 $("#submit").removeClass("btn btn-green text-auto");
+			 $("#submit").addClass("btn btn-gray text-auto");
+			 var param = $("#FormId").serialize();
+			 //ajax异步提交
+			 $.ajax({
+				 type:"POST",
+				 url:"front/czqx/addCZOrQX",
+				 data:param,
+				 dataType:"JSON",
+				 success:function(data){
+					 //返回类型 无论如何都会获取到值的
+					 var result_type = data.attributes.result_type;
+					 console.dir(data);
+					 if(result_type==-1){
+						 successMsg("交易密码输入有误",function(){
+							 $("#tradePwd").val("");
+							 lock = true;// 打开锁
+						 	 layer.close(index);
+						 	 //按钮效果切换  可以点击
+							 $("#submit").removeClass("btn btn-gray text-auto");
+							 $("#submit").addClass("btn btn-green text-auto");
+						 });
+					 }else if(result_type==-5){
+						 successMsg("提现额度倍数有误",function(){
+							 $("#qxSalar").val("");
+							 lock = true;// 打开锁
+						 	 layer.close(index);
+						 	 //按钮效果切换  可以点击
+							 $("#submit").removeClass("btn btn-gray text-auto");
+							 $("#submit").addClass("btn btn-green text-auto");
+						 });
+					 }else if(result_type==-6){
+						 successMsg("提现额度不得低于最低提现额度",function(){
+							 $("#qxSalar").val("");
+							 lock = true;// 打开锁
+						 	 layer.close(index);
+						 	 //按钮效果切换  可以点击
+							 $("#submit").removeClass("btn btn-gray text-auto");
+							 $("#submit").addClass("btn btn-green text-auto");
+						 });
+					 }else if(result_type==-7){
+						 successMsg("提现额度不得高于最高提现额度",function(){
+							 $("#qxSalar").val("");
+							 lock = true;// 打开锁
+						 	 layer.close(index);
+						 	 //按钮效果切换  可以点击
+							 $("#submit").removeClass("btn btn-gray text-auto");
+							 $("#submit").addClass("btn btn-green text-auto");
+						 });
+					 }else if(result_type == -8){
+						 successMsg("提现额度超出当前余额",function(){
+							 $("#qxSalar").val("");
+							 lock = true;// 打开锁
+						 	 layer.close(index);
+						 	 //按钮效果切换  可以点击
+							 $("#submit").removeClass("btn btn-gray text-auto");
+							 $("#submit").addClass("btn btn-green text-auto");
+						 });
+					 }else if(result_type == -9){
+						 successMsg("今日不可取现,请改天尝试",function(){
+							 var index = parent.layer.getFrameIndex(window.name);
+						     parent.layer.close(index); //关闭当前弹窗
+						 });
+					 }else if(result_type == -10){
+						 successMsg("今日取现次数已经超出,请改天尝试",function(){
+							 var index = parent.layer.getFrameIndex(window.name);
+						     parent.layer.close(index); //关闭当前弹窗
+						 });
+					 }else if(result_type==1){
+						 successMsg("提现成功,等待审核中",function(){
+							 //互转成功后 立即对主页相关币种进行重新赋值  保证不刷新主页就可以看到最新的数据
+						     var currencyInfo = data.attributes.currencyInfo;//币种类型
+							 parent.parent.$("#dynWallet").text(currencyInfo.dynWallet);
+							 parent.parent.$("#statJDWallet").text(currencyInfo.statJDWallet);
+							 //xxxxxxxxx
+							 var index = parent.layer.getFrameIndex(window.name);
+						     parent.layer.close(index); //关闭当前弹窗
+						 });
+					 }
+				 }
+			 });
+	  });
+});
+//提示玩家进行资料完善
+var bool = '${bool}';
+if(bool==0){
+	successMsg("收款信息不全<br>请在个人中心--个人资料--进行完善",function(){
+		 var index = parent.layer.getFrameIndex(window.name);
+	     parent.layer.close(index); //关闭所有的弹窗
+	 });
+}
+</script>
+</body>
+</html>

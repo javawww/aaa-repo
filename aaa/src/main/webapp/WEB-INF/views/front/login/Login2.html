@@ -1,0 +1,81 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="${base}/">
+<meta charset="UTF-8">
+<title>登录界面</title>
+<link href="favicon.ico" rel="icon" type="image/x-icon" />
+<!--适应移动端-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no, email=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 删除苹果默认的工具栏和菜单栏 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="full-screen" content="yes"/>
+<meta name="x5-fullscreen" content="true"/>
+<!--  landscape是横向，portrait是纵向 -->
+<!-- 设置苹果工具栏颜色 -->
+<meta name="format-detection" content="telphone=no, email=no"/>
+<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+<!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="renderer" content="webkit">
+<!-- 避免IE使用兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true">
+<!-- 微软的老式浏览器 -->
+<meta name="MobileOptimized" content="320">
+<!-- uc强制竖屏 -->
+<meta name="screen-orientation" content="landscape">
+<!-- QQ强制竖屏 -->
+<meta name="x5-orientation" content="landscape">
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes">
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true">
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application">
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app">
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- 适应移动端end -->
+<link href="resources/front/css/reset.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/animate.min.css" rel="stylesheet" type="text/css">
+<link href="resources/front/layui/css/layui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/dui.css" rel="stylesheet" type="text/css">
+<script src="resources/front/js/jquery.min.js" ></script>
+<script src="resources/front/layui/layui.js" ></script>
+<style type="text/css">
+.layui-form-danger+.layui-form-select .layui-input, .layui-form-danger:focus{
+	border: 0px solid #FF5722!important;
+}
+</style>
+</head>
+<body onload="init();" style="background: url('resources/front/images/lg_bg.jpg') ;background-size:100% 100%;">
+<div style="width:100%;height:100%;position:absolute;z-index:19891015;background:rgba(0,0,0,.2);"></div>
+<script src="resources/front/js/pass_aes.js" charset="utf-8"></script> 
+<script src="resources/front/js/page.js"  charset="utf-8"></script>
+<script src="resources/front/js/main.js" charset="utf-8"></script>
+<script type="text/javascript">
+//通过全局配置皮肤定义：
+	function reImg(){
+		$("#img").attr("src","verify.html?random="+(new Date()).getTime());
+	}
+	//Demo
+	layui.use('form', function(){
+	  var form = layui.form();
+	  //监听提交
+	  form.on('submit(formDemo)', function(data){
+		// console.dir(data.field);
+	    //layer.msg(JSON.stringify(data.field));
+	    location.href = "${base}/";
+	    //window.location.reload(true);
+	    return false;
+	  });
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>我要 偷取 列表  显示全网所有可以被偷玩家列表  滚动显示</title>
+<base href="${base}/">
+<!--适应移动端-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no, email=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 删除苹果默认的工具栏和菜单栏 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="full-screen" content="yes"/>
+<meta name="x5-fullscreen" content="true"/>
+<!-- 设置苹果工具栏颜色 -->
+<meta name="format-detection" content="telphone=no, email=no"/>
+<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+<!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="renderer" content="webkit">
+<!-- 避免IE使用兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true">
+<!-- 微软的老式浏览器 -->
+<meta name="MobileOptimized" content="320">
+<!-- uc强制竖屏 -->
+<meta name="screen-orientation" content="landscape">
+<!-- QQ强制竖屏 -->
+<meta name="x5-orientation" content="landscape">
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes">
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true">
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application">
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app">
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- 适应移动端end -->
+<link href="resources/front/css/reset.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/animate.min.css" rel="stylesheet" type="text/css">
+<link href="resources/front/layui/css/layui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/dui.css" rel="stylesheet" type="text/css">
+<script src="resources/front/js/jquery.min.js" ></script>
+<script src="resources/front/layui/layui.js" ></script>
+</head>
+<body class="dui-page-body ggzs-enabled">
+<input value="${gjst.stStatus}" id="stStatus" type="hidden">
+<div class="page-body" id="nobody"></div>
+<marquee behavior="scroll" direction="up" scrollamount="3" onMouseOut="this.start()" onMouseOver="this.stop()">
+	<div class="page-body" id="touqu">
+	</div>
+</marquee>
+<script src="resources/front/js/pass_aes.js" charset="utf-8"></script> 
+<script src="resources/front/js/page.js"  charset="utf-8"></script> 
+<script src="resources/front/js/main.js" charset="utf-8"></script>
+<script type="text/javascript">
+$.ajax({
+ 	type:"POST",
+ 	url:"front/steal/findStealTargets",
+ 	datatype:"json",
+ 	success:function(data){
+ 		console.dir(data);
+ 		if(data.length==0){
+ 			var htmlstrs = "";
+ 			htmlstrs += "没有玩家可被偷取,稍后再来吧~";
+ 			$("#nobody").append(htmlstrs);
+ 		}else{
+	 		for(var k in data){
+	 			var id = data[k].id;
+	 			var htmlstrs = "";
+				htmlstrs += "<a href='javascript:' class='friends-body'  onclick='stealWindow("+data[k].id+")'>";        
+	 			htmlstrs += "<div class='friends-body-head dis-box'>";
+	 			htmlstrs += "<img class='dicon-avatar box-flex' src='http://game.ziyuan800.com/002/images/avatar_m.png'>";
+				htmlstrs += "<div class='friends-body-head-date box-flex'>玩家编号："+data[k].memNum+"</div>";
+				htmlstrs += "<div class='friends-body-head-right'>点击偷取哦</div>";
+				htmlstrs += "<img src='resources/front/images/common-select2.png' class='friends-body-head-select'>";
+				htmlstrs += "</div></a>";
+				$('#touqu').append(htmlstrs);
+	 		}
+ 		}
+ 	}
+});
+function stealWindow(id){
+	if($('#stStatus').val()==0){
+		 successMsg("神童处于饥饿状态,请使用神童日俸供奉神童",function(){
+			 var index = parent.layer.getFrameIndex(window.name);
+		     parent.layer.close(index); //关闭所有的弹窗
+		 }); 
+	}else{
+		parent.layer.open({
+	        type: 2,
+	        title: "玩家庄园",
+	        shadeClose: true,
+	        shade: 0.1,
+	        area: [areaWidth, areaHeight],
+	        content: "front/wytq/woyaotq_wjzy?id="+id, //iframe的url
+	        scrollbar: false
+	    });		
+	}
+}
+</script>
+</body>
+</html>

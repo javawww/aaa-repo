@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shengchuang.dao.PerforDao">  
+
+    <select id="findPerforByMemNum" resultType="com.shengchuang.entity.PerforRepoEntity" parameterType="String">
+		SELECT * from t_perfor_report WHERE 1=1  
+		<if test="memNum !=null and memNum !=''"> and memNum=#{memNum} </if>
+		order by plantTime desc 
+	</select>  
+     
+    <select id="findPerforByMemId" resultType="com.shengchuang.entity.PerforRepoEntity" parameterType="String">
+		SELECT * from t_perfor_report WHERE 1=1  
+		<if test="memId !=null and memId !=''"> and memId=#{memId} </if>
+		order by plantTime desc 
+	</select>  
+	
+    <insert id="addPerfor" > 
+        INSERT INTO `t_perfor_report` (
+        `memNum`, `plantType`, `seedSalar`, `plantTime`, `treeNum`, `memId`) 
+        VALUES (
+        #{memNum}, #{plantType}, #{seedSalar}, #{plantTime}, #{treeNum}, #{memId}
+        )
+    </insert> 
+    
+    <delete id="deleteCommon">
+        delete from t_perfor_report where id=#{id}
+    </delete>  
+     
+    <select id="findAll" resultType="com.shengchuang.entity.PerforRepoEntity">
+		SELECT * from t_perfor_report 
+		order by id desc
+	</select>  
+	
+	<select id="findAllCount" resultType="Integer" parameterType="java.util.Map"> 
+         select count(1) from t_perfor_report where 1=1
+         <if test="memNum !=null and memNum !=''"> and memNum=#{memNum} </if>
+         <if test="treeType !=null and treeType !=''"> and plantType=#{treeType} </if>
+         <if test="startDate !=null and startDate !=''"> and plantTime &gt; #{startDate}</if>
+         <if test="endDate !=null and endDate !=''"> and plantTime &lt; #{endDate}</if>
+    </select>
+	
+	<select id="findFB" resultType="com.shengchuang.entity.PerforRepoEntity" parameterType="java.util.Map">
+		SELECT * from t_perfor_report WHERE 1=1  
+		 <if test="memNum !=null and memNum !=''"> and memNum=#{memNum} </if>
+          <if test="treeType !=null and treeType !=''"> and plantType=#{treeType} </if>
+         <if test="startDate !=null and startDate !=''"> and plantTime &gt; #{startDate}</if>
+         <if test="endDate !=null and endDate !=''"> and plantTime &lt; #{endDate}</if>
+		order by id desc limit ${start},${limit} 
+	</select>
+    
+</mapper>

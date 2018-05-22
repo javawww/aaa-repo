@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shengchuang.dao.EpDao">  
+     
+    <select id="findCommon" resultType="java.util.HashMap" parameterType="java.util.Map">
+		SELECT * from t_ep_sell WHERE 1=1  
+		<if test="types!='' and types!=null "> and types=#{types} </if>
+		<if test="curId!='' and curId!=null "> and id=#{curId} </if>
+		order by id desc limit ${start},${limit} 
+	</select>  
+     
+    <select id="findOtherEpSell" resultType="com.shengchuang.entity.EPSellEntity" parameterType="int">
+		SELECT * from t_ep_sell WHERE memId != #{curId} and esellStatus=0 AND epsellSalar != 0
+		order by prioLevel desc, esellTime asc
+	</select>  
+     
+    <select id="findOtherPriorityEpSell" resultType="com.shengchuang.entity.EPSellEntity" parameterType="int">
+		SELECT * from t_ep_sell WHERE memId != #{curId} and esellStatus=0 and prioLevel != 0 
+		order by prioLevel desc
+	</select>  
+     
+    <select id="findMyPriorityEpSell" resultType="com.shengchuang.entity.EPSellEntity" parameterType="int">
+		SELECT * from t_ep_sell WHERE memId=#{curId} and prioLevel != 0 
+		order by esellStatus asc, prioLevel desc
+	</select>  
+     
+    <select id="findMyEpSell" resultType="com.shengchuang.entity.EPSellEntity" parameterType="int">
+		SELECT * from t_ep_sell WHERE memId = #{curId}
+		order by esellStatus asc, prioLevel desc, esellTime desc
+	</select>  
+     
+    <select id="findMyEpOrder" resultType="com.shengchuang.entity.EPOrderEntity">
+		SELECT * from t_ep_order WHERE memNumBuy = #{curMemNum} 
+		order by eporderTime desc
+	</select>  
+    <select id="findMyEpOrderBymemNumSeller" resultType="com.shengchuang.entity.EPOrderEntity">
+		SELECT * FROM t_ep_order WHERE memNumSeller = #{memNum} ORDER BY eporderTime DESC;
+	</select>  
+     
+    <select id="findWhoBuyMySell" resultType="com.shengchuang.entity.EPOrderEntity">
+		SELECT * from t_ep_order WHERE memNumSeller = #{memNum} and eporderStatus=0 
+		order by eporderTime asc
+	</select>  
+     
+    <select id="findWhoBuyMySellHistory" resultType="com.shengchuang.entity.EPOrderEntity">
+		SELECT * from t_ep_order WHERE memNumSeller = #{memNum} and eporderStatus!=0 
+		order by eporderTime desc
+	</select>  
+     
+   <!--  <select id="findCommonEntity" resultType="com.shengchuang.entity.CommonEntity" parameterType="java.util.Map">
+		SELECT * from t_ep_sell WHERE 1=1  
+		<if test="msgStatus!='' and msgStatus!=null "> and msgStatus=#{msgStatus} </if>
+		order by id desc limit ${start},${limit} 
+	</select>   -->
+     
+    <select id="findEPSellEntityById" resultType="com.shengchuang.entity.EPSellEntity" parameterType="int">
+		SELECT * from t_ep_sell WHERE id = #{id} 
+	</select>  
+     
+    <select id="findEPOrderEntityById" resultType="com.shengchuang.entity.EPOrderEntity" parameterType="int">
+		SELECT * from t_ep_order WHERE id = #{id} 
+	</select>  
+     
+    <insert id="addCommon" > 
+        INSERT INTO `t_ep_sell` (`epsellSalar`, `memNum`, `esellTime`, `esellStatus`, `memId`) 
+        VALUES(#{epsellSalar},#{memNum},#{esellTime},#{esellStatus},#{memId})
+    </insert> 
+     
+    <insert id="addEpSell" > 
+        INSERT INTO `t_ep_sell` (`epsellSalar`, `memNum`, `esellTime`, `esellStatus`, `memId`,`prioLevel`) 
+        VALUES(#{epsellSalar},#{memNum},#{esellTime},#{esellStatus},#{memId},#{prioLevel})
+    </insert> 
+     
+    <insert id="addEpOrder" > 
+        INSERT INTO `t_ep_order` (
+        `eporderSalar`, `memNumBuy`, `eporderTime`, `eporderStatus`, `memNumSeller`, `epsellId`) 
+        VALUES (
+        #{eporderSalar},#{memNumBuy},#{eporderTime},#{eporderStatus},#{memNumSeller},#{epsellId})
+    </insert> 
+    
+    <delete id="deleteCommon">
+        delete from t_ep_sell where id=#{id}
+    </delete>  
+     
+    <update id="updateCommon">
+        UPDATE `t_ep_sell` 
+		<set>
+			<if test="epsellSalar != null">`epsellSalar`= #{epsellSalar},</if>
+			<if test="memNum != null">`memNum`= #{memNum},</if>
+			<if test="esellTime != null">`esellTime`= #{esellTime},</if>
+			<if test="esellStatus != null">`esellStatus`= #{esellStatus},</if>
+			<if test="memId != null">`memId`= #{memId}</if>
+	    </set>
+		WHERE `id`=#{id};
+    </update>
+    <!-- 通过id更新  挂卖记录 -->
+    <update id="updateEPsellByid">
+        UPDATE `t_ep_sell` 
+		<set>
+			<if test="epsellSalar != null and epsellSalar !='' ">`epsellSalar`= #{epsellSalar},</if>
+			<if test="memNum != null and memNum !='' ">`memNum`= #{memNum},</if>
+			<if test="esellTime != null and esellTime !='' ">`esellTime`= #{esellTime},</if>
+			<if test="esellStatus != null and esellStatus !='' ">`esellStatus`= #{esellStatus},</if>
+			<if test="memId != null and memId !='' ">`memId`= #{memId},</if>
+			<if test="prioLevel != null and prioLevel !='' ">`prioLevel`= #{prioLevel}</if>
+	    </set>
+		WHERE `id`=#{id};
+    </update>
+     
+    <update id="updateOrder">
+        UPDATE `t_ep_order` 
+		<set>
+			<if test="eporderSalar != null">`eporderSalar`= #{eporderSalar},</if>
+			<if test="memNumBuy != null">`memNumBuy`= #{memNumBuy},</if>
+			<if test="eporderTime != null">`eporderTime`= #{eporderTime},</if>
+			<if test="eporderStatus != null">`eporderStatus`= #{eporderStatus},</if>
+			<if test="memNumSeller != null">`memNumSeller`= #{memNumSeller},</if>
+			<if test="epsellId != null">`epsellId`= #{epsellId},</if>
+	    </set>
+		WHERE `id`=#{id};
+    </update>
+     
+    <update id="reduceEpSellSalar">
+        UPDATE `t_ep_sell` SET `epsellSalar`=(epsellSalar - #{eporderSalar}) 
+        WHERE `id`=#{id};
+    </update>
+    
+    <select id="findAll" resultType="java.util.HashMap">
+		SELECT * from t_ep_sell 
+	</select>  
+	
+    <select id="findCommonCount" resultType="Integer" parameterType="java.util.Map"> 
+         select count(1) from t_ep_sell where 1=1 
+         <if test="msgStatus!='' and msgStatus!=null"> and msgStatus=#{msgStatus} </if> 
+    </select>
+	
+    <select id="onSellCount" resultType="Integer" parameterType="Integer"> 
+         select count(1) from t_ep_sell where memId=#{memId} and esellStatus=0
+    </select>
+    <!-- 查询  挂卖列表 -->
+    <select id="selectAllSellInfo_page" resultType="com.shengchuang.entity.EPSellEntity" parameterType="java.util.Map">
+    	select * from t_ep_sell where 1=1 
+    	<if test="startDate !='' and startDate !=null "> and esellTime &gt; #{startDate} </if>
+		<if test="endDate !='' and endDate !=null "> and esellTime &lt; #{endDate} </if>
+		<if test="esellStatus !='' and esellStatus !=null "> and esellStatus = #{esellStatus} </if>
+		<if test="memNum !='' and memNum !=null "> and memNum = #{memNum} </if>
+		order by `esellTime` desc limit #{start},#{limit} 
+    </select>
+    <select id="countsByselectAllSellInfo_page" resultType="Integer" parameterType="java.util.Map">
+    	select count(*) from t_ep_sell where 1=1 
+    	<if test="startDate !='' and startDate !=null "> and esellTime &gt; #{startDate} </if>
+		<if test="endDate !='' and endDate !=null "> and esellTime &lt; #{endDate} </if>
+		<if test="esellStatus !='' and esellStatus !=null "> and esellStatus = #{esellStatus} </if>
+		<if test="memNum !='' and memNum !=null "> and memNum = #{memNum} </if>
+    </select>
+    <!-- 查询  订单列表   订单状态为0交易中 2交易完成 3交易失败-->
+    <select id="selectAllOrderByStatus_page" resultType="com.shengchuang.entity.EPOrderEntity" parameterType="java.util.Map">
+    	select * from t_ep_order where 1=1
+    	<if test="startDate !='' and startDate !=null "> and eporderTime &gt; #{startDate} </if>
+		<if test="endDate !='' and endDate !=null "> and eporderTime &lt; #{endDate} </if>
+		<if test="eporderStatus !='' and eporderStatus !=null "> and eporderStatus = #{eporderStatus} </if>
+		<if test="memNum !='' and memNum !=null "> and memNum = #{memNum} </if>
+    	order by `eporderTime` desc limit #{start},#{limit} 
+    </select>
+    <select id="countsBySelectAllOrderByStatus_page" resultType="Integer" parameterType="java.util.Map">
+    	select count(*) from t_ep_order where 1=1
+    	<if test="startDate !='' and startDate !=null "> and eporderTime &gt; #{startDate} </if>
+		<if test="endDate !='' and endDate !=null "> and eporderTime &lt; #{endDate} </if>
+		<if test="eporderStatus !='' and eporderStatus !=null "> and eporderStatus = #{eporderStatus} </if>
+		<if test="memNum !='' and memNum !=null "> and memNum = #{memNum} </if>
+    </select>
+    <!-- 查询优先级最大的值  注意交易状态0-->
+    <select id="findMaxPrioAndStatus" resultType="Integer">
+    	SELECT MAX(prioLevel) FROM t_ep_sell WHERE esellStatus = '0';
+    </select>
+    <!--  看看当前购买人 有没有未完成的订单-->
+    <select id="findCountsByBuyMemNum" resultType="Integer" parameterType="String">
+    	SELECT COUNT(*) FROM t_ep_order WHERE memNumBuy = #{curMemNum} AND eporderStatus = '0';
+    </select>
+</mapper>

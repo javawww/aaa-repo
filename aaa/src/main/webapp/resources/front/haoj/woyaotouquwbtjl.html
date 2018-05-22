@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>我的农场</title>
+<base href="/">
+<!--适应移动端-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no, email=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 删除苹果默认的工具栏和菜单栏 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="full-screen" content="yes"/>
+<meta name="x5-fullscreen" content="true"/>
+<!-- 设置苹果工具栏颜色 -->
+<meta name="format-detection" content="telphone=no, email=no"/>
+<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+<!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="renderer" content="webkit">
+<!-- 避免IE使用兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true">
+<!-- 微软的老式浏览器 -->
+<meta name="MobileOptimized" content="320">
+<!-- uc强制竖屏 -->
+<meta name="screen-orientation" content="landscape">
+<!-- QQ强制竖屏 -->
+<meta name="x5-orientation" content="landscape">
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes">
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true">
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application">
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app">
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- 适应移动端end -->
+<link href="resources/front/css/reset.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/animate.min.css" rel="stylesheet" type="text/css">
+<link href="resources/front/layui/css/layui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/dui.css" rel="stylesheet" type="text/css">
+<script src="resources/front/js/jquery.min.js" ></script>
+<script src="resources/front/layui/layui.js" ></script>
+<script>
+    title = '被偷记录';
+</script>
+<style type="text/css">
+#wrapper {
+	-webkit-overflow-scrolling: touch;
+	overflow: auto;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+}
+</style>
+<style type="text/css">
+#di1 {
+	top: 5%;
+	left: 31%;
+}
+#di2 {
+	top: 16%;
+	left: 42%;
+}
+#di3 {
+	top: 27%;
+	left: 53%;
+}
+#di4 {
+	top: 38%;
+	left: 64%;
+}
+#di5 {
+	top: 49%;
+	left: 75%;
+}
+#di6 {
+	top: 16%;
+	left: 20%;
+}
+#di7 {
+	top: 27%;
+	left: 31%;
+}
+#di8 {
+	top: 38%;
+	left: 42%;
+}
+#di9 {
+	top: 49%;
+	left: 53%;
+}
+#di10 {
+	top: 60%;
+	left: 64%;
+}
+#di11 {
+	top: 27%;
+	left: 9%;
+}
+#di12 {
+	top: 38%;
+	left: 20%;
+}
+#di13 {
+	top: 49%;
+	left: 31%;
+}
+#di14 {
+	top: 60%;
+	left: 42%;
+}
+#di15 {
+	top: 71%;
+	left: 53%;
+}
+#IDGame .layui-layer-dialog.layer-dui .layui-layer-content {
+	font-size: 14px;
+	line-height: 24px;
+}
+</style>
+<script>
+        var index = true;
+    </script>
+</head>
+<body class="dui-page-body ggzs-enabled">
+
+<div class="page-body">
+    <table class="dui-table">
+        <thead>
+        <tr>
+            <td>会员编号</td>
+            <td>时间</td>
+            <td>被偷金额</td>
+        </tr>
+        </thead>
+        <tbody >
+        		
+                 <tr id="newsmassge" class="newsmassges" style="display:none;">
+                    <td>[老王]</td>
+                    <td>13580758300</td>
+                    <td>2017-05-12 12:07:14</td>
+                    <td>
+                        <button  data-uid="" data-read="0" data-info="" class="btn-sm btn-sm-blue goneirong" type="button">交易完成</button>
+                    </td>
+                    <td>
+                        <button  data-uid="" data-read="0" data-info="" class="btn-sm btn-sm-blue goneirong" type="button">等待确认</button>
+                    </td>
+                </tr>
+                                                                   
+                  </tbody>
+    </table>
+
+    <!--totalPage now_page-->
+    <div class="digg4">
+                    <span class="disabled"><b>«</b></span>
+            <span class="disabled">‹</span>
+                                            <span class="current">1</span>
+                                        <span class="disabled">›</span>
+            <span class="disabled"><b>»</b></span>
+        
+    </div>
+    
+     <script type="text/javascript"> 
+     
+     $.ajax({   	 
+    	 type: "get",
+        url: "resources/front/datas/msgrec3.json",
+         dataType:"json",
+         success: function(data){
+        	 for(var k in data){
+        		 $('#newsmassge').after("<tr id="+data[k].id+"><td>"+data[k].addressor+"</td><td>"+data[k].recipients+"</td><td>"+data[k].createTime+"</td><tr/>");
+				console.log(data[k].id);
+				
+				
+				
+        	 }
+        	// alert(data); 
+        	
+         },
+         error:function(data){
+        	 console.dir("error");
+         },
+         complete:function(data){
+        	 
+        	
+        	 for(var i in data){
+        		 
+        	//	 console.log(data[i]);
+        		 
+            	// console.log(data);
+            	       		        		 
+        	 }
+        	        	       	 
+        	// console.dir(data);
+         }
+     })
+     
+     //function msgdetail(v){
+	//	msgdetailIndex = parent.layer.open({
+	  //      type: 2,
+	   //     title: "邮件详情",
+	    //    shadeClose: true,
+	     //   shade: 0.1,
+	      //  area: ['18rem', '16rem'],
+	       // content: "Msg/MsgDetail", //iframe的url
+	        //scrollbar: false
+	    //});
+	//}
+</script>
+                 	
+    <script type="text/javascript">
+        $('.digg4 a').on('click',function () {
+            var page = parseInt($(this).data('page'));
+            location.href = 'Msglist-1.html'/*tpa=http://game.ziyuan800.com/002/Msglist.html*/;
+        });
+    </script>
+</div>
+
+<script src="resources/front/js/pass_aes.js" charset="utf-8"></script> 
+<script src="resources/front/js/page.js"  charset="utf-8"></script> 
+<script src="resources/front/js/main.js" charset="utf-8"></script>
+</body>
+</html>

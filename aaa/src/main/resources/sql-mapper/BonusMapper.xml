@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shengchuang.dao.BonusDao">  
+     
+    <select id="findBonusRepoByMemNum" resultType="com.shengchuang.entity.BonusRepoEntity">
+		SELECT * from t_bonus_report WHERE memNum=#{memNum} AND optType = #{optType}
+		order by createDate desc
+	</select>  
+     
+    <select id="findBonusInfById" resultType="com.shengchuang.entity.BonusInfEntity" parameterType="Integer">
+		SELECT * from t_bonus_inf WHERE 1=1  
+		<if test="id !='' and id !=null "> and bonusRepoId=#{id} </if>
+		order by bonusTime desc
+	</select>  
+     
+    <select id="findBonusInfByMemId" resultType="com.shengchuang.entity.BonusInfEntity">
+		SELECT * from t_bonus_inf WHERE (receMemId=#{id} or fhMemId=#{id}) AND bonusRepoId = #{bonusRepoId}
+		order by bonusTime desc
+	</select>  
+     
+    <select id="findAllBonusRepo" resultType="com.shengchuang.entity.BonusRepoEntity" parameterType="map">
+		SELECT * from t_bonus_report WHERE 1=1  
+		<if test="memNum !='' and memNum !=null "> and memNum=#{memNum} </if>
+		<if test="startDate !='' and startDate !=null "> and createTime &gt; #{startDate} </if>
+		<if test="endDate !='' and endDate !=null "> and createTime &lt; #{endDate} </if>
+		order by id desc limit ${start},${limit} 
+	</select>  
+	<!-- 新的查询返回Info集合add by tzm -->
+    <select id="findAllBonusRepoInf_page" resultType="com.shengchuang.entity.BonusInfEntity" parameterType="map">
+		SELECT * from t_bonus_inf WHERE 1=1  
+		<if test="memNum !='' and memNum !=null "> and fhMemNum=#{memNum}</if>
+		<if test="bonusType !='' and bonusType !=null "> and bonusType=#{bonusType}</if>
+		<if test="startDate !='' and startDate !=null "> and bonusTime &gt; #{startDate}</if>
+		<if test="endDate !='' and endDate !=null "> and bonusTime &lt; #{endDate}</if>
+		order by bonusTime desc limit ${start},${limit} 
+	</select>  
+     
+    <select id="findAllBonusInfByRepoId" resultType="com.shengchuang.entity.BonusInfEntity" parameterType="map">
+		SELECT * from t_bonus_inf WHERE 1=1  
+		<if test="repoId !='' and repoId !=null "> and bonusRepoId=#{repoId} </if>
+		order by id desc 
+	</select>  
+     
+    <select id="findAllBonusRepoCount" resultType="int" parameterType="map">
+		SELECT count(*) from t_bonus_report WHERE 1=1  
+		<if test="memNum !='' and memNum !=null "> and memNum=#{memNum} </if>
+		<if test="startDate !='' and startDate !=null "> and createTime &gt; #{startDate} </if>
+		<if test="endDate !='' and endDate !=null "> and createTime &lt; #{endDate} </if>
+	</select>  
+	<!-- 新增 返回集合个数  add by  tzm -->
+    <select id="findCountsAllBonusRepoInf_page" resultType="int" parameterType="map">
+		SELECT count(*) from t_bonus_inf WHERE 1=1  
+		<if test="memNum !='' and memNum !=null "> and fhMemNum=#{memNum}</if>
+		<if test="bonusType !='' and bonusType !=null "> and bonusType=#{bonusType}</if>
+		<if test="startDate !='' and startDate !=null "> and bonusTime &gt; #{startDate}</if>
+		<if test="endDate !='' and endDate !=null "> and bonusTime &lt; #{endDate}</if>
+	</select>  
+     
+    <select id="findAllBonusInfCountByRepoId" resultType="int" parameterType="Integer">
+		SELECT count(*) from t_bonus_inf WHERE bonusRepoId=#{repoId}
+	</select>  
+	
+    <delete id="deleteCommon">
+        delete from t_bonus_report where id=#{id}
+    </delete> 
+    
+    <insert id="add">
+    	INSERT INTO `t_bonus_inf` (`bonusDesc`, `bonusStatus`, `bonusType`, 
+    	`bonusSalar`, `bonusTime`, `sendMemId`, `sendMemNum`, `receMemId`, `receMemNum`, 
+    	`fhMemId`, `fhMemNum`, `bonusRepoId`) 
+    	VALUES (#{bonusDesc}, #{bonusStatus}, #{bonusType}, 
+    	#{bonusSalar}, #{bonusTime}, #{sendMemId}, #{sendMemNum}, #{receMemId}, #{receMemNum}, 
+    	#{fhMemId}, #{fhMemNum}, #{bonusRepoId})
+    </insert>
+    
+</mapper>

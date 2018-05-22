@@ -1,0 +1,1453 @@
+@charset "utf-8";
+/*
+ * =========================================================================
+ * 游戏风格界面 - DUI UI    Driver
+ * Verson 2017.03.21
+ * =========================================================================
+ */
+/*初始化类*/
+html,body{ height:100%; }
+body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    cursor: default;
+    color: #3a230a;
+    background-color: #000;
+    font-family: "PingFangSC-Thin", "Lantinghei SC", "Open Sans", Arial, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "STHeiti", "WenQuanYi Micro Hei", SimSun, sans-serif;
+    display: flex;
+    flex-direction: column;
+    /*点击无高亮*/
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+html{font-size:10px}
+@media screen and (min-width:321px) and (max-width:375px){html{font-size:11px}}
+@media screen and (min-width:376px) and (max-width:414px){html{font-size:12px}}
+@media screen and (min-width:415px) and (max-width:639px){html{font-size:15px}}
+@media screen and (min-width:640px) and (max-width:719px){html{font-size:20px}}
+@media screen and (min-width:720px) and (max-width:749px){html{font-size:22.5px}}
+@media screen and (min-width:750px) and (max-width:799px){html{font-size:23.5px}}
+@media screen and (min-width:800px) and (max-width:849px){html{font-size:25px}}
+@media screen and (min-width:850px) and (max-width:899px){html{font-size:27px}}
+@media screen and (min-width:900px) and (max-width:949px){html{font-size:30px}}
+@media screen and (min-width:950px) and (max-width:999px){html{font-size:32px}}
+@media screen and (min-width:1000px) and (max-width:1049px){html{font-size:32px}}
+@media screen and (min-width:1050px) and (max-width:1099px){html{font-size:34px}}
+@media screen and (min-width:1100px) and (max-width:1149px){html{font-size:36px}}
+@media screen and (min-width:1150px){html{font-size:38px}}
+#GameContainer {
+    position: absolute;
+    margin: 0;
+    overflow: hidden;
+    left: 0px;
+    top: 0px;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    padding: 0px;
+}
+#GameBg{
+    position: absolute;
+    z-index: 10;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    opacity: 0;
+}
+#GameCanvas{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 100;
+    background: #6aa313 url("../images/bg.jpg")/*tpa=http://game.ziyuan800.com/002/images/bg.jpg*/ center no-repeat;
+    background-size: 100% 100%;
+    max-width: 100%;
+    max-height: 100%;
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+}
+#GameBox{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.dis-box {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-box;
+    display: box;
+}
+.box-flex {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -ms-box-flex: 1;
+    box-flex: 1;
+    display: block;
+    width: 100%;
+}
+.fl {float: left;  }
+.fr {float: right;  }
+.clr{ clear: both}
+a{text-decoration:none; color: #3a230a}
+a:hover{text-decoration:none; }
+
+.m-top02 {margin-top: .2rem !important;  }
+.m-top04 {margin-top: .4rem !important;  }
+.m-top06 {margin-top: .6rem !important;  }
+.m-top08 {margin-top: .8rem !important;  }
+.m-top10 {margin-top: 1rem !important;  }
+.m-top12 {margin-top: 1.3rem !important;  }
+.m-top1px {margin-top: 1px !important;  }
+.margin-lr {margin: 0 1.3rem !important;  }
+.mt-22 {margin-top: 2.2rem !important;  }
+.text-c{ text-align: center !important;}
+.text-l{ text-align: left !important;}
+.text-auto{margin: 0 auto}
+.f-7{font-size:.7rem}
+.f-8{font-size:.8rem}
+.f-9{font-size:.9rem}
+.f-00{font-size:1rem}
+.f-01{font-size:1.1rem}
+.f-02{font-size:1.2rem}
+.f-03{font-size:1.3rem}
+.f-04{font-size:1.5rem}
+.f-06{font-size:1.6rem}
+.f-05{font-size:1.5rem}
+.f-07{font-size:1.7rem}
+.f-08{font-size:1.8rem}
+.f-2{font-size:2rem}
+.o-h{overflow:hidden;width:100%;}
+.p-a{position:absolute;}
+.p-r{position:relative;}
+.p-t{padding-bottom:0.5rem}
+
+/*地皮样式*/
+.dui-Land {
+    width: 79%;
+    height: 71%;
+    position: absolute;
+    top: 28%;
+    left: 10%;
+ /*    background: url("../images/Land-bg.png") center no-repeat;
+     background-size: 100% 100%;*/
+     margin: 0;
+     z-index: 30;
+ }
+.dui-Land-bg {
+    width: 78%;
+    height: 69%;
+    position: absolute;
+    top: 30%;
+    left: 14%;
+    background: url("../images/Land-bg.png") center no-repeat;
+    background-size: 100% 100%;
+    margin: 0;
+    z-index: 1;
+}
+.dui-Land ul{
+    position: relative;
+    width: 100%;
+    height: 101%;
+}
+.dui-Land .dui-di{
+    width: 23%;
+    height: 23%;
+    float: left;
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    /*cursor: pointer;*/
+}
+.dui-Land .dui-di:after{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    content: '';
+    background: url("../images/land-0.png")/*tpa=http://game.ziyuan800.com/002/images/land-0.png*/ center no-repeat;
+    _background: url("../images/land-0.png")/*tpa=http://game.ziyuan800.com/002/images/land-0.png*/ center no-repeat;
+    background-size: 100% 100%;
+    display: none;
+}
+.dui-Land .dui-di:hover:after{
+    display: block;
+
+}
+.dui-Land .dui-di-1{
+    background: url("../images/land-1.png")/*tpa=http://game.ziyuan800.com/002/images/land-1.png*/ center no-repeat;
+    _background: url("../images/land-1.png")/*tpa=http://game.ziyuan800.com/002/images/land-1.png*/ center no-repeat;
+    background-size: 100% 100%;
+}
+.dui-Land .dui-di-2{
+    background: url("../images/land-2.png")/*tpa=http://game.ziyuan800.com/002/images/land-2.png*/ center no-repeat;
+    _background: url("../images/land-2.png")/*tpa=http://game.ziyuan800.com/002/images/land-2.png*/ center no-repeat;
+    background-size: 100% 100%;
+}
+.dui-Land .dui-di-3{ 
+    background: url("../images/land-3.png")/*tpa=http://game.ziyuan800.com/002/images/land-3.png*/ center no-repeat;
+    _background: url("../images/land-3.png")/*tpa=http://game.ziyuan800.com/002/images/land-3.png*/ center no-repeat;
+    background-size: 100% 100%;
+}
+
+.dui-Land .dui-di .dui-plant {
+    position: absolute;
+    left: 30px;
+    top: -70%;
+    width: 65%;
+    z-index: 100;
+}
+
+@media screen and (min-width:300px) and (max-width:640px){
+	.dui-Land .dui-di .dui-plant {
+    position: absolute;
+    left: 8px;
+    top: -66%;
+    width: 65%;
+    z-index: 100;
+	}
+}
+@media screen and (min-width:640px) and (max-width:980px){
+	.dui-Land .dui-di .dui-plant {
+    position: absolute;
+    left: 25px;
+    top: -41%;
+    width: 65%;
+    z-index: 100;
+	}
+}
+
+@media screen and (min-width:640px) and (max-width:770px){
+	.dui-Land .dui-di .dui-plant {
+	    position: absolute;
+	    left: 25px;
+	    top: -41%;
+	    width: 65%;
+	    z-index: 100;
+	}
+	.chengzhang{
+		position:absolute;
+		z-index: 999;
+	    top: -71%;
+	    left:12%;
+	    font-size:18px;
+	    line-height:14px;
+	    display:none;
+	    color:#000;
+	}
+}
+.chengzhang{
+	position:absolute;
+	z-index: 999;
+    top: -71%;
+    left:21%;
+    font-size:18px;
+    line-height:14px;
+    display:none;
+    color:#000;
+}
+@media screen and (min-width:770px) and (max-width:980px){
+	.dui-Land .dui-di .dui-plant {
+    position: absolute;
+    left: 35px;
+    top: -70%;
+    width: 65%;
+    z-index: 100;
+	}
+.chengzhang{
+	position:absolute;
+	z-index: 999;
+    top: -71%;
+    left:20%;
+    font-size:18px;
+    line-height:14px;
+    display:none;
+    color:#000;
+	}	
+}
+#tree li:hover .chengzhang{
+	display:block;
+}
+.dui-Land .dui-di .dui-reward {
+    position: absolute;
+    left: 30%;
+    top: -130%;
+    width: 35%;
+    z-index: 110;
+    -webkit-animation:box .8s infinite ;
+    animation:box .8s infinite ;
+    cursor: pointer;
+}
+.dui-Land .dui-di .dui-increase{
+    position: relative;
+    top: -100%;
+    width: 100%;
+    z-index: 120;
+    display: none;
+
+}
+.dui-Land .dui-di .dui-increase.animated{
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
+}
+.dui-Land .dui-di .dui-increase img{
+    width: 26%;
+    position: absolute;
+    top: 0;
+}
+.dui-Land .dui-di .dui-increase p{
+    color: #e5570f;
+    font-size: 0.8rem;
+    position: absolute;
+    left: 28%;
+    margin-top: 4%;
+    font-weight: bold;
+    text-shadow: 0px 1px 0px #fff;
+    -webkit-text-shadow: 0px 1px 0px #fff;
+    text-stroke: 1px #fff;
+    -webkit-text-stroke: 1px #fff;
+}
+/*@media (min-width: 992px) {.dui-Land .dui-di .dui-increase p{font-size: 1.5rem;} }*/
+@-webkit-keyframes box{
+    0%{top: -130%;}
+    25%{top: -135%;}
+    50%{top: -140%;}
+    75%{top: -135%;}
+    100%{top: -130%;}
+}
+ @keyframes box{
+    0%{top: -130%;}
+    25%{top: -135%;}
+    50%{top: -140%;}
+    75%{top: -135%;}
+    100%{top: -130%;}
+}
+
+.dui-Land .dui-di .diinfo {
+    position: absolute;
+    width: 80%;
+    overflow: hidden;
+    z-index: 110;
+    text-align: center;
+    margin: 0 auto;
+    top: -50%;
+    left: 10%;
+    line-height: 110%;
+    background-size: 100% 100%;
+    font-size: 0.6rem;
+    color: #fff;
+    -webkit-text-shadow: 0px 1px 3px #3a230a;
+    text-shadow: 0px 1px 3px #3a230a;
+    opacity: 0;
+    display: none;
+    z-index:9999;
+}
+.progress {
+    background-color: #fcfcfc;
+    border-radius: .2rem;
+    width: 90%;
+    height: .4rem;
+    margin: 3% auto;
+    -webkit-box-shadow: 0px 1px 3px #3a230a;
+    box-shadow: 0px 1px 3px #3a230a;
+
+}
+.progress-bar {
+    background-color: #ffcf16;
+    height: .4rem;
+    border-radius: .2rem;
+    margin-bottom: 0;
+    float: left;
+    color: #fff;
+    text-align: center;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    -webkit-transition: width .6s ease;
+    -o-transition: width .6s ease;
+    transition: width .6s ease;
+}
+/*装饰*/
+.dui-beautify {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+
+}
+.dui-beautify .dui-duck{
+    position: absolute;
+    left: 50%;
+    top: 18%;
+    width: 6%;
+}
+.dui-beautify .dui-scarecrow{
+    position: absolute;
+    left: 78%;
+    top: 36%;
+    width: 10%;
+}
+.dui-beautify .dui-wealth{
+    position: absolute;
+    left: 67%;
+    top: 38%;
+    width: 9%;
+}
+.dui-beautify .dui-dongyu{	
+   position:absolute;
+   left:4px;
+   top:80%;
+ animation: dongyu 3s infinite; 
+}
+@-webkit-keyframes dongyu{
+    0%{top: 80%;}
+    25%{top: 81%;}
+    50%{top: 82%;}
+    75%{top: 81%;}
+    100%{top: 80%;}
+}
+.dui-beautify .dui-yunduo{	
+   position:absolute;
+   left:18%;
+   width:40%;
+}
+.dui-beautify .dui-lupai{	
+   position:absolute;
+   left:34%;
+   top:22%;
+}
+.dui-beautify  .dui-shui1{
+	 position:absolute;
+	 top:46%;
+	 animation: shui1 3s infinite; 
+}
+.dui-beautify .dui-shui2{
+	 position:absolute;
+	 top:48%;
+	 left:20px;
+	 animation: shui2 3s infinite; 
+}
+.dui-beautify  .dui-shui3{
+	 position:absolute;
+	 top:48%;
+	 left:15;
+	 animation: shui3 3s infinite; 
+}
+.dui-beautify .dui-shui4{
+	 position:absolute;
+	 top:80%;
+	 left:40px;
+	 animation: shui4 3s infinite; 
+}
+@-webkit-keyframes shui4{
+    0%{top: 50%;opacity:0;}
+    25%{top: 51%;left:20px;opacity:0.4;}
+    50%{top: 52%;left:28px;opacity:0.8;}
+    75%{top: 53%;left:32px;opacity:0.4;}
+    100%{top: 48%;left:31px;opacity:0.2;}
+}
+@-webkit-keyframes shui3{
+    0%{top: 50%;}
+    25%{top: 52%;left:20px;opacity:0.8;}
+    50%{top: 54%;left:18px;opacity:0.6;}
+    75%{top: 56%;left:15px;opacity:0.4;}
+    100%{top: 58%;left:25px;opacity:0.2;}
+}
+@-webkit-keyframes shui2{
+    0%{top: 48%;}
+    25%{top: 50%;left:0px;opacity:0.8;}
+    50%{top: 52%;left:4px;opacity:0.6;}
+    75%{top: 54%;left:8px;opacity:0.4;}
+    100%{top: 56%;left:0px;opacity:0.2;}
+}
+@-webkit-keyframes shui1{
+    0%{top: 46%;}
+    25%{top: 47%;left:12px;opacity:0.8;}
+    50%{top: 48%;left:8px;opacity:0.6;}
+    75%{top: 49%;left:3px;opacity:0.4;}
+    100%{top: 50%;left:4px;opacity:0.2;}
+}
+.dui-beautify .shuis{
+	display:block;
+}
+.dui-beautify .dui-liushui{
+	position:absolute;
+	left:0;top:8%;
+}
+@-webkit-keyframes guanjiacj{
+     0%{left:15%;top:65%;}
+    10%{left:15%;top:66%;}
+    20%{left:15%;top:67%;}
+    30%{left:15%;top:68%;}
+    40%{left:15%;top:69%;}   
+    50%{left:15%;top:70%;}
+    60%{left:15%;top:69%;}
+    70%{left:15%;top:68%;}
+    80%{left:15%;top:67%;}
+  	90%{left:15%;top:66%;}
+    100%{left:15%;top:65%;}
+}
+
+ @-webkit-keyframes shengtongssa{
+    0%{left:62%;top:14%;transform:rotateY(0deg);opacity:1;}
+    5%{left:61%;top:14%;transform:rotateY(0deg);opacity:1;}
+    10%{left:60%;top:14%;transform:rotateY(0deg);opacity:1;}
+    15%{left:59%;top:14%;transform:rotateY(0deg);opacity:1;}
+    20%{left:58%;top:14%;transform:rotateY(0deg);opacity:1;}
+    25%{left:57%;top:14%;transform:rotateY(0deg);opacity:1;}
+    30%{left:56%;top:14%;transform:rotateY(0deg);opacity:1;}
+    35%{left:55%;top:14%;transform:rotateY(0deg);opacity:1;}
+    40%{left:54%;top:14%;transform:rotateY(0deg);opacity:1;}
+    45%{left:53%;top:14%;transform:rotateY(0deg);opacity:0.8;}    
+    50%{left:52%;top:14%;transform:rotateY(180deg);opacity:0;}
+    55%{left:53%;top:14%;transform:rotateY(180deg);opacity:0.8;}
+    60%{left:54%;top:14%;transform:rotateY(180deg);opacity:1;}
+    65%{left:55%;top:14%;transform:rotateY(180deg);opacity:1;}
+    70%{left:56%;top:14%;transform:rotateY(180deg);opacity:1;}
+    75%{left:57%;top:14%;transform:rotateY(180deg);opacity:1;}
+    80%{left:58%;top:14%;transform:rotateY(180deg);opacity:1;}
+    85%{left:59%;top:14%;transform:rotateY(180deg);opacity:1;}
+  	90%{left:60%;top:14%;transform:rotateY(180deg);opacity:1;}
+    95%{left:61%;top:14%;transform:rotateY(180deg);opacity:1;}    
+    100%{left:62%;top:14%;transform:rotateY(180deg);opacity:1;}
+} 
+.dui-beautify .dui-fudie{
+	position:absolute;
+	bottom:10%;
+	right:9%;
+}
+
+.dui-beautify .dui-fudiedaoying{
+	position:absolute;
+	bottom:5%;
+	right:9%;
+}
+.dui-FDog5{
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
+/*个人信息*/
+.dui-info{
+    position: absolute;
+    z-index: 20;
+    width: 84%;
+    top: 0;
+    height: 22%;
+   /* background-color: rgba(0,0,0,0.2);*/
+    overflow: hidden;
+}
+.dui-info .dui-avatar{
+    position: absolute;
+    z-index: 10;
+    width: 34%;
+    height: 100%;
+    background: url("../images/info-bg.png")/*tpa=http://game.ziyuan800.com/002/images/info-bg.png*/ center no-repeat;
+    background-size: 100% 100%;
+    margin-top: 0.2%;
+}
+.dui-info .dui-avatar .fl{
+    width: 40%;
+    height: 100%;
+    position: relative;
+}
+.dui-info .dui-avatar .fr{
+    width: 60%;
+    height: 100%;
+    position: relative;
+}
+.dicon-avatar{
+    position: absolute;
+    border: 1px solid #6f3b0f;
+    border-radius: 10%;
+    width: 74%;
+    z-index: 10;
+    left: 12%;
+    margin-top: 16%;
+}
+.dicon-grass{
+    position: absolute;
+    width: 30%;
+    z-index: 30;
+    left: 0;
+}
+.dui-grade{
+    text-align: center;
+    position: absolute;
+    z-index: 20;
+    background: url("../images/grade.png")/*tpa=http://game.ziyuan800.com/002/images/grade.png*/ center no-repeat;
+    background-size: 100% 100%;
+    width: 74%;
+    height: 20%;
+    left: 12%;
+    bottom: 5%;
+    line-height: 190%;
+    font-size: 0.4rem;
+    color: #fff;
+    -webkit-text-shadow: 1px 1px 0px #e5560f;
+    text-shadow: 1px 1px 0px #e5560f;
+}
+/*@media (min-width: 1200px) { .dui-grade{font-size: 1rem;} }*/
+.dui-info .dui-name{
+    font-size: 0.6rem;
+    line-height: 180%;
+    color: #fff;
+    text-shadow: 1px 1px 0px #3a230a;
+    -webkit-text-shadow: 1px 1px 0px #3a230a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 6%;
+    margin-left: 2%;
+
+}
+.dui-info .info-input{
+    background: url("../images/info-input.png")/*tpa=http://game.ziyuan800.com/002/images/info-input.png*/ center no-repeat;
+    background-size: 100% 100%;
+    font-size: 0.5rem;
+    height: 16%;
+    border: none;
+    width: 70%;
+    padding: 5% 6%;
+    color: #ffdf1c;
+    text-shadow: 1px 1px 0px #3a230a;
+    -webkit-text-shadow: 1px 1px 0px #3a230a;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/*@media (min-width: 992px) {.dui-info .dui-name{font-size: 1.5rem;line-height: 160%}.dui-info .info-input{font-size: 1.2rem;} }
+@media (min-width: 1200px) {.dui-info .dui-name{font-size: 1.6rem; margin-top: 6%; }.dui-info .info-input{font-size: 1.4rem;} }*/
+
+.dui-info .dui-summary{
+    position: absolute;
+    z-index: 10;
+    width: 64%;
+    height: 100%;
+    left: 36%;
+    margin-top: 1%;
+
+}
+.dui-info .dui-summary ul li{
+    width: 32%;
+    float: left;
+    position: relative;
+    margin-bottom: 1%;
+    margin-left: 1.333%;
+}
+.dui-info .dui-summary ul li img{
+    position: absolute;
+    width: 26%;
+    z-index: 20;
+}
+.summary-input{
+    font-size: 0.5rem;
+    height: 16%;
+    width: 70%;
+    text-align: center;
+    padding: 5%;
+    margin-left: 15%;
+    color: #fff;
+    text-shadow: 1px 1px 0px #3a230a;
+    -webkit-text-shadow: 1px 1px 0px #3a230a;
+    border: 1px solid #6f3b0f;
+    border-radius: .4rem;
+    background: #a67235;
+    background: -webkit-linear-gradient(#87511c, #a67235);
+    background: -o-linear-gradient(#87511c, #a67235);
+    background: -moz-linear-gradient(#87511c, #a67235);
+    background: linear-gradient(#87511c, #a67235);
+    z-index: 10;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/*
+@media (min-width: 992px) { .summary-input{font-size: 1rem;border-width: 2px;}.dui-info .dui-summary ul li{margin-bottom: 1.4%}.dui-info .dui-summary ul li img{ top: -8%}}
+@media (min-width: 1200px) {.dui-info .dui-summary ul li{margin-bottom: 2%}.dui-info .dui-summary ul li img{ top: -16%} }
+*/
+
+/*右边操作*/
+.dui-btn-fr{
+    position: absolute;
+    z-index: 40;
+    width: 9%;
+    top: 1%;
+    bottom: 1%;
+    right: 1.4%;
+    height: 98%;
+    /*background-color: rgba(0,0,0,0.2);*/
+
+}
+.dui-btn-fr ul{
+    height: 100%;
+}
+.dui-btn-fr ul li{
+    width: 100%;
+    height: 20%;
+    position: relative;
+}
+
+.dui-btn-fr ul li img{
+    width: auto;
+    height: auto;
+    max-width: 80%;
+    max-height: 100%;
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+
+}
+
+/*底部操作*/
+.dui-btn-bottom{
+    position: absolute;
+    z-index: 40;
+    width: 78%;
+    bottom: 0;
+   /* background-color: rgba(0,0,0,0.2);*/
+    overflow: hidden;
+    left: 50%;
+    margin-left: -39%;
+    height: 20%;
+}
+.dui-btn-bottom ul{
+    width: 100%;
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+
+}
+.dui-btn-bottom ul li{
+    height: 100%;
+    width: 11%;
+    position: relative;
+    float: left;
+    margin: 0 1.5%;
+
+
+}
+.dui-btn-bottom ul li img{
+    width: auto;
+    height: auto;
+    max-width: 80%;
+    max-height: 100%;
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+/*左边边操作*/
+.dui-btn-fl{
+    position: absolute;
+    z-index: 40;
+    width: 9%;
+    top: 22%;
+    bottom: 1%;
+    left: 1.4%;
+    height: 98%;
+    /*background-color: rgba(0,0,0,0.2);
+    overflow: hidden;*/
+}
+.dui-btn-fl ul{
+    height: 100%;
+}
+.dui-btn-fl ul li{
+    width: 100%;
+    height: 20%;
+    position: relative;
+}
+.dui-btn-fl ul li img{
+    width: auto;
+    height: auto;
+    max-width: 80%;
+    max-height: 100%;
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+/*放大*/
+.dui-btn-fr img,.dui-btn-fl img,.dui-btn-bottom img{
+    transition:All 0.3s ease-in-out;
+    -webkit-transition:All 0.3s ease-in-out;
+    -moz-transition:All 0.3s ease-in-out;
+    -o-transition:All 0.3s ease-in-out;
+}
+.dui-btn-fr img:hover,.dui-btn-fl img:hover,.dui-btn-bottom img:hover{
+    max-width: 90%;
+    width: 90%
+}
+/*内页*/
+.dui-page-body{
+    background: none;
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s;
+    overflow:scroll;
+    overflow-x: hidden;
+}
+.dui-page-body::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    background-color: #cba164;
+}
+
+.dui-page-body::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #efd799;
+}
+
+.dui-page-body::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px #ffc811;
+    background-color: #ffd920;
+}
+/*列表*/
+.page-body{
+    margin: 0 3%;
+}
+.grow-menu, .message-body {
+    width: 98%;
+    background: url("../images/grow-menu.png")/*tpa=http://game.ziyuan800.com/002/images/grow-menu.png*/ no-repeat center;
+    background-size: 100% 100%;
+    height: 4rem;
+    overflow: hidden;
+    border-radius: inherit;
+    display: block;
+    padding: 0 1%;
+    margin-bottom: 2%;
+}
+.grow-menu-icon {
+    width: 2.6rem;
+    margin: .8rem;
+    float: left;
+}
+.grow-menu-label {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+    position: absolute;
+    color: #fff;
+    text-shadow: 1px 1px 0px #3a230a;
+}
+.grow-menu-select, .message-body-select {
+    float: right;
+    width: .8rem;
+    margin: 1.4rem 1rem;
+}
+/*注册表单*/
+.dui-form-div{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+.dui-form-div .dui-text {
+    width: 90%;
+    background: url("../images/l-textbox-l.png")/*tpa=http://game.ziyuan800.com/002/images/l-textbox-l.png*/ no-repeat;
+    background-size: 100% 100%;
+    outline: none;
+    font-size: 1.2rem;
+    height: 1.4rem;
+    line-height: 1.4rem;
+    border: none;
+    padding: .8rem 5%;
+    margin-top: .8rem;
+    color: #986834;
+}
+
+.dui-form-div .dui-text-v {
+    background: url("../images/l-textbox-s.png")/*tpa=http://game.ziyuan800.com/002/images/l-textbox-s.png*/ no-repeat;
+    background-size: 100% 100%;
+    width: 40%;
+    outline: none;
+    font-size: 1.2rem;
+    height: 1.4rem;
+    line-height: 1.4rem;
+    padding: .8rem 5%;
+
+    border: none;
+    float: left;
+}
+.dui-form-div .dui-text-r{
+    float: right;
+    background-size: 100% 100%;
+    width: 40%;
+    padding: .2rem 5%;
+    height: 2.4rem;
+}
+.dui-form-div .btn{width: 49%;}
+input:-webkit-autofill {
+    background-color: #FAFFBD;
+    background-image: none;
+    color: #000;
+}
+::-moz-placeholder { color: #b89051; }
+::-webkit-input-placeholder { color:#b89051; }
+:-ms-input-placeholder { color:#b89051; }
+.friend-new-item{
+    min-width: inherit;
+    background: none;
+    border: none;
+    height: 3.8rem;
+}
+.friend-new-line {
+    height: 3.8rem;
+    line-height: 3.4rem;
+    overflow: hidden;
+    font-size: 1.2rem;
+    padding: 0;
+    color: #986834;
+
+
+}
+.friend-new-line-label{
+    color: #3a230a;
+    float: left;
+    width: 29%;
+    text-align: center;
+    /*text-shadow: 1px 1px 0px #fff;*/
+
+}
+input.friend-new-line {
+    background: url("../images/l-textbox-l.png")/*tpa=http://game.ziyuan800.com/002/images/l-textbox-l.png*/ no-repeat;
+    background-size: 100% 100%;
+    outline: none;
+    font-size: 1.2rem;
+    height: 1.4rem;
+    line-height: 1.4rem;
+    border: none;
+    width: 60%;
+    padding: .8rem 5%;
+    margin-top: .6rem;
+}
+.friend-new-line-input {
+    background: url("../images/grow-menu.png")/*tpa=http://game.ziyuan800.com/002/images/grow-menu.png*/ no-repeat;
+    background-size: 100% 100%;
+    outline: none;
+    font-size: 1.2rem;
+    height: 2.6rem;
+    line-height: 2.6rem;
+    border: none;
+    width: 70%;
+    padding: 0 5%;
+    margin-top: .6rem;
+    float: right;
+    text-align: left;
+}
+.friend-new-line-split {
+    height: 3.8rem;
+    line-height: 3.8rem;
+    overflow: hidden;
+    font-size: 1.2rem;
+    text-align: center;
+    width: 5%;
+    color: #3a230a;
+    /* text-shadow: 1px 1px 0px #fff;*/
+}
+.friend-new-line-input[disabled], .friend-new-line-input[readonly], friend-new-line-input[disabled] .friend-new-line-input {
+    background: url("../images/l-textbox-l3.png")/*tpa=http://game.ziyuan800.com/002/images/l-textbox-l3.png*/ no-repeat;
+    background-size: 100% 100%;
+
+}
+
+
+.demo-label{margin:0.6rem 0.8rem 0 0;display:inline-block; font-size: 1.2rem;color: #3a230a;}
+.demo-radio{display:none}
+.demo-radioInput{
+    background-color: inherit;
+    background-image: url("../images/radioInput.png")/*tpa=http://game.ziyuan800.com/002/images/radioInput.png*/;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    display:inline-block;
+    margin-right:10px;
+    margin-top:-1px;
+    vertical-align:middle;
+    height: 2.2rem;
+    width: 2.2rem;
+    line-height:1;
+    border: none;
+}
+.demo-radio:checked + .demo-radioInput:after{
+    background-color: inherit;
+    background-image: url("../images/radioChecked.png")/*tpa=http://game.ziyuan800.com/002/images/radioChecked.png*/;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    content:"";
+    display:inline-block;
+    height: 2.2rem;
+    width: 2.2rem;
+    margin:0px;
+    border: none;}
+.demo-checkbox.demo-radioInput,.demo-radio:checked + .demo-checkbox.demo-radioInput:after{border-radius:0}
+
+/*图标*/
+.dui-icon{
+    width: 2.6rem;
+    height: 2.6rem;
+    border: none;
+    display: inline-block;
+}
+.dui-icon:hover{
+    background-color:inherit;
+}
+.icon-return{
+    background: url("../images/icon-return.png")/*tpa=http://game.ziyuan800.com/002/images/icon-return.png*/ no-repeat center;
+    background-size: cover;
+}
+.icon-home{
+    background: url("../images/icon-home.png")/*tpa=http://game.ziyuan800.com/002/images/icon-home.png*/ no-repeat center;
+    background-size: cover;
+}
+
+.btn{
+    width: 50%;
+    height: 3.8rem;
+    border: none;
+    margin-left: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #fff;
+    line-height: 3.8rem;
+    cursor: pointer ;
+}
+.btn-sm{
+    width: 2rem;
+    height: 2.6rem;
+    border: none;
+    margin: 0.2rem;
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #fff;
+    line-height: 2.2rem;
+    cursor: pointer;
+}
+.btn:hover{
+    color: #fff;
+}
+input.btn,input.btn-sm,a.btn,input.dui-icon[type="submit"]{
+    border:none;
+    outline:medium;
+}
+
+.btn-green{
+    background: url("../images/btn-green.png")/*tpa=http://game.ziyuan800.com/002/images/btn-green.png*/ no-repeat;
+    background-size: 100% 100%;
+    text-shadow: 0px 1px 0px #157506,0px 2px 0px #157506;
+}
+.btn-yellow{
+    background: url("../images/btn-yellow.png")/*tpa=http://game.ziyuan800.com/002/images/btn-yellow.png*/ no-repeat;
+    background-size: 100% 100%;
+    text-shadow: 0px 1px 0px #894000,0px 2px 0px #894000;
+}
+.btn-gray{
+    background: url("../images/btn-gray.png")/*tpa=http://game.ziyuan800.com/002/images/btn-gray.png*/ no-repeat;
+    background-size: 100% 100%;
+    text-shadow: 0px 1px 0px #656565,0px 2px 0px #656565;
+}
+.btn-sm-blue{
+    background: url("../images/btn-sm-blue.png")/*tpa=http://game.ziyuan800.com/002/images/btn-sm-blue.png*/ no-repeat;
+    background-size: 100% 100%;
+    text-shadow: 0px 1px 0px #19378b,0px 2px 0px #19378b;
+}
+.btn-sm-green{
+    background: url("../images/btn-sm-green.png")/*tpa=http://game.ziyuan800.com/002/images/btn-sm-green.png*/ no-repeat;
+    background-size: 100% 100%;
+    text-shadow: 0px 1px 0px #157506,0px 2px 0px #157506;
+}
+.btn-sm-yellow{
+    background: url("../images/btn-sm-yellow.png")/*tpa=http://game.ziyuan800.com/002/images/btn-sm-yellow.png*/ no-repeat;
+    background-size: 100% 100%;
+    text-shadow: 0px 1px 0px #894000,0px 2px 0px #894000;
+}
+.btn-sm-gray{
+    background: url("../images/btn-sm-gray.png")/*tpa=http://game.ziyuan800.com/002/images/btn-sm-gray.png*/ no-repeat;
+    background-size: 100% 100%;
+    text-shadow: 0px 1px 0px #656565,0px 2px 0px #656565;
+}
+.btn-sm-red{
+    background: url("../images/btn-sm-red.png")/*tpa=http://game.ziyuan800.com/002/images/btn-sm-red.png*/ no-repeat;
+    background-size: 100% 100%;
+    text-shadow: 0px 1px 0px #b3281c,0px 2px 0px #b3281c;
+}
+
+.btn-yb .btn{
+    width: 40%;
+}
+/*表格样式*/
+.dui-table{
+    width: 100%;
+}
+.dui-table thead{
+    width: 100%;
+    background: url("../images/grow-menu.png")/*tpa=http://game.ziyuan800.com/002/images/grow-menu.png*/ no-repeat center;
+    background-size: 100% 100%;
+    overflow: hidden;
+    border-radius: inherit;
+}
+.dui-table thead td{
+    font-size: 1.2rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 0px #3a230a, 0px 2px 0px #3a230a;
+    padding: .4rem 0;
+}
+.dui-table tbody{
+
+}
+.dui-table tbody td{
+    height: 3rem;
+    font-size: 1.2rem;
+    color: #442204;
+    text-align: center;
+
+    background: #fff6d8;
+    overflow: hidden;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+}
+/*.dui-table tbody  td:last-child{
+    border-radius: 0 0.4rem 0.4rem 0;
+}
+.dui-table tbody  td:first-child{
+    border-radius: 0.4rem 0 0 0.4rem;
+}*/
+.dui-table-text-l tbody td{
+    text-align: left;
+    padding: 0 0.5rem;
+}
+.dui-text-b{
+    color: #442204;
+    text-shadow: 1px 1px 0px #fff, 0px 2px 0px #fff;
+    display: block;
+    padding: 0.3rem 0;
+}
+/*个人中心*/
+
+.grow-menu-select,.message-body-select {
+    float: right;
+    width: .8rem;
+    margin: 1.4rem 1rem;
+}
+
+
+
+.message-body{
+    min-width:inherit;
+}
+.message-body-head-date {
+    float: left;
+    height: 4rem;
+    width: 90px;
+    line-height:  4rem;
+    text-align: center;
+    color: #a71121;
+    font-weight: normal;
+
+}
+.message-body-head-content {
+    float: left;
+    height: 4rem;
+    max-width: 160px;
+    line-height:  4rem;
+    text-align: left;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1.2rem;
+    position: absolute;
+    color: #986834;
+
+}
+.dui-news-title{
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 0px #a56701, 0px 2px 0px #a56701;
+    font-size: 1.6rem;
+    margin: 0 1rem;
+}
+.dui-news-info{
+    color: #3a230a;
+    margin: 0 1rem;
+    font-size: 1.4rem ;
+    line-height: 140%;
+    margin-top: 1rem;
+}
+.dui-news-addTime{
+    margin: 0 1rem;
+    margin-top: 1.4rem;
+    color: #cbb58e;
+    font-size: 1.2rem;
+    text-align: right;
+}
+/*翻页*/
+
+.digg4  span.disabled{
+    background: url("../images/icon-disabled.png")/*tpa=http://game.ziyuan800.com/002/images/icon-disabled.png*/ no-repeat center;
+    background-size: 100% 100%;
+    padding: 0 !important;
+    border: none !important;
+    margin: 0 !important;
+    color: #fff !important;
+    height: 2.6rem;
+    width: 2.6rem;
+    text-align: center;
+    line-height: 2.2rem;
+    display: inline-block;
+    text-shadow: 1px 1px 0px #696969, 0px 2px 0px #696969;
+}
+.digg4 span.current {
+    background: url("../images/icon-current.png")/*tpa=http://game.ziyuan800.com/002/images/icon-current.png*/ no-repeat center;
+    background-size: 100% 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #fff !important;
+    text-decoration: none;
+    height: 2.6rem;
+    width: 2.6rem;
+    text-align: center;
+    line-height: 2.2rem;
+    display: inline-block;
+    text-shadow: 1px 1px 0px #157506, 0px 2px 0px #157506;
+
+}
+.digg4{margin-top: 2rem!important;font-size: 1.2rem!important;text-align: center;}
+.digg4 a {
+    background: url("../images/icon-a-current.png")/*tpa=http://game.ziyuan800.com/002/images/icon-a-current.png*/ no-repeat center;
+    background-size: 100% 100%;
+    border: none !important;
+    padding: 0 !important;
+    background-position: inherit !important;
+    margin:0 !important;
+    color: #fff !important;
+    text-decoration: none;
+    height: 2.6rem;
+    width: 2.6rem;
+    text-align: center;
+    line-height: 2.2rem;
+    display: inline-block;
+    text-shadow: 1px 1px 0px #894000, 0px 2px 0px #894000;
+}
+/*玩家果园*/
+.friends-body {
+    width: 100%;
+    background: #fff6d8;
+    margin: .6rem 0;
+    height: 4.2rem;
+    overflow: hidden;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+    margin-bottom: 0.6rem;
+    border-radius: 0.4rem;
+    display: block;
+}
+.friends-body .dicon-avatar{
+    width: 3rem;
+    height: 3rem;
+    position: inherit;
+    display: inline-block;
+
+    margin-left: 1rem;
+    margin-top: .55rem;
+}
+.friends-body-head {
+    background: #fff6d8;
+    width: 100%;
+    height: 100%;
+}
+.friends-body-head-date {
+    float: inherit;
+    font-size: 1.3rem;
+    height: 4.2rem;
+    line-height: 4.2rem;
+    margin:0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #442204;
+    padding-left: .6rem;
+}
+.friends-body-head-right{
+    float: inherit;
+    display: inline-block;
+    height: 4.2rem;
+    line-height: 4.2rem;
+    font-size: 0.8rem;
+    margin: 0;
+    color: #e79e11;
+}
+.friends-body-head-select{
+    float: right;
+    display: inline-block;
+    width: 1.6rem;
+    margin: 1.5rem 1rem;
+
+}
+/*弹窗样式*/
+.dui-tankuang{
+    width: 80%;
+    margin: 0 auto;
+}
+.dui-form-box .form-group{
+    padding: 0 .4rem;
+    margin-bottom: .4rem;
+}
+
+.dui-form-box .control-label{
+    display: block;
+    text-shadow:none !important;
+    font-size: 1.2rem;
+    color: #3a230a;
+
+}
+.dui-form-box .form-control {
+    width: 90%;
+    background: url("../images/l-textbox-l.png")/*tpa=http://game.ziyuan800.com/002/images/l-textbox-l.png*/ no-repeat;
+    background-size: 100% 100%;
+    outline: none;
+    font-size: 1.2rem;
+    height: 1.4rem;
+    line-height: 1.4rem;
+    border: none;
+    padding: .8rem 5%;
+    margin-top: .6rem;
+    color: #986834;
+}
+.dui-form-box .form-control-g{
+    width: 90%;
+    background: url("../images/l-textbox-g.png")/*tpa=http://game.ziyuan800.com/002/images/l-textbox-g.png*/ no-repeat;
+    background-size: 100% 100%;
+    outline: none;
+    font-size: 1.2rem;
+    height: 1.4rem;
+    line-height: 1.4rem;
+    border: none;
+    min-height: 6rem;
+    padding: .8rem 5%;
+    margin-top: .6rem;
+
+    color: #986834;
+}
+.dui-form-box  .layui-layer-input{
+    display: block;
+    margin: 0 auto;
+    box-shadow: none !important;
+    color: #333;
+    background: url("../images/l-textbox-l.png")/*tpa=http://game.ziyuan800.com/002/images/l-textbox-l.png*/ no-repeat;
+    background-size: 100% 100%;
+    outline: none;
+    font-size: 1rem;
+    height: 1.4rem !important;
+    line-height: 1.4rem !important;
+    border: none !important;
+    width: 60% !important;
+    padding: .6rem 5% !important;
+    margin-top: .6rem;
+}
+/*底部操作*/
+.kaiico-on{
+    cursor: url("../images/kaiico.ico")/*tpa=http://game.ziyuan800.com/002/images/kaiico.ico*/ ,pointer !important;
+}
+.zhongico-on{
+    cursor: url("../images/zhongico.ico")/*tpa=http://game.ziyuan800.com/002/images/zhongico.ico*/ ,pointer !important;
+}
+.touico-on{
+    cursor: url("../images/caiico.ico")/*tpa=http://game.ziyuan800.com/002/images/caiico.ico*/ ,pointer !important;
+}
+/*上一页，下一页*/
+.pagenext{width:119px;height:38px;background:url("../images/next.png")no-repeat;display:inline-block;cursor:pointer;}
+.pagepre{width:119px;height:38px;background:url("../images/back.png")no-repeat;display:inline-block;cursor:pointer;}
+
+
+/*音乐开关*/
+.mscBtn {background: url("../images/icon-bgm.png")/*tpa=http://game.ziyuan800.com/002/images/icon-bgm.png*/ center no-repeat;cursor:pointer;width: 6%;height: 11%;display: block; background-size: 100%; position: absolute; left: 12%; top: 18%;    z-index: 50;}
+.mscBtn.pause { background-image: url("../images/icon-bgm-g.png")/*tpa=http://game.ziyuan800.com/002/images/icon-bgm-g.png*/ !important;  }
+.mscBtn.play{ background-image: url("../images/icon-bgm.png")/*tpa=http://game.ziyuan800.com/002/images/icon-bgm.png*/ !important;  }
+.dui-text-v {
+    background: url("../images/l-textbox-s.png")/*tpa=http://game.ziyuan800.com/002/images/l-textbox-s.png*/ no-repeat;
+    background-size: 100% 100%;
+    width: 40%;
+    outline: none;
+    font-size: 1.2rem;
+    height: 1.4rem;
+    line-height: 1.4rem;
+    padding: .8rem 5%;
+    border: none;
+    float: left;
+}
+
+#wrapper {
+	-webkit-overflow-scrolling: touch;
+	overflow: auto;
+	overflow-x:hidden;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+}
+/* 字体颜色 绿色 */
+.green_color{
+	color: green;
+}
+/* 默认隐藏元素 */
+.defaultNone{
+	display: none;
+}
+/* 操作 两个字时  宽度增宽 */
+.layui-btn-big{width:88px;padding:0;!important}
+.addcss{width: 3rem;}

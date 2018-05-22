@@ -1,0 +1,56 @@
+
+#addMemberModal{
+	/* border: 1px solid; */     
+    width: 600px;
+    /* height: 520px; */
+    /* overflow: auto; */
+    border-radius: 7px;
+}
+#addMemberModal .my_lii{
+    width: 450px !important;
+}
+#addMemberModal .my_lii .layui-input {
+    float: left !important;
+    width: 245px !important;
+    padding-right: 26px !important;
+}
+.layui-input:hover, .layui-textarea:hover {
+    border-color: #8BC34A!important;
+}
+.layui-input:focus, .layui-textarea:focus{
+    border-color: #8BC34A!important;
+}
+#member-reg{
+    width: 600px;
+    border: 1px solid;
+    height: 500px;
+    overflow: auto;
+    padding-left: 10%;
+    margin-left:190px;
+}
+#mem-reg-sub{
+    margin-top: 60px;
+    margin-bottom: 50px;
+}
+.check_wrong{
+    color:red;
+    line-height: 38px;
+    margin-left: 25px;
+}
+.check_right{
+    line-height: 38px;
+    font-size: 20px;
+    color: #8BC34A;
+    margin-left: -30px;
+}
+/* .check_must{
+    line-height: 38px !important;
+    margin-left: 6px !important;
+    position: absolute !important;
+} */
+#aaa{
+	color:red !important;
+}
+.my_th th{
+	text-align: center !important;
+}

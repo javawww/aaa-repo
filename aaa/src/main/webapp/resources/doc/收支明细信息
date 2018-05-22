@@ -1,0 +1,13 @@
+
+id; //主键
+memNum;//关联所属用户编号 示例 A00005
+bonusType; //币种类型 0动态奖 1静态冻结奖2静态解冻奖 3神童日俸 4管家月俸5种子积分6激活积分
+changeSalar;   //变动余额   也是 收支类型   示例  -100表示支出  150表示收入。数据库存入-100/150等值
+origiSalar;   //原始余额
+currSalar;   //当前余额 即 新余额
+inoutDesc;//余额变动说明：会员A00005金树投资2000
+createTime;  // 创建时间 即 变动时间
+
+PS 
+实体对象 InoutRepoEntity  
+数据库表 t_inout_report

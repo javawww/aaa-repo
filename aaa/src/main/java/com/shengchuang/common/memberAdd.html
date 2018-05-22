@@ -1,0 +1,208 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html ng-app="app" class="no-js">
+	<head>
+		<base href="${base}/">
+		<meta charset="utf-8">
+		<meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>网站后台管理系统</title> 
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		
+		<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+		<link rel="stylesheet" href="resources/admin/css/global.css" media="all">
+		<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+		<link rel="stylesheet" href="resources/admin/css/table.css" />
+		<link rel="stylesheet" type="text/css" href="resources/admin/css/zc.css" />	
+	    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular/angular.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular-route/angular-route.min.js"></script>
+	    
+		<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	    
+	    <link href="resources/admin/plugins/select2/select2.css" rel="stylesheet" />
+		<link href="resources/admin/plugins/select2/select2-bootstrap.css" rel="stylesheet" />
+	    <script type="text/javascript" src="resources/admin/plugins/select2/select2.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/layer-v1.9.0/layer/layer.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/pager/bootstrap-paginator.min.js"></script>
+	    
+	    
+	    <script>
+			var app = angular.module('app', ['ngRoute']);
+		</script>
+	</head>
+	<body class="hold-transition skin-green-light sidebar-mini  wysihtml5-supported" ng-controller="testController">
+		<div class="wrapper">
+			<!-- 主体内容部分 -->
+			<div class="content-wrapper container">  
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title">新增</h3>
+					</div>
+					<div class="panel-body">
+						<form class="form-horizontal" ng-submit="saveAdd()">
+							<div class="form-group" ng-if="addtype!=2">
+								<label class="control-label col-md-3 text-right">会员编号</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.memNum" required/>
+								</div>
+							</div>  
+							<div class="form-group" ng-if="addtype==2">
+								<label class="control-label col-md-3 text-right">会员编号</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.memNum" readonly="readonly"/>
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">密码</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.loginPwd" required/>
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">确认密码</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.loginPwd2" required/>
+								</div>
+							</div> 
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">激活状态</label>
+								<div class="col-md-3">
+									<select style="padding: 0px" select2 style="padding: 0px" ng-model="formdata.jhState" class="col-md-12 col-sm-12 col-xs-12"   name="data2" placeholder="请选择">
+										<option  value="0">未激活</option>
+										<option  value="1">激活</option>
+									</select> 
+								</div>
+							</div> 
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">管家等级</label>
+								<div class="col-md-3">
+									<select style="padding: 0px" select2 style="padding: 0px" ng-model="formdata.gjLevel" class="col-md-12 col-sm-12 col-xs-12"   name="data2" placeholder="请选择" >
+										<option  value="0">普通管家</option>
+										<option  value="1">超级管家</option>
+									</select> 
+								</div>
+							</div> 
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">真实姓名</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.realName" />
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">手机号码</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.teleNum" />
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">推荐人编号</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.tjrNum" />
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">冻结状态</label> 
+								<div class="col-md-3">
+									<select style="padding: 0px" select2 style="padding: 0px" ng-model="formdata.djState" class="col-md-12 col-sm-12 col-xs-12"   name="data2" placeholder="请选择" >
+										<option  value="0">冻结</option>
+										<option  value="1">解冻</option>
+									</select> 
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">角色类型</label> 
+								<div class="col-md-3">
+									<select style="padding: 0px" select2 style="padding: 0px" ng-model="formdata.roleState" class="col-md-12 col-sm-12 col-xs-12"   name="data2" placeholder="请选择" >
+										<option  value="0">普通会员</option>
+										<option  value="1">超级管理员</option>
+									</select> 
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">微信账号</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.weichat" />
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">支付宝账号</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.alipay" />
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">支付宝昵称</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.alipayName" />
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">交易密码</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.tradePwd" />
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">银行卡类型</label>
+								<div class="col-md-4">
+									<select style="padding: 0px" select2 style="padding: 0px" ng-model="formdata.bankType" class="col-md-12 col-sm-12 col-xs-12"   name="data2" placeholder="请选择" >
+								        <option value="0">中国工商银行</option>
+								        <option value="1">中国农业银行</option>
+								        <option value="2">中国建设银行</option>
+								        <option value="3">中国邮政储蓄银行</option>
+								        <option value="4">中国银行</option>
+								        <option value="5">招商银行</option>
+								        <option value="6">交通银行</option>
+								        <option value="7">中国光大银行</option>
+								        <option value="8">中信银行</option>
+								        <option value="9">兴业银行</option>
+								        <option value="10">浦发银行</option>
+								        <option value="11">华夏银行</option>
+								        <option value="12">深圳发展银行</option>
+								        <option value="13">广东发展银行</option>
+								        <option value="14">中国民生银行</option>
+									</select> 
+								</div>
+							</div> 
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">银行卡号</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.bankNum" />
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">开户行名称</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.khhkName" />
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right">开户行地址</label> 
+								<div class="col-md-7">
+									 <input class="form-control" type="text" ng-model="formdata.khhAddress" />
+								</div>
+							</div>  
+							<div class="form-group">
+								<label class="control-label col-md-3 text-right"></label> 
+								<div class="col-md-7">
+									 <button type="submit" class="btn btn-success">
+										保存
+									</button>
+								</div>
+							</div>  
+						</form>
+					</div>
+				</div>
+				<!-- "需求栏里如果有供应商"模态框 -->
+				<!-- "供应商详情"模态框 -->
+				<!-- "审核"模态框 -->
+			</div>
+		</div> 
+		<script type="text/javascript" src="resources/admin/plugins/angular/http.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/select2/mys2/select2.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/pager/pager.js"></script>
+		<script type="text/javascript" src="resources/admin/angularjs/memberList.js"></script>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shengchuang.dao.InfoDao">  
+     
+    <select id="findCommon" resultType="java.util.HashMap" parameterType="java.util.Map">
+		SELECT * from t_information WHERE 1=1  
+		<if test="infType!='' and infType!=null "> and infType=#{infType} </if>
+		order by id desc limit ${start},${limit} 
+	</select>  
+	 
+    <select id="findCommonById" resultType="java.util.HashMap" parameterType="int">
+		SELECT * from t_information WHERE id = #{id} 
+	</select>  
+	 
+    <select id="findInformationEntityById" resultType="com.shengchuang.entity.InformationEntity" parameterType="int">
+		SELECT * from t_information WHERE id = #{id} 
+	</select>  
+     
+    <select id="findAll" resultType="java.util.HashMap">
+		SELECT * from t_information 
+	</select>  
+     
+    <select id="findAllInfo" resultType="com.shengchuang.entity.InformationEntity">
+		SELECT * from t_information order by pubTime desc
+	</select>  
+     
+    <insert id="addCommon" > 
+        INSERT INTO `t_information` (
+        	`infNum`, `infType`, `infTitle`, `createTime`, `pubTime`, `infContent`, `memid`
+        ) 
+        VALUES ( 
+        	#{infNum}, #{infType},#{infTitle},#{createTime},#{pubTime},#{infContent}, #{memid}
+        );
+        
+    </insert> 
+    
+    <delete id="deleteCommon">
+        delete from t_information where id=#{id}
+    </delete>  
+    
+    <update id="updateCommon">
+        UPDATE `t_information` 
+		<set>
+			<if test="infNum != null">`infNum`= #{infNum},</if>
+			<if test="infType != null">`infType`= #{infType},</if>
+			<if test="infTitle != null">`infTitle`= #{infTitle},</if>
+			<if test="createTime != null">`createTime`= #{createTime},</if>
+			<if test="pubTime != null">`pubTime`= #{pubTime},</if>
+			<if test="infContent != null">`infContent`= #{infContent},</if>
+			<if test="memid != null">`memid`= #{memid}</if>
+	    </set>
+		WHERE `id`=#{id};
+    </update>
+	
+    <select id="findCommonCount" resultType="Integer" parameterType="java.util.Map"> 
+         select count(1) from t_information where 1=1 
+         <if test="infType!='' and infType!=null"> and infType=#{infType} </if> 
+    </select>
+    
+</mapper>

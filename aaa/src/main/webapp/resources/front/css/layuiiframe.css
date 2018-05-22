@@ -1,0 +1,13 @@
+/* 移动端iframe样式控制 */
+ @media screen and (min-width:200px) and (max-width:700px){	
+ body .layui-layer-iframe.layer-dui .layui-layer-title{
+ 	    font-size: 1.6rem;
+ 	    height:24%
+ }
+body .layui-layer-iframe.layer-dui .layui-layer-content{
+	min-height:76%;
+	height:76%;
+}
+
+
+} 

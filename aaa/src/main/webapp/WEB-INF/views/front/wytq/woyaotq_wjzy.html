@@ -1,0 +1,87 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="${base}/">
+<meta charset="UTF-8">
+<title>玩家庄园  </title>
+<!--适应移动端-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no, email=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 删除苹果默认的工具栏和菜单栏 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="full-screen" content="yes"/>
+<meta name="x5-fullscreen" content="true"/>
+<!-- 设置苹果工具栏颜色 -->
+<meta name="format-detection" content="telphone=no, email=no"/>
+<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+<!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="renderer" content="webkit">
+<!-- 避免IE使用兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true">
+<!-- 微软的老式浏览器 -->
+<meta name="MobileOptimized" content="320">
+<!-- uc强制竖屏 -->
+<meta name="screen-orientation" content="landscape">
+<!-- QQ强制竖屏 -->
+<meta name="x5-orientation" content="landscape">
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes">
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true">
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application">
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app">
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- 适应移动端end -->
+<link href="resources/front/css/reset.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/animate.min.css" rel="stylesheet" type="text/css">
+<link href="resources/front/layui/css/layui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/touqudui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/touquindex.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/dialog.css" rel="stylesheet" type="text/css">
+<script src="resources/front/js/jquery.min.js" ></script>
+<script src="resources/front/layui/layui.js" ></script>
+</head>
+<body id="IDGame">
+<div id="GameContainer"> 
+  <!--场景背景宽度--> 
+  <img id="GameBg" src="resources/front/images/bg.jpg">
+  <div id="GameCanvas">
+    <div id="GameBox"> 
+      <!--地皮-->
+      <div class="dui-Land-bg"></div>
+      <div class="dui-Land">
+        <ul id="tree">
+          <li class="dui-di dui-di-2" id="di1" data-treeno="1"></li>
+          <li class="dui-di dui-di-1" id="di2" data-treeno="2"></li>
+          <li class="dui-di dui-di-1" id="di3" data-treeno="3"></li>
+          <li class="dui-di dui-di-1" id="di4" data-treeno="4"></li>
+          <li class="dui-di dui-di-1" id="di5" data-treeno="5"></li>
+          <li class="dui-di dui-di-1" id="di6" data-treeno="6"></li>
+          <li class="dui-di dui-di-1" id="di7" data-treeno="7"></li>
+          <li class="dui-di dui-di-2" id="di8" data-treeno="8"></li>
+          <li class="dui-di dui-di-1" id="di9" data-treeno="9"></li>
+          <li class="dui-di dui-di-1" id="di10" data-treeno="10"></li>
+          <li class="dui-di dui-di-3" id="di11" data-treeno="11"></li>
+          <li class="dui-di dui-di-3" id="di12" data-treeno="12"></li>
+          <li class="dui-di dui-di-3" id="di13" data-treeno="13"></li>
+          <li class="dui-di dui-di-3" id="di14" data-treeno="14"></li>
+          <li class="dui-di dui-di-3" id="di15" data-treeno="15"></li>
+        </ul>
+      </div>
+  </div>
+</div>
+<input type="hidden" value="${id}" id="memId">
+<script src="resources/front/js/pass_aes.js" charset="utf-8"></script> 
+<script src="resources/front/js/page.js"  charset="utf-8"></script> 
+<script src="resources/front/js/main.js" charset="utf-8"></script>
+<script src="resources/front/js/touquplantState.js" type="text/javascript"></script>
+</body>
+</html>

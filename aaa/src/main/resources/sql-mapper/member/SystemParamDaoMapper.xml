@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shengchuang.dao.member.SystemParamDao">  
+     
+    <select id="findCommon" resultType="java.util.HashMap" parameterType="java.util.Map">
+		SELECT * from t_paramconf where 1=1
+	</select>  
+     
+    <select id="findAll" resultType="java.util.HashMap">
+		SELECT * from t_paramconf where id=1
+	</select>  
+	
+    <select id="findParamById" resultType="com.shengchuang.entity.ParamConfEntity">
+		SELECT 
+			* 
+		from  t_paramconf 
+		where  id=#{id}
+	</select>  
+     
+    <insert id="addCommon" parameterType="java.util.Map"> 
+        insert into wl_cg(type_id,value1,value2,value3,value4,yg,bz,djr,djrxm,djsj)
+        values(#{type_id},#{value1},#{value2},#{value3},#{value4},#{yg},#{bz},#{djr},#{djrxm},#{djsj})
+    </insert> 
+    
+    <delete id="deleteCommon">
+        delete from wl_cg where id=#{id}
+    </delete>  
+    
+    <update id="updateCommon" parameterType="java.util.Map">
+        update t_paramconf set 
+        jhIntegral=#{jhIntegral},
+        yszzIntegral=#{yszzIntegral},
+        jszzIntegral=#{jszzIntegral}
+        where id=#{id}
+    </update>
+	
+    <select id="findCommonCount" resultType="Integer" parameterType="java.util.Map"> 
+         select count(1) from t_paramconf where 1=1  
+    </select>
+    
+    <select id="findCommonByUser" resultType="java.util.HashMap" parameterType="java.util.Map">
+		SELECT a.*,IFNULL(b.wdcount,0) AS wdcount,IFNULL(c.ydcount,0) AS ydcount,IFNULL(d.sumcount,0) AS sumcount FROM wl_cg a LEFT JOIN 
+		(SELECT COUNT(1) AS wdcount,cg_id FROM wl_cg_xx WHERE state=0 GROUP BY cg_id) b ON a.id=b.cg_id LEFT JOIN
+		(SELECT COUNT(1) AS ydcount,cg_id FROM wl_cg_xx WHERE state=1 GROUP BY cg_id) c ON a.id=c.cg_id LEFT JOIN
+		(SELECT COUNT(1) AS sumcount,cg_id FROM wl_cg_xx GROUP BY cg_id) d ON a.id=d.cg_id 
+		WHERE a.type_id=#{type_id} and a.djr=#{djr}
+   		ORDER BY a.id DESC LIMIT ${start},${limit} 
+	</select>  
+	
+    <select id="findCommonByUserCount" resultType="Integer" parameterType="java.util.Map"> 
+         select count(1) from wl_cg where type_id=#{type_id} and djr=#{djr}      
+    </select>
+    
+    <update id="updateCommonState" parameterType="java.util.Map">
+        update wl_cg set state=#{state} where id=#{id}
+    </update>  
+    
+    <update id="update" parameterType="com.shengchuang.entity.ParamConfEntity">
+        update `t_paramconf` 
+    	<set>
+			<if test="jhIntegral != null">`jhIntegral`= #{jhIntegral},</if>
+			<if test="yszzIntegral != null">`yszzIntegral`= #{yszzIntegral},</if>
+			<if test="jszzIntegral != null">`jszzIntegral`= #{jszzIntegral},</if>
+			<if test="ystqIntegral != null">`ystqIntegral`= #{ystqIntegral},</if>
+			<if test="jstqIntegral != null">`jstqIntegral`= #{jstqIntegral},</if>
+			<if test="ystqCount != null">`ystqCount`= #{ystqCount},</if>
+			<if test="jstqCount != null">`jstqCount`= #{jstqCount},</if>
+			<if test="wgjCount != null">`wgjCount`= #{wgjCount},</if>
+			<if test="ptgjCount != null">`ptgjCount`= #{ptgjCount},</if>
+			<if test="cjgjCount != null">`cjgjCount`= #{cjgjCount},</if>
+			<if test="shtMoney != null">`shtMoney`= #{shtMoney},</if>
+			<if test="ptgjMoney != null">`ptgjMoney`= #{ptgjMoney},</if>
+			<if test="cjgjMoney != null">`cjgjMoney`= #{cjgjMoney},</if>
+			<if test="ysCapacity != null">`ysCapacity`= #{ysCapacity},</if>
+			<if test="jsCapacity != null">`jsCapacity`= #{jsCapacity},</if>
+			<if test="ysCapaCycle != null">`ysCapaCycle`= #{ysCapaCycle},</if>
+			<if test="jsCapaCycle != null">`jsCapaCycle`= #{jsCapaCycle},</if>
+			<if test="ysCapaLimit != null">`ysCapaLimit`= #{ysCapaLimit},</if>
+			<if test="jsCapaLimit != null">`jsCapaLimit`= #{jsCapaLimit},</if>
+			<if test="dsjScale != null">`dsjScale`= #{dsjScale},</if>
+			<if test="zhtParam != null">`zhtParam`= #{zhtParam},</if>
+			<if test="tixCycle != null">`tixCycle`= #{tixCycle},</if>
+			<if test="dyWalDeposit != null">`dyWalDeposit`= #{dyWalDeposit},</if>
+			<if test="jtWalDeposit != null">`jtWalDeposit`= #{jtWalDeposit},</if>
+			<if test="epSellTrade != null">`epSellTrade`= #{epSellTrade},</if>
+			<if test="epBuyTrade != null">`epBuyTrade`= #{epBuyTrade},</if>
+			<!--  动态钱包转xxx-->
+			<if test="dyWal2Jhjf != null">`dyWal2Jhjf`= #{dyWal2Jhjf},</if>
+			<if test="dyWal2Zzjf != null">`dyWal2Zzjf`= #{dyWal2Zzjf},</if>
+			<if test="dyWal2GjMoney != null">`dyWal2GjMoney`= #{dyWal2GjMoney},</if>
+			<if test="dyWal2ShtMoney != null">`dyWal2ShtMoney`= #{dyWal2ShtMoney},</if>
+			<!-- 收益钱包转xxx -->
+			<if test="jtWal2Jhjf != null">`jtWal2Jhjf`= #{jtWal2Jhjf},</if>
+			<if test="jtWal2Zzjf != null">`jtWal2Zzjf`= #{jtWal2Zzjf},</if>
+			<if test="jtWal2GjMoney != null">`jtWal2GjMoney`= #{jtWal2GjMoney},</if>
+			<if test="jtWal2ShtMoney != null">`jtWal2ShtMoney`= #{jtWal2ShtMoney},</if>
+			<!--  种子积分转xxx-->
+			<if test="zzjf2Jhjf != null">`zzjf2Jhjf`= #{zzjf2Jhjf},</if>
+			<if test="zzjf2GjMoney != null">`zzjf2GjMoney`= #{zzjf2GjMoney},</if>
+			<if test="zzjf2ShtMoney != null">`zzjf2ShtMoney`= #{zzjf2ShtMoney},</if>
+			
+			<if test="zzjf2Zzjf != null">`zzjf2Zzjf`= #{zzjf2Zzjf},</if>
+			<if test="jhjf2Jhjf != null">`jhjf2Jhjf`= #{jhjf2Jhjf}</if>
+	    </set>
+        where `id` = #{id}
+	</update>
+	
+    <select id="findCommonbyid" resultType="java.util.HashMap">
+        select * from wl_cg where id=#{id}
+    </select>
+    
+    
+    <select id="findCommonxxByCommon" resultType="java.util.HashMap">
+    	SELECT a.*,b.type_id,c.user_name FROM wl_cg_xx a LEFT JOIN wl_cg b ON a.cg_id=b.id LEFT JOIN wl_hyxx c ON a.user_id=c.id where a.cg_id=#{cgid}
+    </select>
+    <select id="findCommonxxByUser" resultType="java.util.HashMap">
+         SELECT a.*,b.type_id,c.user_name FROM wl_cg_xx a LEFT JOIN wl_cg b ON a.cg_id=b.id LEFT JOIN wl_hyxx c ON a.user_id=c.id WHERE b.djr=#{userid}
+    </select>
+    <select id="findCommonxxByUserAndState" resultType="java.util.HashMap">
+         SELECT a.*,b.type_id,c.user_name FROM wl_cg_xx a LEFT JOIN wl_cg b ON a.cg_id=b.id LEFT JOIN wl_hyxx c ON a.user_id=c.id WHERE b.djr=#{userid} and a.state=0 
+    </select>
+    <update id="updateCommonxxState">
+        update wl_cg_xx set state=1 where id=#{id}
+    </update>
+    
+    
+    <select id="findCommonxqxx" resultType="java.util.HashMap" parameterType="java.util.Map">
+		SELECT a.*,b.user_realname,c.user_realname as user_realname1 FROM wl_cg_xx a LEFT JOIN wl_user b ON a.user_id=b.id 
+   		LEFT JOIN wl_hyxx c ON a.user_id=c.id  where a.cg_id=#{cgid} 
+		order by id desc limit ${start},${limit} 
+	</select>  
+	
+    <select id="findCommonxqxxCount" resultType="Integer" > 
+         SELECT count(1) FROM wl_cg_xx a LEFT JOIN wl_user b ON a.user_id=b.id where a.cg_id=#{cgid}    
+    </select>
+    
+    <select id="findCommonxxbyid" resultType="java.util.HashMap">
+       SELECT a.*,b.user_realname,c.user_realname AS user_realname1,d.djr AS cgdjr FROM wl_cg_xx a LEFT JOIN wl_user b ON a.user_id=b.id 
+   		LEFT JOIN wl_hyxx c ON a.user_id=c.id LEFT JOIN wl_cg d ON a.cg_id=d.id where a.id=#{id}
+    </select>
+    
+    <select id="findCommonbyindex" resultType="java.util.HashMap">
+        SELECT a.*,b.user_name,c.user_name as user_name1  FROM wl_cg a LEFT JOIN wl_user b ON a.djr=b.id
+   		LEFT JOIN wl_hyxx c ON a.djr=c.id where a.state=1  order by a.id desc limit 0,30
+    </select>
+    
+    <select id="findProByIndexAll" resultType="java.util.HashMap" parameterType="java.util.Map">
+        SELECT a.*,b.user_name,c.user_name as user_name1  FROM wl_cg a 
+        LEFT JOIN wl_user b ON a.djr=b.id
+   		LEFT JOIN wl_hyxx c ON a.djr=c.id 
+        WHERE a.type_id=#{type_id} AND a.state=1 order by a.id desc limit ${start},${limit} 
+    </select>
+    
+    <insert id="addCommonxx" parameterType="java.util.Map">
+        INSERT INTO wl_cg_xx(cg_id,user_id,tel,xm,ms,djsj)VALUES
+        (#{cg_id},#{user_id},#{tel},#{xm},#{ms},#{djsj}) 
+    </insert>
+    
+    <select id="findCommonByList" resultType="java.util.HashMap" parameterType="java.util.Map">
+        SELECT a.*,b.user_name,c.user_name AS user_name1  FROM wl_cg a LEFT JOIN wl_user b ON a.djr=b.id 
+   		LEFT JOIN wl_hyxx c ON a.djr=c.id where a.state=1 and a.type_id=#{type_id}
+        <if test="cc!='' and cc!=null "> and (b.user_name like '%${cc}%' or c.user_name like '%${cc}%')</if>
+        
+        order by id desc limit ${start},${limit} 
+    </select>
+    <select id="findCommonByListCount" resultType="Integer" parameterType="java.util.Map">
+        SELECT count(1)  FROM wl_cg a LEFT JOIN wl_user b ON a.djr=b.id 
+   		LEFT JOIN wl_hyxx c ON a.djr=c.id where a.state=1 and a.type_id=#{type_id}
+        <if test="cc!='' and cc!=null "> and (b.user_name like '%${cc}%' or c.user_name like '%${cc}%')</if>
+        
+    </select>
+    
+    
+	<select id="findCommonbyuser" resultType="java.util.HashMap">
+	    select * from wl_cg where djr=#{id}
+	</select>
+	<delete id="deleteCommonxxByCommon">
+	    delete from wl_cg_xx where cg_id=#{cgid}
+	</delete>
+	
+	<delete id="deleteCommonByUser">
+	    delete from wl_cg where djr=#{djr}
+	</delete>
+    
+</mapper>

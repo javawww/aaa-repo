@@ -1,0 +1,31 @@
+{
+  "code": 0,
+  "msg": "获取成功",
+  "list": [
+    {
+      "id": 1,
+      "addressor": "张三",
+      "theme": "查收ss",
+      "createtime":"老王",
+      "details": "这里是留言内容，获取文本框内容",
+      "createTime": "2017/5/27 12:45:30"
+    },
+    {
+      "id": 2,
+      "addressor": "张三",
+      "theme": "查收ss",
+      "createtime":"老王",
+      "details": "这里是留言内容，获取文本框内容",
+      "createTime": "2017/5/25 12:45:30"
+    },
+    {
+      "id": 3,
+      "addressor": "张三",
+      "theme": "查收ss",
+      "createtime":"老王",
+      "details": "这里是留言内容，获取文本框内容",
+      "createTime": "2017/5/23 12:45:30"
+    }
+  ],
+  "count": 57
+}

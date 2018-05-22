@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shengchuang.dao.InvestRepoDao">  
+     
+    <select id="findAllInvestRepo" resultType="com.shengchuang.entity.InvestRepoEntity" parameterType="map">
+		SELECT * from t_invest_report WHERE 1=1  
+		<if test="treeType !=null and treeType==1"> and treeNum &lt; 11 </if>
+		<if test="treeType !=null and treeType==2"> and treeNum &gt; 10 </if>
+		<if test="startDate !='' and startDate !=null "> and plantTime &gt; #{startDate} </if>
+		<if test="endDate !='' and endDate !=null "> and plantTime &lt; #{endDate} </if>
+		order by plantTime desc limit ${start},${limit} 
+	</select>
+	
+    <select id="findAllInvestRepoCount" resultType="int" parameterType="map">
+		SELECT count(*) from t_invest_report WHERE 1=1  
+		<if test="treeType !=null and treeType==1"> and treeNum &lt; 11 </if>
+		<if test="treeType !=null and treeType==2"> and treeNum &gt; 10 </if>
+		<if test="startDate !='' and startDate !=null "> and plantTime &gt; #{startDate} </if>
+		<if test="endDate !='' and endDate !=null "> and plantTime &lt; #{endDate} </if>
+	</select>  
+    
+    <delete id="deleteInvestRepo">
+        delete from t_invest_report where id=#{id}
+    </delete> 
+    
+    <insert id="add" > 
+        INSERT INTO `t_invest_report` (`plantTime`,  `seedCount`, `treeNum`, `memNum`) 
+         VALUES (#{plantTime},#{seedCount},#{treeNum},#{memNum})
+    </insert> 
+    
+</mapper>

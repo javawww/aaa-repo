@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shengchuang.dao.GjstDao">  
+     
+    <insert id="addCommon" > 
+        INSERT INTO `t_gjst_status` (`gjSalar`, `stSalar`, `gjBeginTime`, `gjOverTime`, 
+        	`stBeginTime`, `stOverTime`, `gjStatus`, `stStatus`, `stealCount`, `memNo`, `memId`) 
+        VALUES (#{gjSalar},#{stSalar},#{gjBeginTime},#{gjOverTime},
+        	#{stBeginTime},#{stOverTime},#{gjStatus},#{stStatus},#{stealCount},#{memNo},#{memId}
+        )
+    </insert> 
+     
+    <update id="updateCommon">
+        UPDATE `t_gjst_status` 
+		<set>
+			<if test="gjSalar != null">`gjSalar`= #{gjSalar},</if>
+			<if test="stSalar != null">`stSalar`= #{stSalar},</if>
+			<if test="gjBeginTime != null">`gjBeginTime`= #{gjBeginTime},</if>
+			<if test="gjOverTime != null">`gjOverTime`= #{gjOverTime},</if>
+			<if test="stBeginTime != null">`stBeginTime`= #{stBeginTime},</if>
+			<if test="stOverTime != null">`stOverTime`= #{stOverTime},</if>
+			<if test="gjStatus != null">`gjStatus`= #{gjStatus},</if>
+			<if test="stStatus != null">`stStatus`= #{stStatus},</if>
+			<if test="stealCount != null">`stealCount`= #{stealCount},</if>
+			<if test="memNo != null">`memNo`= #{memNo},</if>
+			<if test="memId != null">`memId`= #{memId}</if>
+	    </set>
+		WHERE `id`=#{id}
+    </update>
+     
+    <update id="updateCommonByMemId">
+        UPDATE `t_gjst_status` 
+		<set>
+			<if test="gjSalar != null">`gjSalar`= #{gjSalar},</if>
+			<if test="stSalar != null">`stSalar`= #{stSalar},</if>
+			<if test="gjBeginTime != null">`gjBeginTime`= #{gjBeginTime},</if>
+			<if test="gjOverTime != null">`gjOverTime`= #{gjOverTime},</if>
+			<if test="stBeginTime != null">`stBeginTime`= #{stBeginTime},</if>
+			<if test="stOverTime != null">`stOverTime`= #{stOverTime},</if>
+			<if test="gjStatus != null">`gjStatus`= #{gjStatus},</if>
+			<if test="stStatus != null">`stStatus`= #{stStatus},</if>
+			<if test="stealCount != null">`stealCount`= #{stealCount},</if>
+			<if test="memNo != null">`memNo`= #{memNo}</if>
+	    </set>
+		WHERE `memId`=#{memId}
+    </update>
+    
+    <select id="findCommonById" resultType="com.shengchuang.entity.GJSTStatusEntity" parameterType="int">
+		SELECT * from t_gjst_status WHERE id = #{id} 
+	</select> 
+    
+    <select id="findCommonByMemId" resultType="com.shengchuang.entity.GJSTStatusEntity" parameterType="int">
+		SELECT * from t_gjst_status WHERE memId = #{id} 
+	</select> 
+    
+    <select id="findAllGjst" resultType="com.shengchuang.entity.GJSTStatusEntity">
+		SELECT * from t_gjst_status 
+	</select> 
+    
+    <select id="findAllLiveGj" resultType="com.shengchuang.entity.GJSTStatusEntity">
+		SELECT * from t_gjst_status WHERE gjStatus = 1 
+	</select> 
+    
+    <select id="findAllLiveSt" resultType="com.shengchuang.entity.GJSTStatusEntity">
+		SELECT * from t_gjst_status WHERE stStatus = 1 
+	</select> 
+	
+    <delete id="deleteByMemId">
+        delete from t_gjst_status where memId=#{id}
+    </delete>  
+</mapper>

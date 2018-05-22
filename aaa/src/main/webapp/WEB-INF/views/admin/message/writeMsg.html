@@ -1,0 +1,126 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html ng-app="app" class="no-js">
+	<head>
+		<base href="${base}/">
+		<meta charset="utf-8">
+		<meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>网站后台管理系统</title> 
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		
+		<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="resources/admin/css/global.css" media="all">
+		<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+		<link rel="stylesheet" href="resources/admin/css/table.css" />
+		<link rel="stylesheet" type="text/css" href="resources/admin/css/zc.css" />	
+	    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular/angular.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular-route/angular-route.min.js"></script>
+		<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	    <link href="resources/admin/plugins/select2/select2.css" rel="stylesheet" />
+		<link href="resources/admin/plugins/select2/select2-bootstrap.css" rel="stylesheet" />
+	    <script type="text/javascript" src="resources/admin/plugins/select2/select2.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/fileupload/ajaxfileupload.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/layer-v1.9.0/layer/layer.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/pager/bootstrap-paginator.min.js"></script>
+	    
+	    <script>
+			var app = angular.module('app', ['ngRoute']);
+		</script>
+		<style type="text/css">
+			.error_tip{
+			    font-size: 13px;
+			    color: red;
+			    line-height: 33px;
+			    position: absolute;
+			    left: 0px;
+			}
+		</style>
+	</head>
+	<body class="hold-transition skin-green-light sidebar-mini  wysihtml5-supported" ng-controller="testController">
+		<div class="wrapper">
+			<!-- 主体内容部分 -->
+			<div class="content-wrapper container">  
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title">&nbsp;</h3>
+					</div>
+					<div class="panel-body">
+						<form class="form-horizontal" name="myForm" ng-submit="saveAdd()">
+								<div class="form-group">
+									<label class="control-label col-md-3 text-right">收件人</label> 
+									<div class="col-md-6">
+										 <input class="form-control" type="text" name="receiver" required 
+										 	ng-model="formdata.receids" ng-blur="checkMemNum()" placeholder="多个收件人请用,分开"/>
+									</div>
+									<div class="col-md-3">
+										<span class="error_tip" ng-show="myForm.receiver.$invalid">请填写收件人</span>
+										<span class="error_tip" ng-show="!myForm.receiver.$error.required && checkResult==0">收件会员编号填写错误</span>
+									</div>
+								</div>  
+								<div class="form-group">
+									<label class="control-label col-md-3 text-right">所有会员</label>
+									<div class="col-md-3" style="position: relative;top: 7px;">
+										<input type="checkbox" ng-model="formdata.sendAll"  ng-change='doIfChecked()'/>
+									</div>
+								</div> 
+								<div class="form-group">
+									<label class="control-label col-md-3 text-right">邮件标题</label> 
+									<div class="col-md-6">
+										 <input class="form-control" type="text" name="title" ng-model="formdata.msgSubject" ng-minlength="3" ng-maxlength="20" required />
+									</div>
+									<div class="col-md-3">
+										<span class="error_tip" ng-show="myForm.title.$invalid">字数请为3到20个之间</span>
+									</div>
+								</div>  
+								<div class="form-group">
+									<label class="control-label col-md-3 text-right">选择邮件类型</label>
+									<div class="col-md-6">
+										<select name="msgType" select2 ng-model="formdata.msgType" style="padding: 0px" class="col-md-12 col-sm-12 col-xs-12" name="data2" placeholder="邮件类型" required>
+											<option  value="0">注册问题</option>
+											<option  value="1">安全问题</option>
+											<option  value="2">账号问题</option>
+											<option  value="3">交易问题</option>
+											<option  value="4">其他问题</option>
+										</select> 
+									</div>
+									<div class="col-md-3">
+										<span class="error_tip" ng-show="myForm.msgType.$invalid">请选择邮件类型</span>
+									</div>
+								</div> 
+								<div class="form-group">
+									<label class="control-label col-md-3 text-right">邮件内容</label> 
+									<div class="col-md-8">
+										 <script id="editor_container" name="content" type="text/plain" style="width:617px;height:300px"></script>
+									</div>
+								</div>  
+								
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">
+										关闭
+									</button>
+									<button type="submit" ng-disabled="myForm.$invalid" class="btn btn-primary">
+										发送
+									</button>
+								</div>
+							</form>
+					</div>
+				</div>
+				<!-- "需求栏里如果有供应商"模态框 -->
+				<!-- "供应商详情"模态框 -->
+				<!-- "审核"模态框 -->
+			</div>
+		</div> 
+		<script type="text/javascript" src="resources/admin/plugins/angular/http.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/select2/mys2/select2.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/pager/pager.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/utf8-jsp/ueditor.config.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/utf8-jsp/ueditor.all.min.js"> </script> 
+	    <script type="text/javascript" src="resources/admin/plugins/utf8-jsp/lang/zh-cn/zh-cn.js"> </script> 
+		<script type="text/javascript">
+	        var ue = UE.getEditor('editor_container');
+	    </script>
+		<script type="text/javascript" src="resources/admin/angularjs/emailWrite.js"></script>
+	</body>
+</html>

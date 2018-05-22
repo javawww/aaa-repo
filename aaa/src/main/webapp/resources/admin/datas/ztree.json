@@ -1,0 +1,15 @@
+[
+{ "id":1, "pId":0, "name":"一级菜单", "open":true},  
+{ "id":11, "pId":1, "name":"二级菜单1.1",checked:true},  
+{ "id":12, "pId":1, "name":"二级菜单1.2"},  
+{ "id":13, "pId":1, "name":"二级菜单1.3"},
+{ "id":2, "pId":0, "name":"一级菜单", "open":true},  
+{ "id":21, "pId":2, "name":"二级菜单1.3"},
+{ "id":22, "pId":2, "name":"二级菜单1.3"},
+{ "id":23, "pId":2, "name":"二级菜单1.3"}
+]
+
+
+[{"id":1,"pId":0,"open":true,"name":"信息管理","checked":true},
+{"id":2,"pId":1,"open":false,"name":"添加公告","checked":true},
+{"id":3,"pId":1,"open":false,"name":"公告列表","checked":true}]

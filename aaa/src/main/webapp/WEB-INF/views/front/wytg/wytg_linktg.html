@@ -1,0 +1,138 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>我的农场</title>
+<base href="${base}/">
+<!--适应移动端-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no, email=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 删除苹果默认的工具栏和菜单栏 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="full-screen" content="yes"/>
+<meta name="x5-fullscreen" content="true"/>
+<!-- 设置苹果工具栏颜色 -->
+<meta name="format-detection" content="telphone=no, email=no"/>
+<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+<!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="renderer" content="webkit">
+<!-- 避免IE使用兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true">
+<!-- 微软的老式浏览器 -->
+<meta name="MobileOptimized" content="320">
+<!-- uc强制竖屏 -->
+<meta name="screen-orientation" content="landscape">
+<!-- QQ强制竖屏 -->
+<meta name="x5-orientation" content="landscape">
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes">
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true">
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application">
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app">
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- 适应移动端end -->
+<link href="resources/front/css/reset.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/animate.min.css" rel="stylesheet" type="text/css">
+<link href="resources/front/layui/css/layui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/dui.css" rel="stylesheet" type="text/css">
+<script src="resources/front/js/jquery.min.js" ></script>
+<script src="resources/front/layui/layui.js" ></script>
+<!-- 点击复制控件 -->
+<!-- <script src="https://cdn.bootcss.com/zclip/1.1.2/jquery.zclip.min.js"></script> -->
+<script src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.min.js"></script>
+<style type="text/css">
+/* 收款方收款信息 样式 */
+.smallTitle{
+	background-image: url("resources/front/images/SmallTitle_bg.png");
+	background-repeat: no-repeat;
+	background-size:100% 40px;
+	margin-top: 3%;
+	margin-bottom:1%;
+	text-align: center;
+	color: #3a230a;
+	font-size: 1.2rem;
+	height: 40px;
+	line-height: 40px;
+}
+.weichatImg{
+	width: 200px;
+	height: 200px;
+	border-radius:50px;
+}
+.blockspan{
+	display: block;
+	font-weight: bold;
+}
+</style>
+</head>
+<body class="dui-page-body ggzs-enabled">
+<div class="page-body">
+	<div class="smallTitle">玩家推广途径如下</div>
+     <div>
+         <span class="blockspan">
+         	推广链接
+         	<button type="button" class="layui-btn layui-btn-radius layui-btn-mini copybtn" data-clipboard-action="copy" data-clipboard-target="#tgLink">点击复制</button>
+         </span>
+         <a href="javascript:;" id="tgLink">
+         </a>
+     </div>
+     <div>
+         <span class="blockspan">推广二维码(长按图片保存到本地)</span>
+         <!-- <button type="button" class="layui-btn layui-btn-radius layui-btn-mini">点击分享</button> -->
+         <img alt="" id="tgerweima" class="weichatImg">
+    </div>
+</div>
+<script src="resources/front/js/layuiformvalid.js" charset="utf-8"></script>
+<script src="resources/front/js/pass_aes.js" charset="utf-8"></script> 
+<script src="resources/front/js/page.js"  charset="utf-8"></script> 
+<script src="resources/front/js/main.js" charset="utf-8"></script>
+<script>
+//ajax异步提交
+$.ajax({
+	 type:"POST",
+	 url:"front/member/createQRCode",
+	 dataType:"json",
+	 success:function(result){
+		 console.dir();
+		 $("#tgerweima").attr("src",result.memberQRCode);
+		 $("#tgLink").html(result.tgLink);
+	 }
+});
+var clipboard = new Clipboard('.copybtn');
+clipboard.on('success', function(e) {
+    //console.info('Action:', e.action);
+    //console.info('Text:', e.text);
+    //console.info('Trigger:', e.trigger);
+
+    e.clearSelection();
+    alertMsg("复制成功");
+});
+clipboard.on('error', function(e) {
+    console.error('Action:', e.action);
+    console.error('Trigger:', e.trigger);
+    alertMsg("复制失败");
+});
+
+/* $('#tgLink').zclip({
+	 path: 'resources/front/images/butterfly/ZeroClipboard.swf', 
+	 copy: function(){//复制内容 移动端不支持 swf 所以放弃
+	    	console.dir("-----------");
+	    	console.dir($("#tgLink").html());
+	      return $("#tgLink").html();
+	    }, 
+	 afterCopy: function(){//复制成功 
+	    	alertMsg("复制成功");
+	    } 
+}); */
+</script>
+</body>
+</html>

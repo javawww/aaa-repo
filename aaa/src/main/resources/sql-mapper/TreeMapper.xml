@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shengchuang.dao.TreeDao">  
+     
+    <select id="findCommon" resultType="java.util.HashMap" parameterType="java.util.Map">
+		SELECT * from t_plant_stat WHERE 1=1  
+		<if test="curId!='' and curId!=null "> and memid=#{curId} </if>
+		<if test="types!='' and types!=null "> and types=#{types} </if>
+		order by id desc limit ${start},${limit} 
+	</select>  
+     
+    <select id="findOtherTrees" resultType="com.shengchuang.entity.TreePlantStatEntity" parameterType="int">
+		SELECT * from t_plant_stat WHERE memid!=#{curId}
+	</select>  
+     
+    <select id="findById" resultType="com.shengchuang.entity.TreePlantStatEntity" parameterType="int">
+		SELECT * from t_plant_stat WHERE id=#{id}
+	</select>  
+     
+    <select id="getAllTrees" resultType="com.shengchuang.entity.TreePlantStatEntity" parameterType="int">
+		SELECT * from `t_plant_stat` WHERE 1=1  
+	</select>  
+     
+    <select id="findTreeByTreeNum_MemId" resultType="com.shengchuang.entity.TreePlantStatEntity" parameterType="java.util.Map">
+		SELECT * from t_plant_stat WHERE 1=1  
+		<if test="curId!=null "> and memid=#{curId} </if>
+		<if test="treeNum!=null "> and treeNo=#{treeNum} </if>
+	</select>  
+     
+    <select id="findCommonEntity" resultType="com.shengchuang.entity.TreePlantStatEntity" parameterType="java.util.Map">
+		SELECT * from t_plant_stat WHERE 1=1  
+		<if test="msgStatus!='' and msgStatus!=null "> and msgStatus=#{msgStatus} </if>
+		order by id desc limit ${start},${limit} 
+	</select>  
+     
+    <select id="findAllByMemId" resultType="com.shengchuang.entity.TreePlantStatEntity" parameterType="java.util.Map">
+		SELECT * from t_plant_stat WHERE 1=1  
+		<if test="curId!='' and curId!=null "> and memid=#{curId} </if>
+		<if test="treeType!='' and treeType!=null "> and treeType=#{treeType} </if>
+		order by id asc
+	</select>  
+     
+    <select id="findCommonById" resultType="java.util.HashMap" parameterType="int">
+		SELECT * from t_plant_stat WHERE id = #{id} 
+	</select>  
+     
+    <select id="findCommonByCurId" resultType="java.util.HashMap" parameterType="int">
+		SELECT * from t_plant_stat WHERE memid = #{curId} and treeType = #{treeType} order by id asc
+	</select>  
+    <select id="findTreePlantsByMemid" resultType="com.shengchuang.entity.TreePlantStatEntity" parameterType="int">
+		SELECT * from t_plant_stat WHERE memid = #{memId}
+	</select>  
+    <select id="findCommonByMemberId" resultType="java.util.HashMap" parameterType="int">
+		SELECT * from t_plant_stat WHERE memid = #{memid} order by id asc
+	</select>  
+    <select id="findMaxTreeNo" resultType="int" parameterType="int" >
+     	SELECT MAX(treeNo) from t_plant_stat where memid = #{curId} and treeType = #{treeType}
+     </select>
+    <insert id="addCommon" > 
+        INSERT INTO `t_plant_stat` (
+        	`treeNo`, `treeType`, `plantTime`, `gainTime`, `overTime`, 
+        	`isGain`, `shySalar`, `memid`,`gainCounts`,`capaCycle`,
+        	`capaLimit`,`tqIntegral`,`zzIntegral`,`capacity`,`wgjCount`,`ptgjCount`
+        ) 
+        VALUES ( 
+        	#{treeNo},#{treeType},#{plantTime},#{gainTime},#{overTime},
+        	#{isGain},#{shySalar},#{memid},#{gainCounts},#{capaCycle},
+        	#{capaLimit},#{tqIntegral},#{zzIntegral},#{capacity},#{wgjCount},#{ptgjCount}
+        );
+    </insert> 
+    
+    <delete id="deleteCommon">
+        delete from t_plant_stat where id=#{id}
+    </delete>  
+     
+    <update id="updateCommon">
+        UPDATE `t_plant_stat` 
+		<set>
+			<if test="treeNo != null">`treeNo`= #{treeNo},</if>
+			<if test="treeType != null">`treeType`= #{treeType},</if>
+			<if test="plantTime != null">`plantTime`= #{plantTime},</if>
+			<if test="gainTime != null">`gainTime`= #{gainTime},</if>
+			<if test="overTime != null">`overTime`= #{overTime},</if>
+			<if test="isGain != null">`isGain`= #{isGain},</if>
+			<if test="shySalar != null">`shySalar`= #{shySalar},</if>
+			<if test="gainCounts != null">`gainCounts`= #{gainCounts},</if>
+			<if test="memid != null">`memid`= #{memid},</if>
+			<if test="wgjCount != null">`wgjCount`= #{wgjCount},</if>
+			<if test="ptgjCount != null">`ptgjCount`= #{ptgjCount}</if>
+	    </set>
+		WHERE `id`=#{id};
+    </update>
+     
+    <update id="updateTreeByTreeNum_MemId">
+        UPDATE `t_plant_stat` 
+		<set>
+			<if test="treeType != null">`treeType`= #{treeType},</if>
+			<if test="plantTime != null">`plantTime`= #{plantTime},</if>
+			<if test="gainTime != null">`gainTime`= #{gainTime},</if>
+			<if test="overTime != null">`overTime`= #{overTime},</if>
+			<if test="isGain != null">`isGain`= #{isGain},</if>
+			<if test="isOverTime != null">`isOverTime`= #{isOverTime},</if>
+			<if test="shySalar != null">`shySalar`= #{shySalar},</if>
+			<if test="gainCounts != null">`gainCounts`= #{gainCounts},</if>
+			<if test="wgjCount != null">`wgjCount`= #{wgjCount},</if>
+			<if test="ptgjCount != null">`ptgjCount`= #{ptgjCount}</if>
+	    </set>
+		WHERE `memid`= #{memid} and `treeNo`= #{treeNo}
+    </update>
+    
+    <select id="findAll" resultType="java.util.HashMap">
+		SELECT * from t_plant_stat 
+	</select>  
+	
+    <select id="findCommonCount" resultType="Integer" parameterType="java.util.Map"> 
+         select count(1) from t_plant_stat where 1=1 
+         <if test="msgStatus!='' and msgStatus!=null"> and msgStatus=#{msgStatus} </if> 
+    </select>
+	
+    <select id="countMyStealTimes" resultType="Integer" parameterType="java.util.Map"> 
+         select count(1) from t_steal_log where 
+         stealTime &gt; #{gainTimeStart} and stealTime &lt; #{gainTimeOver} and 
+         stealFrom=#{curMemNum} and stealBy=#{btrMemNum} and 
+         treeNum=#{treeNum}
+    </select>
+	
+    <select id="countTreeStealTimes" resultType="Integer" parameterType="java.util.Map"> 
+         select count(1) from t_steal_log where 
+         stealTime &gt; #{gainTimeStart} and stealTime &lt; #{gainTimeOver} and 
+         stealBy=#{btrMemNum} and treeNum=#{treeNum}
+    </select>
+    
+    <update id="updateTreePlants" parameterType="com.shengchuang.entity.TreePlantStatEntity">
+        UPDATE `t_plant_stat` 
+		<set>
+			<if test="treeNo != null and '' != treeNo">`treeNo`= #{treeNo},</if>
+			<if test="treeType != null and '' != treeType">`treeType`= #{treeType},</if>
+			<if test="plantTime != null and '' != plantTime">`plantTime`= #{plantTime},</if>
+			<if test="gainTime != null and '' != gainTime">`gainTime`= #{gainTime},</if>
+			<if test="overTime != null and '' != overTime">`overTime`= #{overTime},</if>
+			<if test="isGain != null">`isGain`= #{isGain},</if>
+			<if test="shySalar != null">`shySalar`= #{shySalar},</if>
+			<if test="memid != null and '' != memid">`memid`= #{memid},</if>
+			<if test="gainCounts != null and '' != gainCounts">`gainCounts`= #{gainCounts},</if>
+			<if test="isOverTime != null and '' != isOverTime">`isOverTime`= #{isOverTime},</if>
+			<if test="wgjCount != null">`wgjCount`= #{wgjCount},</if>
+			<if test="ptgjCount != null">`ptgjCount`= #{ptgjCount}</if>
+	    </set>
+		WHERE `id`=#{id};
+    </update>
+    <select id="findTreePlantByTnAnMeId" resultType="com.shengchuang.entity.TreePlantStatEntity">
+		SELECT * from `t_plant_stat` WHERE 1=1 and memid = #{memId} and treeNo = #{treeNo}
+	</select> 
+</mapper>

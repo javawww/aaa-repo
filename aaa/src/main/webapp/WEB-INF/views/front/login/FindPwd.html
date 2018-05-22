@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>我的农场</title>
+<!--适应移动端-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no, email=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 删除苹果默认的工具栏和菜单栏 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="full-screen" content="yes"/>
+<meta name="x5-fullscreen" content="true"/>
+<!-- 设置苹果工具栏颜色 -->
+<meta name="format-detection" content="telphone=no, email=no"/>
+<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+<!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="renderer" content="webkit">
+<!-- 避免IE使用兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true">
+<!-- 微软的老式浏览器 -->
+<meta name="MobileOptimized" content="320">
+<!-- uc强制竖屏 -->
+<meta name="screen-orientation" content="landscape">
+<!-- QQ强制竖屏 -->
+<meta name="x5-orientation" content="landscape">
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes">
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true">
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application">
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app">
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- 适应移动端end -->
+<link href="resources/front/css/reset.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/animate.min.css" rel="stylesheet" type="text/css">
+<link href="resources/front/layui/css/layui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/dui.css" rel="stylesheet" type="text/css">
+<script src="resources/front/js/jquery.min.js" ></script>
+<script src="resources/front/layui/layui.js" ></script>
+<script src="resources/front/js/layuiformvalid.js" charset="utf-8"></script>
+<style>
+.layui-form-select .layui-input{display:none;}
+.layui-form-select .layui-edge{display:none;}
+#newselect{display:blcok;}
+.layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select{display:block;}
+.layui-form-danger+.layui-form-select .layui-input, .layui-form-danger:focus{border:none;!important}
+</style>
+</head>
+<body class="dui-page-body ggzs-enabled">
+<div class="page-body">
+    <form class="form-horizontal layui-form" id="FindPwd" onsubmit="return false" method="post">
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">密保问题：</span>
+            <select class="friend-new-line friend-new-line-input" name="protectQuest" style="display:blcok;">
+            	<option value="0">最喜欢看的电影是什么?</option>
+            	<option value="1">曾经去过最远的地方是?</option>
+            	<option value="2">父亲的生日日期是多少号?</option>
+            </select>
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">密保答案：</span>
+            <input type="text" name="protectAnswe" lay-verify="required" class="friend-new-line friend-new-line-input">
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">会员编号：</span>
+            <input type="text" name="memNum" lay-verify="required|username" class="friend-new-line friend-new-line-input">
+        </div>
+          <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">新密码：</span>
+            <input name="loginPwd" lay-verify="required|pass" onfocus="this.type='password'" type="text" id="paswd" class="friend-new-line friend-new-line-input required">
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">确认新密码：</span>
+            <input type="text" lay-verify="required|pass|regPwd" onfocus="this.type='password'" id="regPwd" class="friend-new-line friend-new-line-input" >
+        </div>
+       <!--  <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">新密码：</span>
+            <input type="text" onfocus="this.type='password'" name="loginPwd" lay-verify="required|pass" class="friend-new-line friend-new-line-input">
+        </div> -->
+        <div class="m-top12 text-c">
+            <a href="javascript:" lay-submit lay-filter="formDemo" class="btn btn-green text-auto xiugai2-go" >确定</a>
+        </div>
+        <input type="reset" name="reset" id="reset" style="display: none;" />
+    </form>
+</div>
+<script src="resources/front/js/pass_aes.js" charset="utf-8"></script> 
+<script src="resources/front/js/page.js"  charset="utf-8"></script> 
+<script src="resources/front/js/main.js" charset="utf-8"></script>
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+	  var form = layui.form()
+	  ,layer = layui.layer
+	  ,layedit = layui.layedit
+	  ,laydate = layui.laydate;
+	  //监听提交
+	 form.on('submit(formDemo)', function(data){
+			 var param = $("#FindPwd").serialize();
+			 //ajax异步提交
+			 $.ajax({
+				 type:"POST",
+				 url:"front/lc/getBackPwd",
+				 data:param,
+				 dataType:"JSON",
+				 success:function(data){
+					 if(data==-1){
+						 successMsg("会员编号或者密保答案错误",function(){
+							 $('#reset').click();
+						 });
+					 }else if(data==1){
+						 successMsg("找回成功,请重新登陆",function(){
+							 window.location.reload(true);
+						 });
+					 }else if(data==-2){
+						 successMsg("验证通过，不可抗力因素导致找回密码失败",function(){
+							 $('#reset').click();
+						 });
+					 }
+				 }
+			 }); 
+	  });
+});
+</script>
+</body>
+</html>

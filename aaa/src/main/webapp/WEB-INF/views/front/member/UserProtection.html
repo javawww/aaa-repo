@@ -1,0 +1,91 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="${base}/">
+<meta charset="UTF-8">
+<title>我的农场</title>
+<!--适应移动端-->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no, email=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 删除苹果默认的工具栏和菜单栏 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="full-screen" content="yes"/>
+<meta name="x5-fullscreen" content="true"/>
+<!-- 设置苹果工具栏颜色 -->
+<meta name="format-detection" content="telphone=no, email=no"/>
+<!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+<!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="renderer" content="webkit">
+<!-- 避免IE使用兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true">
+<!-- 微软的老式浏览器 -->
+<meta name="MobileOptimized" content="320">
+<!-- uc强制竖屏 -->
+<meta name="screen-orientation" content="landscape">
+<!-- QQ强制竖屏 -->
+<meta name="x5-orientation" content="landscape">
+<!-- UC强制全屏 -->
+<meta name="full-screen" content="yes">
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="true">
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application">
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app">
+<!-- windows phone 点击无高光 -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- 适应移动端end -->
+<link href="resources/front/css/reset.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/animate.min.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/layui.css" rel="stylesheet" type="text/css">
+<link href="resources/front/css/dui.css" rel="stylesheet" type="text/css">
+<script src="resources/front/js/jquery.min.js" ></script>
+<script src="resources/front/Public/static/nc/js/layui/layui.js" ></script>	
+<script>
+    title = '密保问题';
+</script>
+</head>
+<body class="dui-page-body ggzs-enabled">
+<div class="page-body">
+    <strong class="dui-text-b"><b class="f-01" style="color:#ff0000">可以通过回答密保问题重置密码。</b></strong>
+    <form class="form-horizontal" onsubmit="return false" id="user_data">
+        <input type="hidden" value="User.DoProtection" name="service">
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">密保问题1</span>
+            <input name="a1" type="text" value="" id="x1" class="friend-new-line friend-new-line-input" placeholder="如：小学学校名称是？">
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">答案1</span>
+            <input name="q1" type="text" value="" id="x2" class="friend-new-line friend-new-line-input" placeholder="输入密保问题1的答案">
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">密保问题2</span>
+            <input name="a2" type="text" value="" id="x3" class="friend-new-line friend-new-line-input" placeholder="如：您母亲的姓名是？">
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">答案2</span>
+            <input name="q2" type="text" value="" id="x4" class="friend-new-line friend-new-line-input" placeholder="输入密保问题2的答案">
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">密保问题3</span>
+            <input name="a3" type="text" value="" id="x5" class="friend-new-line friend-new-line-input" placeholder="如：您父亲的生日是？">
+        </div>
+        <div class="friend-new-item">
+            <span class="friend-new-line friend-new-line-label">答案3</span>
+            <input name="q3" type="text" value="" id="x6" class="friend-new-line friend-new-line-input" placeholder="输入密保问题3的答案">
+        </div>
+        <div class="m-top12 text-c">
+            <button class="btn btn-green text-auto" type="submit">确认提交</button>
+        </div>
+    </form>
+</div>
+<script src="resources/front/js/pass_aes.js" charset="utf-8"></script> 
+<script src="resources/front/js/page.js"  charset="utf-8"></script> 
+<script src="resources/front/js/main.js" charset="utf-8"></script>
+</body>
+</html>

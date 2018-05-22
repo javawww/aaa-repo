@@ -1,0 +1,81 @@
+/* dialog样式控制 */
+body .layui-layer-dialog{
+	overflow: hidden;
+    background: none;
+    box-shadow: none;
+}
+body .demo-class .layui-layer-title{
+	background: url(../layui/css/modules/layer/dui-farm/bg-mian-top.png) no-repeat center top;
+    background-size: 100% 100%;
+    height: 34%;
+    overflow: hidden;
+    border-radius: 0;
+    border: none;
+    text-align: center;
+    position: relative;
+    padding: 0;
+    line-height: 150%;
+    color: #fff;
+    font-size:0.7rem;
+    text-shadow: 0px 1px 0px #1c6b65, 0px 2px 0px #1c6b65;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    white-space: nowrap;}
+body .demo-class .layui-layer-content{    
+	width: 92%;
+    padding: 0 4%;
+    height:50px;
+    background-image: url(../layui/css/modules/layer/dui-farm/bg-mian-content.png);
+    background-position: center top;
+    background-repeat: repeat-y;
+    max-height: 91%;
+    background-size: 100% 90%;}
+body .demo-class .layui-layer-btn{
+	background-image: url(../layui/css/modules/layer/dui-farm/bg-mian-foot.png);
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    overflow: hidden;
+}
+body .demo-class .layui-layer-btn0{
+	background: url(../images/btn-green.png) no-repeat;
+    text-shadow: rgb(21, 117, 6) 0px 1px 0px, rgb(21, 117, 6) 0px 2px 0px;
+    background-size:100px;
+	width: 30%;
+    border: none;
+    margin-left: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 0.6rem;
+    color: #fff;
+    height:45px;
+    margin-top:20px;
+    line-height:35px;
+    cursor: pointer;
+    text-align:center;
+    background-color:none;
+    border-colo:none;
+    !inporant;
+}
+body .demo-class .layui-layer-btn1{
+	background: url(../images/btn-green.png) no-repeat;
+    text-shadow: rgb(21, 117, 6) 0px 1px 0px, rgb(21, 117, 6) 0px 2px 0px;
+    background-size:100px;
+	width: 30%;
+    border: none;
+    margin-left: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 0.6rem;
+    color: #fff;
+    height:45px;
+    margin-top:20px;
+    line-height:35px;
+    cursor: pointer;
+    text-align:center;
+    background-color:none;
+    border-colo:none;
+    !inporant;
+}

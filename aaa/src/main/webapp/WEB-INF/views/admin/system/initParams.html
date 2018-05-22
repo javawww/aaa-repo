@@ -1,0 +1,980 @@
+<#assign base=request.contextPath />
+<!doctype html>
+<html ng-app="app" class="no-js">
+	<head>
+		<base href="${base}/">
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+
+		<link rel="stylesheet" href="resources/admin/plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+		<script src="resources/admin/js/jquery.min.js" ></script>
+		<script type="text/javascript" src="resources/admin/plugins/angular/angular.min.js"></script>
+   		<script type="text/javascript" src="resources/admin/plugins/angular-route/angular-route.min.js"></script>
+		<style type="text/css">
+			.layui-input-block{margin-bottom:10px;}
+			.hjinput{width:25%;float:left;display: inline-block;margin-right: 5px;}
+			.hjspan{margin-left: 22px;float:left;display: inline-block;line-height: 38px;text-align: right;}
+			.hjfloat{float:left;}
+
+		</style>
+
+	</head>
+	<body ng-controller="testController">
+		<div style="margin: 15px;">
+			<form class="layui-form">
+				<input type="hidden" ng-model="formdata.id" >
+				<fieldset class="layui-elem-field">
+					<legend>会员激活积分设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<label class="layui-form-label">激活积分</label>
+							<div class="layui-input-inline">
+								<input ng-model="formdata.jhIntegral" autocomplete="off" placeholder="30" class="layui-input">
+							</div>
+							<button ng-click="save(1)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				
+				<fieldset class="layui-elem-field">
+					<legend>种植消耗设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">银树消耗</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.yszzIntegral"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">金树消耗</label>
+								<div class="layui-input-inline">
+									<input ng-model="formdata.jszzIntegral"  autocomplete="off" placeholder="2000" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(2)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				
+				<fieldset class="layui-elem-field">
+					<legend>日分红偷取额度设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">银树额度</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.ystqIntegral"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">金树额度</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jstqIntegral"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(3)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				
+				<!-- <fieldset class="layui-elem-field">
+					<legend>日分红偷取次数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">银树次数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.ystqCount"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">金树次数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jstqCount"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save()" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>			
+					</div>
+				</fieldset> -->
+				
+				<fieldset class="layui-elem-field">
+					<legend>有无管家时偷取次数设置(单位/次数)<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">无管家</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.wgjCount"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">有管家</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.ptgjCount"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline" style="display: none;">
+								<label class="layui-form-label">超级管家</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.cjgjCount"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(4)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				
+				<fieldset class="layui-elem-field">
+					<legend>神童日俸额度设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">神童日俸</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.shtMoney"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(5)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>管家月俸额度设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">管家月俸</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.ptgjMoney"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline" style="display: none;">
+								<label class="layui-form-label">超级管家</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.cjgjMoney"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(6)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>日分红产能额度设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">银树产能</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.ysCapacity"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">金树产能</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jsCapacity"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(7)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>日分红产能周期设置(分钟)<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">银树周期</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.ysCapaCycle"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">金树周期</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jsCapaCycle"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(8)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>日分红产能耗尽上限设置(次数)<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">银树上限</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.ysCapaLimit"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">金树上限</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jsCapaLimit"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(9)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>代数奖提成百分比设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">一代</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.dsjScale0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">二代</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.dsjScale1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">三代</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.dsjScale2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">四代</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.dsjScale3"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">五至十代</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.dsjScale4"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">十一至十五代</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.dsjScale5"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(10)" class="layui-btn layui-btn-radius layui-btn-mini" ng-><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>代数奖直推参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">直推</label>
+								<div class="layui-input-inline" >
+									<input type="text"  ng-model="formdata.zhtParam0_1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">个,拿</label>
+								<div class="layui-input-inline" >
+									<input type="text"  ng-model="formdata.zhtParam0_2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+								<label class="layui-form-label">代</label>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">直推</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.zhtParam1_1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">个,拿</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.zhtParam1_2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+								<label class="layui-form-label">代</label>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">直推</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.zhtParam2_1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">个,拿</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.zhtParam2_2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+								<label class="layui-form-label">代</label>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">直推</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.zhtParam3_1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">个,拿</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.zhtParam3_2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+								<label class="layui-form-label">代</label>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">直推</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.zhtParam4_1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">个,拿</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.zhtParam4_2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+								<label class="layui-form-label">代</label>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">直推</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.zhtParam5_1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">个,拿</label>
+								<div class="layui-input-inline" >
+									<input type="text" ng-model="formdata.zhtParam5_2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+								<label class="layui-form-label">代</label>
+							</div>
+							<button ng-click="save(11)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>每日提现次数(每日以24小时计算)<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">动态钱包</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWalDeposit0"  autocomplete="off" placeholder="动态钱包日提现次数." class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">静态钱包</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWalDeposit0"  autocomplete="off" placeholder="静态钱包日提现次数." class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(12)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>动静态钱包提现最低额度设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">动态钱包</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWalDeposit1"  autocomplete="off" placeholder="动态钱包最低提现额度." class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">静态钱包</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWalDeposit1"  autocomplete="off" placeholder="静态钱包最低提现额度." class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(13)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>动静态钱包提现最高额度设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">动态钱包</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWalDeposit2"  autocomplete="off" placeholder="动态钱包最高提现额度." class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">静态钱包</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWalDeposit2"  autocomplete="off" placeholder="静态钱包最高提现额度." class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(14)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>动静态钱包提现额度倍数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">动态钱包</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWalDeposit3"  autocomplete="off" placeholder="动态钱包提现额度倍数." class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">静态钱包</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWalDeposit3"  autocomplete="off" placeholder="静态钱包提现额度倍数." class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(15)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>动静态钱包提现手续费设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">动态钱包</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWalDeposit4"  autocomplete="off" placeholder="动态钱包提现手续费." class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">静态钱包</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWalDeposit4"  autocomplete="off" placeholder="静态钱包提现手续费." class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(16)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>提现日期设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">提现日期</label>
+								<div class="layui-input-block" >
+									<input type="checkbox" title="星期一" id="ck1" <#if tixCycles[0]='1_1' > checked="checked"</#if> >
+								
+									<input type="checkbox" title="星期二" id="ck2" <#if tixCycles[1]='2_1' > checked="checked"</#if> >
+									
+									<input type="checkbox" title="星期三" id="ck3" <#if tixCycles[2]='3_1' > checked="checked"</#if> >
+									
+									<input type="checkbox" title="星期四" id="ck4" <#if tixCycles[3]='4_1' > checked="checked"</#if> >
+									
+									<input type="checkbox" title="星期五" id="ck5" <#if tixCycles[4]='5_1' > checked="checked"</#if> >
+									
+									<input type="checkbox" title="星期六" id="ck6" <#if tixCycles[5]='6_1' > checked="checked"</#if> >
+									
+									<input type="checkbox" title="星期日" id="ck7" <#if tixCycles[6]='7_1' > checked="checked"</#if> >
+								</div>
+							</div>
+							<button ng-click="save(17)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>EP交易挂卖参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">挂卖最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.epSellTrade0"  autocomplete="off" placeholder="最低挂卖额度." class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">挂卖最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.epSellTrade1"  autocomplete="off" placeholder="最高挂卖额度." class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">挂卖倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.epSellTrade2"  autocomplete="off" placeholder="挂卖倍数." class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(18)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>EP交易买进参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">买进最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.epBuyTrade0"  autocomplete="off" placeholder="最低买进额度." class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">买进最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.epBuyTrade1"  autocomplete="off" placeholder="最高买进额度." class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">买进倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.epBuyTrade2"  autocomplete="off" placeholder="买进倍数." class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(19)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<!-- 玩家积分兑换配置参数开始：玩家互转和 玩家转换 -->
+				<fieldset class="layui-elem-field">  
+					<legend>转账-<font color="red">动态钱包</font>转激活积分-参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWal2Jhjf0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWal2Jhjf1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWal2Jhjf2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(20)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>转账-<font color="red">动态钱包</font>转种子积分-参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWal2Zzjf0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWal2Zzjf1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWal2Zzjf2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(21)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field"><!-- new -->
+					<legend>转账-<font color="red">动态钱包</font>转神童日俸-参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWal2ShtMoney0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWal2ShtMoney1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWal2ShtMoney2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(22)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field"><!-- new -->
+					<legend>转账-<font color="red">动态钱包</font>转管家月俸-参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWal2GjMoney0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWal2GjMoney1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.dyWal2GjMoney2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(23)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>转账-<font color="green">收益钱包</font>转激活积分-参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWal2Jhjf0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWal2Jhjf1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWal2Jhjf2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(24)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>转账-<font color="green">收益钱包</font>转种子积分-参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWal2Zzjf0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWal2Zzjf1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWal2Zzjf2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(25)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field"><!-- new -->
+					<legend>转账-<font color="green">收益钱包</font>转神童日俸-参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWal2ShtMoney0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWal2ShtMoney1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWal2ShtMoney2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(26)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field"><!-- new -->
+					<legend>转账-<font color="green">收益钱包</font>转管家月俸-参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWal2GjMoney0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWal2GjMoney1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jtWal2GjMoney2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(27)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>转账-<font color="blue">种子积分</font>转管家月俸-参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.zzjf2GjMoney0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.zzjf2GjMoney1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.zzjf2GjMoney2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(28)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>转账-<font color="blue">种子积分</font>转神童日俸-参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.zzjf2ShtMoney0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.zzjf2ShtMoney1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.zzjf2ShtMoney2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(29)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>转账-<font color="blue">种子积分</font>转激活积分-参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.zzjf2Jhjf0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.zzjf2Jhjf1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.zzjf2Jhjf2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(30)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>转账-会员间互转种子积分-参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.zzjf2Zzjf0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.zzjf2Zzjf1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.zzjf2Zzjf2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(31)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset class="layui-elem-field">
+					<legend>转账-会员间互转激活积分-参数设置<font color="red">>></font></legend>
+					<div class="layui-field-box">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最低</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jhjf2Jhjf0"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账最高</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jhjf2Jhjf1"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">转账倍数</label>
+								<div class="layui-input-inline" >
+									<input ng-model="formdata.jhjf2Jhjf2"  autocomplete="off" placeholder="200" class="layui-input">
+								</div>
+							</div>
+							<button ng-click="save(32)" class="layui-btn layui-btn-radius layui-btn-mini"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<script type="text/javascript" src="resources/admin/plugins/layui/layui.js"></script>
+		<script type="text/javascript" src="resources/admin/angularjs/initParams.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/angular/http.js"></script>
+		<script type="text/javascript">
+			layui.use(['form', 'layedit', 'laydate'], function() {
+				var form = layui.form(),
+					layer = layui.layer,
+					layedit = layui.layedit,
+					laydate = layui.laydate;
+				//创建一个编辑器
+				var editIndex = layedit.build('LAY_demo_editor');
+				//自定义验证规则
+				form.verify({
+					title: function(value) {
+						if(value.length < 5) {
+							return '标题至少得5个字符啊';
+						}
+					},
+					pass: [/(.+){6,12}$/, '密码必须6到12位'],
+					content: function(value) {
+						layedit.sync(editIndex);
+					}
+				});
+	
+				//监听提交
+				form.on('submit(demo1)', function(data) {
+					layer.alert(JSON.stringify(data.field), {
+						title: '最终的提交信息'
+					})
+					return false;
+				});
+				//layui 监听复选框
+				form.on('checkbox', function (data) {
+					  //console.log(data.elem); //得到checkbox原始DOM对象
+					  //console.log(data.elem.checked); //是否被选中，true或者false
+					  //console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+					  var appElement = document.querySelector('[ng-controller=testController]');
+					  var $scope = angular.element(appElement).scope(); 
+					  if(data.elem.id=="ck1"){//星期一
+						  if(data.elem.checked){
+							  $scope.formdata.tixCycle0_2=1;
+						  }else{
+							  $scope.formdata.tixCycle0_2=0;
+						  }
+					  }
+					  if(data.elem.id=="ck2"){//星期二
+						  if(data.elem.checked){
+							  $scope.formdata.tixCycle1_2=1;
+						  }else{
+							  $scope.formdata.tixCycle1_2=0;
+						  }
+					  }
+					  if(data.elem.id=="ck3"){//星期三
+						  if(data.elem.checked){
+							  $scope.formdata.tixCycle2_2=1;
+						  }else{
+							  $scope.formdata.tixCycle2_2=0;
+						  }
+					  }
+					  if(data.elem.id=="ck4"){//星期四
+						  if(data.elem.checked){
+							  $scope.formdata.tixCycle3_2=1;
+						  }else{
+							  $scope.formdata.tixCycle3_2=0;
+						  }
+					  }
+					  if(data.elem.id=="ck5"){//星期五
+						  if(data.elem.checked){
+							  $scope.formdata.tixCycle4_2=1;
+						  }else{
+							  $scope.formdata.tixCycle4_2=0;
+						  }
+					  }
+					  if(data.elem.id=="ck6"){//星期六
+						  if(data.elem.checked){
+							  $scope.formdata.tixCycle5_2=1;
+						  }else{
+							  $scope.formdata.tixCycle5_2=0;
+						  }
+					  }
+					  if(data.elem.id=="ck7"){//星期天
+						  if(data.elem.checked){
+							  $scope.formdata.tixCycle6_2=1;
+						  }else{
+							  $scope.formdata.tixCycle6_2=0;
+						  }
+					  }
+				});
+			});     
+		</script>
+	</body>
+</html>

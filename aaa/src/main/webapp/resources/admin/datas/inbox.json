@@ -1,0 +1,34 @@
+{
+  "code": 0,
+  "msg": "获取成功",
+  "list": [
+    {
+      "id": 1,
+      "addressor": "张三",
+      "createtime": "您有新的消息请查收ss",
+      "state":"已读",
+      "details": "这里是留言内容，获取文本框内容",
+      "createTime": "2017/5/27 12:45:30",
+      "opt":"<a class=\"layui-btn layui-btn-small\" onclick=\"set(this);\">查看</a><a class=\"layui-btn layui-btn-small\" onclick=\"del(this);\">删除</a>"
+    },
+    {
+      "id": 2,
+      "addressor": "张三",
+      "createtime": "您有新的消息请查收ss",
+      "state":"未读",
+      "details": "这里是留言内容，获取文本框内容",
+      "createTime": "2017/5/25 12:45:30",
+      "opt":"<a class=\"layui-btn layui-btn-small\" onclick=\"set(this);\">查看</a><a class=\"layui-btn layui-btn-small\" onclick=\"del(this);\">删除</a>"
+    },
+    {
+      "id": 3,
+      "addressor": "张三",
+      "createtime": "查收ss",
+      "state":"已读",
+      "details": "这里是留言内容，获取文本框内容",
+      "createTime": "2017/5/23 12:45:30",
+      "opt":"<a class=\"layui-btn layui-btn-small\" onclick=\"set(this);\">查看</a><a class=\"layui-btn layui-btn-small\" onclick=\"del(this);\">删除</a>"
+    }
+  ],
+  "count": 57
+}

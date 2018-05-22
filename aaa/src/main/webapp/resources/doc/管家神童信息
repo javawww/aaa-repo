@@ -1,0 +1,15 @@
+GJSTStatusEntity   t_gjst_status
+
+id;//主键
+gjSalar;//管家金额  购买管家耗费的管家月俸 默认为0 无管家
+stSalar;//神童金额 购买神童耗费的神童日俸 默认为0 神童不工作
+gjBeginTime;//管家充值时间  
+gjOverTime;//管家结束时间
+stBeginTime;//神童充值时间
+stOverTime;//神童结束时间
+gjStatus;//管家状态 默认0 无法工作 1正常工作
+stStatus;//神童状态 默认0 无法工作 1正常工作
+stealCount;//偷取次数 默认无管家对应全局参数数值 wgjCount 
+			//当管家充值成功 更新此数据  对应全局参数数值ptgjCount
+memNo;//关联新会员对应的会员编号
+memId;//外键  关联新会员对应的ID

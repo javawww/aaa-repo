@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shengchuang.dao.InOutRepoDao">  
+     
+    <select id="findInOutRepoByMemNum" resultType="com.shengchuang.entity.InoutRepoEntity">
+		SELECT * from t_inout_report WHERE memNum=#{memNum} AND bonusRepoId = #{bonusRepoId}
+		order by createTime desc
+	</select>  
+     
+    <select id="findAllRechargesByMemNum" resultType="com.shengchuang.entity.InoutRepoEntity" parameterType="map">
+		SELECT * from t_inout_report WHERE 1=1
+		<if test="memNum!=null and memNum!=''">and memNum=#{memNum}</if>
+		<if test="inoutDesc!=null and inoutDesc!=''">and inoutDesc=#{inoutDesc}</if>
+		order by id desc limit ${start},${limit} 
+	</select>  
+	
+	<insert id="add" > 
+        INSERT INTO `t_inout_report` ( `memNum`, `bonusType`, `changeSalar`, `origiSalar`,
+         	`currSalar`, `inoutDesc`, `createTime`, `bonusRepoId`) 
+        VALUES (#{memNum},#{bonusType},#{changeSalar},#{origiSalar},
+        	#{currSalar},#{inoutDesc},#{createTime},#{bonusRepoId});
+    </insert> 
+    
+    <select id="findAllInOutRepo" resultType="com.shengchuang.entity.InoutRepoEntity" parameterType="map">
+		SELECT * from t_inout_report WHERE 1=1  
+		<if test="memNum !='' and memNum !=null "> and memNum=#{memNum} </if>
+		<if test="bonusType !='' and bonusType !=null "> and bonusType=#{bonusType} </if>
+		<if test="startDate !='' and startDate !=null "> and createTime &gt; #{startDate} </if>
+		<if test="endDate !='' and endDate !=null "> and createTime &lt; #{endDate} </if>
+		order by id desc limit ${start},${limit} 
+	</select>
+	
+    <select id="findAllInOutRepoCount" resultType="int" parameterType="map">
+		SELECT count(*) from t_inout_report WHERE 1=1  
+		<if test="memNum !='' and memNum !=null "> and memNum=#{memNum} </if>
+		<if test="startDate !='' and startDate !=null "> and createTime &gt; #{startDate} </if>
+		<if test="endDate !='' and endDate !=null "> and createTime &lt; #{endDate} </if>
+		<if test="bonusType !='' and bonusType !=null "> and bonusType=#{bonusType} </if>
+	</select>  
+	
+    <select id="findAllRechargesCountByMemNum" resultType="int" parameterType="map">
+		SELECT count(*) from t_inout_report WHERE 1=1 
+		<if test="memNum!=null and memNum!=''">and memNum=#{memNum}</if>
+		<if test="inoutDesc!=null and inoutDesc!=''">and inoutDesc=#{inoutDesc}</if>
+	</select>  
+    
+    <delete id="deleteInOutRepo">
+        delete from t_inout_report where id=#{id}
+    </delete> 
+    <!-- 根据当前日期 作为查询条件 查询一条记录 -->
+    <select id="queryBonusRepoByCreateDate" resultType="com.shengchuang.entity.BonusRepoEntity">
+    	SELECT * from t_bonus_report t WHERE t.memNum = #{memNum} AND t.optType = #{optType} AND t.createDate = CURDATE()
+    </select>
+    <insert id="insertBonusRepo">
+    	INSERT into t_bonus_report (memNum,optType,createDate) values (#{memNum},#{optType},CURDATE())
+    </insert>
+    <!-- 根据当前登录会员 查询所有收支记录 -->
+    <select id="queryBonusRepoByMemNum" resultType="com.shengchuang.entity.BonusRepoEntity">
+    	SELECT * from t_bonus_report t WHERE t.memNum = #{memNum} AND t.optType = #{optType} ORDER BY t.createDate DESC
+    </select>
+</mapper>

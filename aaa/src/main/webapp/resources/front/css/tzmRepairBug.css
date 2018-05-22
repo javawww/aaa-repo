@@ -1,0 +1,27 @@
+/* 在layui校验时  不要对无效文本框 边框加红线 */
+.layui-form-danger+.layui-form-select .layui-input, .layui-form-danger:focus{border: 0px solid #FF5722!important;}
+/*  */
+#img{cursor:pointer}
+/* 重要 保证ios苹果手机 弹出框动态出现滚动条 */
+#wrapper {
+	-webkit-overflow-scrolling: touch;
+	overflow: auto;
+	overflow-x:hidden;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+}
+/* select下拉框美化 */
+.layui-form-select .layui-input{display:none;}
+.layui-form-select .layui-edge{display:none;}
+.layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select{display:block;}
+/*  登录页面 背景图片*/
+.login_bgcss{
+background-image: url('../images/lg_bg.jpg');
+background-size:100% 100%;
+width:100%;
+height:100%;
+overflow:hidden;
+}

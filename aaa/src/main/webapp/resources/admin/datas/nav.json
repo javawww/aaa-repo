@@ -1,0 +1,136 @@
+[
+	{
+		"title": "信息管理",
+		"icon": "fa-desktop",
+		"spread": true,
+		"children": [
+			{
+				"title": "添加公告",
+				"icon": "fa-laptop",
+				"href": "admin/information/addNews"
+			}, {
+				"title": "公告列表",
+				"icon": "fa-laptop",
+				"href": "admin/information/newsNotice"
+			}
+		]
+	}, {
+		"title": "系统设置",
+		"icon": "fa-desktop",
+		"spread": false,
+		"children": [
+			{
+				"title": "初始参数",
+				"icon": "fa-laptop",
+				"href": "admin/system/initParams"
+			}
+		]
+	}, {
+		"title": "会员管理",
+		"icon": "fa-desktop",
+		"spread": false,
+		"children": [
+			{
+				"title": "添加会员",
+				"icon": "fa-laptop",
+				"href": "admin/member/add"
+			},{
+				"title": "会员列表",
+				"icon": "fa-laptop",
+				"href": "admin/member/memberList"
+			},{
+				"title": "推荐图",
+				"icon": "fa-laptop",
+				"href": "admin/member/recommFigure"
+			}
+		]
+	},{
+		"title": "财务明细",
+		"icon": "fa-desktop",
+		"spread": false,
+		"children": [
+			{
+				"title": "奖金明细",
+				"icon": "fa-laptop",
+				"href": "admin/finace/bonusDetail"
+			},{
+				"title": "充值管理",
+				"icon": "fa-laptop",
+				"href": "admin/finace/rechargeMan"
+			},{
+				"title": "奖金统计",
+				"icon": "fa-laptop",
+				"href": "admin/finace/bonusStatist"
+			},{
+				"title": "投资统计",
+				"icon": "fa-laptop",
+				"href": "admin/finace/investStatist"
+			},{
+				"title": "账号收支",
+				"icon": "fa-laptop",
+				"href": "admin/finace/accountExpend"
+			},{
+				"title": "提现管理",
+				"icon": "fa-laptop",
+				"href": "admin/finace/incarnateMan"
+			},{
+				"title": "业绩统计",
+				"icon": "fa-laptop",
+				"href": "admin/finace/performance"
+			}
+		]
+	},{
+		"title": "管理员",
+		"icon": "fa-desktop",
+		"spread": false,
+		"children": [
+			{
+				"title": "管理员列表",
+				"icon": "fa-laptop",
+				"href": "admin/admin/adminList"
+			},{
+				"title": "添加管理员",
+				"icon": "fa-laptop",
+				"href": "admin/admin/addAdmin"
+			}
+		]
+	},{
+		"title": "邮件管理",
+		"icon": "fa-desktop",
+		"spread": false,
+		"children": [
+			{
+				"title": "发邮件",
+				"icon": "fa-laptop",
+				"href": "admin/message/writeMsg"
+			},{
+				"title": "发件箱",
+				"icon": "fa-laptop",
+				"href": "admin/message/outbox"
+			},{
+				"title": "收件箱",
+				"icon": "fa-laptop",
+				"href": "admin/message/inbox"
+			}
+		]
+	},{
+		"title": "数据库管理",
+		"icon": "fa-desktop",
+		"spread": false,
+		"children": [
+			{
+				"title": "数据备份",
+				"icon": "fa-laptop",
+				"href": "admin/dbman/dbBackup"
+			},{
+				"title": "数据还原",
+				"icon": "fa-laptop",
+				"href": "admin/dbman/dbRestore"
+			},{
+				"title": "清空数据",
+				"icon": "fa-laptop",
+				"href": "admin/dbman/dbEmpty"
+			}
+		]
+	}
+]

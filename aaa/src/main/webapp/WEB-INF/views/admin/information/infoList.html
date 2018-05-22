@@ -1,0 +1,222 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html ng-app="app" class="no-js">
+	<head>
+		<base href="${base}/">
+		<meta charset="utf-8">
+		<meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>网站后台管理系统</title> 
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		
+		<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="resources/admin/css/global.css" media="all">
+		<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+		<link rel="stylesheet" href="resources/admin/css/table.css" />
+		<link rel="stylesheet" type="text/css" href="resources/admin/css/zc.css" />	
+	    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular/angular.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular-route/angular-route.min.js"></script>
+		<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	    <link href="resources/admin/plugins/select2/select2.css" rel="stylesheet" />
+		<link href="resources/admin/plugins/select2/select2-bootstrap.css" rel="stylesheet" />
+	    <script type="text/javascript" src="resources/admin/plugins/select2/select2.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/fileupload/ajaxfileupload.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/layer-v1.9.0/layer/layer.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/pager/bootstrap-paginator.min.js"></script>
+	    
+	    <script>
+			var app = angular.module('app', ['ngRoute']);
+		</script>
+		<style type="text/css">
+		.infContent{
+			word-break: break-all;
+		}
+		.infContent img[title]{
+			width: 100%;
+			height: 100%;
+		}
+		</style>
+	</head>
+	<body class="hold-transition skin-green-light sidebar-mini  wysihtml5-supported" ng-controller="testController" style="overflow-x:hidden;">
+		<div class="wrapper">
+			<!-- 主体内容部分 -->
+			<div class="content-wrapper">  
+				  <section class="content"> 
+					<div class="row">
+						<div class="col-md-12">
+							<div id="query" class="box box-info box">
+								<div>
+									<!--搜索栏-->
+									<div  class="box-header with-border">
+										<!--增删改-->  
+										<div class="col-md-12 col-xs-12 col-sm-12" style="margin: 12px 0;"> 
+											<div style="float:left;padding-left:5px" class="input-group-sm">
+												<select style="padding: 0px;width:150px" select2 style="padding: 0px" ng-model="jhState" name="data2" placeholder="分类查看" required>
+													<option  value="1">普通公告</option>
+													<option  value="2">活动公告</option>
+													<option  value="3">其他公告</option>
+												</select>
+											</div>&nbsp;&nbsp;
+											<a class="btn btn-sm btn-info" href="javascript:;" target='_self' ng-click="queryall(1)" role="button"><i class="fa fa-search"></i>&nbsp;查询</a> 
+										   <!-- <a class="btn btn-sm btn-info" href="javascript:;" target='_self' ng-click="del()" role="button"><i class="fa fa-times"></i>&nbsp;删除</a> 
+											 <a class="btn btn-sm btn-info" href="javascript:;" target='_self' ng-click="add()" role="button"><i class="fa fa-plus-circle"></i>&nbsp;新增</a> 
+											<a class="btn btn-sm btn-info" href="javascript:;" target='_self' ng-click="update()" role="button"><i class="fa fa-cogs"></i>&nbsp;修改</a>  -->
+										</div>   
+									</div>
+
+									<!--显示数据栏-->
+									<div>
+										<div class="box-body">
+											<div>
+												<table  class="table table-bordered table-striped table-hover "  style="text-align: center;">
+													<thead>
+														<tr class="my_th">
+															<th style="width: 80px;">
+																<label for="chkAll">全选:</label>
+																<span>
+																	<input id="chkAll" type="checkbox" ng-model="chkall" ng-click="chkAll(chkall)" />
+																</span>
+															</th> 
+															<th>序号</th>
+													        <th>公告类别</th>
+													        <th>公告标题</th>
+													        <th>创建时间</th>
+													        <th>发布时间</th>
+													        <!-- <th>公告内容</th> -->
+													        <th>发布人</th>
+													        <th>操作</th>
+														</tr>
+													</thead>
+													<tbody id="content">
+														<tr ng-repeat="row in rows">
+															<td><input type="checkbox" ng-model="row.selected" /></td>
+															<td>{{$index+1}}</td>
+															<td>{{row.infType | infTypeFilter}}</td>
+															<td>{{row.infTitle}}</td>
+															<td>{{row.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>  
+															<td>{{row.pubTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>  
+															<td>{{row.memid}}</td>
+															<td>
+																<a data-toggle="modal" data-target="#sc{{$index}}" ng-click="showInfContent(row.id);" style="cursor: pointer;">查看</a>
+																<a ng-click="update2(row.id)" href="javascript:;" >编辑</a>
+																<a ng-click="delOne(row.id)" href="javascript:;" >删除</a>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												<!-- 查看内容详情 模态框 -->
+												<div ng-repeat="row in rows" class="modal fade" id="sc{{$index}}"  tabindex="-1" role="dialog" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+																	&times;
+																</button>
+																<h4 class="modal-title text-success">
+																	公告内容
+																</h4>
+															</div>
+															<div class="modal-body infContent" id="infContent_{{row.id}}" value="{{row.infContent}}">
+																<!-- {{row.infContent}} -->
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+															</div>
+														</div><!-- /.modal-content -->
+													</div><!-- /.modal dialog-->
+												</div><!-- end of model -->
+																
+												<div class="text-right" >
+													<pager page="page" records="records" onpagechanged="query"></pager>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				
+				<!-- “增加”、“修改” 共用模态框 -->
+				<section>
+					<div class="modal fade" id="adddialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog" style="width:97%">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title" id="myModalLabel">公告公告管理</h4>
+								</div>
+								<div class="modal-body">
+							<form class="form-horizontal" ng-submit="save()">
+								<!-- <div class="form-group" ng-if="addtype!=2">
+									<label class="control-label col-md-3 text-right">公告编号</label> 
+									<div class="col-md-7">
+										 <input class="form-control" type="text" ng-model="formdata.infNum" />
+									</div>
+								</div>  
+								<div class="form-group" ng-if="addtype==2">
+									<label class="control-label col-md-3 text-right">公告编号</label> 
+									<div class="col-md-7">
+										 <input class="form-control" type="text" ng-model="formdata.infNum" readonly="readonly"/>
+									</div>
+								</div>   -->
+								<div class="form-group">
+									<label class="control-label col-md-3 text-right">公告类别</label>
+									<div class="col-md-3">
+										<select style="padding: 0px" select2 style="padding: 0px" ng-model="formdata.infType" class="col-md-12 col-sm-12 col-xs-12"   name="data2" placeholder="请选择">
+											<option  value="1">普通公告</option>
+											<option  value="2">活动公告</option>
+											<option  value="3">其他公告</option>
+										</select> 
+									</div>
+								</div> 
+								<div class="form-group">
+									<label class="control-label col-md-3 text-right">公告标题</label> 
+									<div class="col-md-7">
+										 <input class="form-control" type="text" ng-model="formdata.infTitle" />
+									</div>
+								</div>  
+								<div class="form-group">
+									<label class="control-label col-md-3 text-right">公告详情</label> 
+									<div class="col-md-8">
+										 <script id="editor_container" name="content" type="text/plain" style="width:617px;height:300px"></script>
+									</div>
+								</div>  
+								
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">
+										关闭
+									</button>
+									<button type="submit" class="btn btn-primary">
+										保存
+									</button>
+								</div>
+							</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section> 
+				
+				<!-- "需求栏里如果有供应商"模态框 -->
+				<!-- "供应商详情"模态框 -->
+				<!-- "审核"模态框 -->
+			</div>
+		</div> 
+		<script type="text/javascript" src="resources/admin/plugins/angular/http.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/select2/mys2/select2.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/pager/pager.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/utf8-jsp/ueditor.config.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/utf8-jsp/ueditor.all.min.js"> </script> 
+	    <script type="text/javascript" src="resources/admin/plugins/utf8-jsp/lang/zh-cn/zh-cn.js"> </script> 
+		<script type="text/javascript" src="resources/admin/angularjs/infoList.js"></script>
+		<script type="text/javascript">
+	        var ue = UE.getEditor('editor_container');
+	    </script>
+	</body>
+</html>

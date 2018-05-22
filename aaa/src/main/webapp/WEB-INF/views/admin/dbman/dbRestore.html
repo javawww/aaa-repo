@@ -1,0 +1,103 @@
+<#assign base=request.contextPath />
+<!DOCTYPE html>
+<html ng-app="app" class="no-js">
+	<head>
+		<base href="${base}/">
+		<meta charset="utf-8">
+		<meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>网站后台管理系统</title> 
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		
+		<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="resources/admin/css/global.css" media="all">
+		<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+		<link rel="stylesheet" href="resources/admin/css/table.css" />
+		<link rel="stylesheet" type="text/css" href="resources/admin/css/zc.css" />	
+	    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular/angular.min.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/angular-route/angular-route.min.js"></script>
+		<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	    <link href="resources/admin/plugins/select2/select2.css" rel="stylesheet" />
+		<link href="resources/admin/plugins/select2/select2-bootstrap.css" rel="stylesheet" />
+	    <script type="text/javascript" src="resources/admin/plugins/select2/select2.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/fileupload/ajaxfileupload.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/layer-v1.9.0/layer/layer.js"></script>
+	    <script type="text/javascript" src="resources/admin/plugins/pager/bootstrap-paginator.min.js"></script>
+	    <link rel="stylesheet" href="resources/admin/plugins/datetime/bootstrap-datetimepicker.min.css">
+		<script type="text/javascript" src="resources/admin/plugins/datetime/bootstrap-datetimepicker.min.js"></script> 
+		<script type="text/javascript" src="resources/admin/plugins/datetime/locales/bootstrap-datetimepicker.zh-CN.js"></script> 
+		
+	    
+	    <script>
+			var app = angular.module('app', ['ngRoute']);
+		</script>
+	</head>
+	<body class="hold-transition skin-green-light sidebar-mini  wysihtml5-supported" ng-controller="testController">
+		<div class="wrapper">
+			<!-- 主体内容部分 -->
+			<div class="content-wrapper">  
+				  <section class="content"> 
+					<div class="row">
+						<div class="col-md-12">
+							<div id="query" class="box box-info box">
+								<div>
+									<!--搜索栏-->
+									<div  class="box-header with-border">
+										<!--增删改-->  
+										<div class="col-md-12 col-xs-12 col-sm-12" style="margin: 12px 0;"> 
+											&nbsp;&nbsp;
+										    <a class="btn btn-sm btn-info" href="javascript:;" target='_self' ng-click="del()" role="button"><i class="fa fa-times"></i>&nbsp;删除</a> 
+										</div>   
+									</div>
+
+									<!--显示数据栏-->
+									<div>
+										<div class="box-body">
+											<div>
+												<table  class="table table-bordered table-striped table-hover "  style="text-align: center;">
+													<thead>
+														<tr class="my_th">
+															<th style="width: 80px;">
+																<label for="chkAll">全选:</label>
+																<span>
+																	<input id="chkAll" type="checkbox" ng-model="chkall" ng-click="chkAll(chkall)" />
+																</span>
+															</th> 
+															<th>序号</th>
+													        <th>备份名</th>
+													        <th>备注</th>
+													        <th>日期</th>
+													        <th>位置</th>
+														</tr>
+													</thead>
+													<tbody id="content">
+														<tr ng-repeat="row in rows">
+															<td><input type="checkbox" ng-model="row.selected" /></td>
+															<td>{{$index+1}}</td>
+															<td>{{row.name}}</td>
+															<td>{{row.message}}</td>
+															<td>{{row.date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+															<td>{{row.location}}</td>
+														</tr>
+													</tbody>
+												</table>
+												<div class="text-right" >
+													<pager page="page" records="records" onpagechanged="query"></pager>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div> 
+		<script type="text/javascript" src="resources/admin/plugins/angular/http.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/select2/mys2/select2.js"></script>
+		<script type="text/javascript" src="resources/admin/plugins/pager/pager.js"></script>
+		<script type="text/javascript" src="resources/admin/angularjs/dbBackup.js"></script>
+	</body>
+</html>
